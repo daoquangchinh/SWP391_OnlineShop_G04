@@ -2,6 +2,18 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/M%20S%20I/Desktop/SWP/SWP391_OnlineShop_G04/src/java/dal/RolesDAO.java</file>
+            <file>file:/C:/Users/M%20S%20I/Desktop/SWP/SWP391_OnlineShop_G04/src/java/dal/DBContext.java</file>
+            <file>file:/C:/Users/M%20S%20I/Desktop/SWP/SWP391_OnlineShop_G04/src/java/dal/UsersDAO.java</file>
+            <file>file:/C:/Users/M%20S%20I/Desktop/SWP/SWP391_OnlineShop_G04/src/java/modal/Users.java</file>
+            <file>file:/C:/Users/M%20S%20I/Desktop/SWP/SWP391_OnlineShop_G04/src/java/controller/AccountDetail.java</file>
+            <file>file:/C:/Users/M%20S%20I/Desktop/SWP/SWP391_OnlineShop_G04/web/AdminNabvar.jsp</file>
+            <file>file:/C:/Users/M%20S%20I/Desktop/SWP/SWP391_OnlineShop_G04/src/java/controller/AccountController.java</file>
+            <file>file:/C:/Users/M%20S%20I/Desktop/SWP/SWP391_OnlineShop_G04/web/danhsachphong.jsp</file>
+            <file>file:/C:/Users/M%20S%20I/Desktop/SWP/SWP391_OnlineShop_G04/web/AdminHeader.jsp</file>
+            <file>file:/C:/Users/M%20S%20I/Desktop/SWP/SWP391_OnlineShop_G04/web/AdminPage.jsp</file>
+            <file>file:/C:/Users/M%20S%20I/Desktop/SWP/SWP391_OnlineShop_G04/web/UserDetailByAdmin.jsp</file>
+        </group>
     </open-files>
 </project-private>

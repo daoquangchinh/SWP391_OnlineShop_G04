@@ -1,0 +1,127 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
+@import url("https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+* {
+    margin: 0;
+    padding: 0;
+}
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    font-family: "Roboto", sans-serif;
+    font-style: normal;
+    font-weight: 300;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 15px;
+    background: #eee;
+}
+
+.cd__main {
+    background: #fff;
+    padding: 20px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.cd__main {
+    display: flex;
+    width: 100%;
+}
+
+@media only screen and (min-width: 1360px) {
+    .cd__main {
+        max-width: 1280px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 24px;
+    }
+}
+
+.wrapper {
+    margin-top: 5vh;
+}
+
+.dataTables_filter {
+    float: right;
+}
+
+.table-hover > tbody > tr:hover {
+    background-color: #ccffff;
+}
+.room-detail {
+    text-decoration: none;
+    font-size: 20px;
+}
+
+
+.filter {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.section {
+    margin-bottom: 200px;
+    margin-top: 40px;
+    display: inline-block;
+}
+.check {
+    padding: 10px 25px;
+    border: 1px solid #ccc;
+}
+h1 {
+    color: blue;
+}
+.title {
+    color: blue;
+}
+.section4 input {
+    padding: 10px;
+    color: black;
+    font-size: 20px;
+    border: none;
+    border-radius: 1px solid none;
+}
+
+
+.numberpage{
+    display: inline-block;
+    padding: 5px 10px;
+
+    background-color: blue;
+    color: white;
+    cursor: pointer;
+}
+.numberpage-1{
+    color: white;
+    background-color: #ccc;
+    display: inline-block;
+    padding: 5px 10px;
+   
+    cursor: pointer;
+}
+.paging {
+    width: 300px;
+    margin: auto;
+}
+.detail {
+    display: inline-block ; 
+    padding: 20px;
+    color:black;
+    background-color: #ccc;
+    cursor: pointer;
+}
+
+
+
