@@ -186,7 +186,7 @@ public class AccountController extends HttpServlet {
             request.setAttribute("mobile", mobile);
             request.setAttribute("tagRole", tagRole);
             request.setAttribute("tagStatus", tagStatus);
-            request.getRequestDispatcher("view/danhsachphong.jsp").forward(request, response);
+            request.getRequestDispatcher("danhsachphong.jsp").forward(request, response);
         }
         if (index != null) {
             int index_paging = Integer.parseInt(index) ; 

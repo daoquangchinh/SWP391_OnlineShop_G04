@@ -76,7 +76,7 @@ public class AccountDetail extends HttpServlet {
         request.setAttribute("phone", phone);
         request.setAttribute("gender", gender);
         
-        request.getRequestDispatcher("/view/UserDetailByAdmin.jsp").forward(request, response);
+        request.getRequestDispatcher("/UserDetailByAdmin.jsp").forward(request, response);
     }
 
     /**

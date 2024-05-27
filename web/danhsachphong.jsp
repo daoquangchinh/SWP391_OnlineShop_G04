@@ -236,7 +236,7 @@
             document.getElementById('confirmButton').addEventListener('click', function () {
                 $.ajax({
                     type: 'get',
-                    url: '/SWP391_OnlineShop_G4/account',
+                    url: '/SWP391_OnlineShop_G04/account',
                     data: {
                         accountId_active: accountIdToToggle
                     },
@@ -273,7 +273,7 @@
 
                 $.ajax({
                     type: 'POST',
-                    url: '/ShopBanGiay/account',
+                    url: '/SWP391_OnlineShop_G04/account',
                     data: {
                         index: param,
                         role: role,
