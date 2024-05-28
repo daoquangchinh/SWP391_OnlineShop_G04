@@ -50,8 +50,8 @@
                     <div class="btn-group">
                         <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">My Account</button>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <button class="dropdown-item" type="button">Sign in</button>
-                            <button class="dropdown-item" type="button">Sign up</button>
+                            <button class="dropdown-item" type="button"><a href="loginPage.jsp">Sign in</a></button>
+                            <button class="dropdown-item" type="button"><a href="registerPage.jsp">Sign up</a></button>
                         </div>
                     </div>
                     <div class="btn-group mx-2">
