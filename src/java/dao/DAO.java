@@ -22,7 +22,7 @@ public class DAO {
     Connection conn = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
-
+//Quannvhe172350: lay toan bo thong tin user
     public List<user> getAllUser() {
         String query = "SELECT * FROM users";
         List<user> listUser = new ArrayList<>();
@@ -50,9 +50,9 @@ public class DAO {
         }
         return listUser;
     }
-    
+    //Quannvhe172350: lay thông tin user theo  username 
 public boolean getUserbyName(String name ) {
-        String query = "SELECT * FROM users where name =?";
+        String query = "SELECT * FROM users where email =?";
         List<user> listUser = new ArrayList<>();
 
         try {
@@ -81,6 +81,38 @@ public boolean getUserbyName(String name ) {
         }
         return true;
     }
+ //Quannvhe172350: lay thông tin user theo  phone 
+public boolean getUserbyPhone(String phone ) {
+        String query = "SELECT * FROM users where phone =?";
+        List<user> listUser = new ArrayList<>();
+
+        try {
+            conn = new DBContext().getConnection();//mo ket noi voi sql
+            ps = conn.prepareStatement(query);
+            ps.setString(1, phone);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                listUser.add(new user(
+                        rs.getInt("id"),
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getString("fullname"),
+                        rs.getString("gender"),
+                        rs.getString("phone"),
+                        rs.getString("email"),
+                        rs.getString("img"),
+                        rs.getInt("role_id"),
+                        rs.getInt("Status")
+                ));
+            }
+            if (listUser.isEmpty())
+                return false;
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+        return true;
+    }
+//Quannvhe172350: insert thông tin vao bang users
     public boolean setUser(user u) {
     String query = "INSERT INTO users (username, [password], fullname, gender, phone, email, img, role_id, Status) " +
                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
@@ -117,9 +149,9 @@ public boolean getUserbyName(String name ) {
     return false;
 }
 
-
+//Quannvhe172350:lay thông tin user theo tài khoản và mật khẩu 
     public user getlogin(String name, String pass) {
-        String query = "SELECT * FROM users where username= ? and password =? ; ";
+        String query = "SELECT * FROM users where email= ? and password =? ; ";
         user u = new user();
 
         try {

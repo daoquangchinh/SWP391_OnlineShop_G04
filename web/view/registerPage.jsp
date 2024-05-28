@@ -1,10 +1,11 @@
 <%-- 
     Document   : registerPage
     Created on : May 24, 2024, 7:44:23 AM
-    Author     : Dell
+    Author     : VIQuan
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import="modal.user" %> <!-- Add this line to import the user class -->
 <!DOCTYPE html>
 <html lang="zxx">
     <head>
@@ -42,6 +43,11 @@
             .radio-container b {
                 font-weight: bold;
             }
+            .error-message {
+                color: red;
+                font-size: 14px;
+            }
+            
         </style>
     </head>
     <body id="top">
@@ -75,40 +81,76 @@
                             </div>
                             <div class="login-inner-form">
                                 <form action="${pageContext.request.contextPath}/register" method="POST">
+                                    <% 
+                                       String empty = (String) request.getAttribute("empty");
+                                       user u = (user) request.getAttribute("u"); 
+                                       String messEmail = (String) request.getAttribute("messEmail");
+                                       String messPhone = (String) request.getAttribute("messPhone");
+                                    %>
+
                                     <div class="form-group form-box">
-                                        <input type="text" name="fullname" class="input-text" placeholder="Full Name">
+                                        <input type="text" name="fullname" class="input-text" placeholder="Full Name" value="<%= u != null ? u.getFullname() : "" %>">
                                         <i class="flaticon-user"></i>
-                                    </div>
+                                        <% if (empty != null && u != null && u.getFullname().equals("")) { %>
+                                        <div class="error-message"><%= empty %></div>
+                                        <% } %>
+                                    </div>  
+
                                     <div class="form-group form-box">
-                                        <input type="email" name="email" class="input-text" placeholder="Email Address">
+                                        <input type="email" name="email" class="input-text" placeholder="Email Address" value="<%= u != null ? u.getEmail() : "" %>">
                                         <i class="flaticon-mail-2"></i>
+                                        <% if (messEmail != null) { %>
+                                        <div class="error-message"><%= messEmail %></div>
+                                        <% } else if (empty != null && u != null && u.getEmail().equals("")) { %>
+                                        <div class="error-message"><%= empty %></div>
+                                        <% } %>
                                     </div>
+
                                     <div class="form-group form-box">
-                                        <input type="number" name="phone" class="input-text" placeholder="Number Phone">
+                                        <input type="number" name="phone" class="input-text" placeholder="Number Phone" value="<%= u != null ? u.getPhone() : "" %>">
                                         <i class="flaticon-phone"></i>
+                                        <% if (messPhone != null) { %>
+                                        <div class="error-message"><%= messPhone %></div>
+                                        <% } else if (empty != null && u != null && u.getPhone().equals("")) { %>
+                                        <div class="error-message"><%= empty %></div>
+                                        <% } %>
                                     </div>
+
                                     <div class="form-group form-box">
                                         <input type="file" name="img" class="input-text" placeholder="Img">
                                         <i class="flaticon-picture"></i>
                                     </div>
+
                                     <div class="form-group form-box">
                                         <input type="password" name="password" class="input-text" placeholder="Password">
                                         <i class="flaticon-password"></i>
+                                        <% if (empty != null && u != null && u.getPassword().equals("")) { %>
+                                        <div class="error-message"><%= empty %></div>
+                                        <% } %>
+                                    </div> 
+                                    
+                                    <div class="form-group form-box">
+                                        <input type="password" name="password" class="input-text" placeholder="Check password">
+                                        <i class="flaticon-password"></i>
+                                        <% if (empty != null && u != null && u.getPassword().equals("")) { %>
+                                        <div class="error-message"><%= empty %></div>
+                                        <% } %>
                                     </div> 
 
                                     <div class="input-group">
                                         <label class="label">Gender:   </label>
                                         <div class="p-t-10">
                                             <label class="radio-container m-r-45">Male
-                                                <input type="radio" checked="checked" name="gender" value="male">
+                                                <input type="radio" name="gender" value="male" <%= u != null && "male".equals(u.getGender()) ? "checked" : "" %>>
                                                 <span class="checkmark"></span>
                                             </label>
                                             <label class="radio-container">Female
-                                                <input type="radio" name="gender" value="female">
+                                                <input type="radio" name="gender" value="female" <%= u != null && "female".equals(u.getGender()) ? "checked" : "" %>>
                                                 <span class="checkmark"></span>
                                             </label>
                                         </div>
                                     </div>
+
                                     <div class="checkbox clearfix">
                                         <div class="form-check checkbox-theme">
                                             <input class="form-check-input" type="checkbox" value="" id="agreeTerms">
@@ -122,35 +164,11 @@
                                     </div>
                                 </form>
                             </div>
-                            <div class="social-list">
-                                <a href="#" class="facebook-bg">
-                                    <i class="fa fa-facebook"></i>
-                                </a>
-                                <a href="#" class="twitter-bg">
-                                    <i class="fa fa-twitter"></i>
-                                </a>
-                                <a href="#" class="google-bg">
-                                    <i class="fa fa-google"></i>
-                                </a>
-                                <a href="#" class="linkedin-bg">
-                                    <i class="fa fa-linkedin"></i>
-                                </a>
-                                <a href="#" class="pinterest-bg">
-                                    <i class="fa fa-pinterest"></i>
-                                </a>
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <!-- Login 11 end -->
-
-        <!-- External JS libraries -->
-        <script src="${pageContext.request.contextPath}/assets_lg/js/jquery-2.2.0.min.js"></script>
-        <script src="${pageContext.request.contextPath}/assets_lg/js/popper.min.js"></script>
-        <script src="${pageContext.request.contextPath}/assets_lg/js/bootstrap.min.js"></script>
-        <!-- Custom JS Script -->
-
     </body>
 </html>

@@ -1,7 +1,7 @@
 <%-- 
     Document   : login
     Created on : May 24, 2024, 7:31:37 AM
-    Author     : Dell
+    Author     : ViQuan
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
