@@ -79,19 +79,14 @@
                             <div class="login-inner-form">
                                 <form action="${pageContext.request.contextPath}/login" method="POST">
                                     <div class="form-group form-box">
-                                        <input type="email" name="name" class="input-text" placeholder="Email Address">
+                                        <input type="email" name="name" class="input-text" placeholder="Email Address" required="">
                                         <i class="flaticon-mail-2"></i>
                                     </div>
                                     <div class="form-group form-box">
-                                        <input type="password" name="pass" class="input-text" placeholder="Password">
+                                        <input type="password" name="pass" class="input-text" placeholder="Password" required="">
                                         <i class="flaticon-password"></i>
                                     </div>
-                                    <% String message1 = (String) request.getAttribute("mess1");
-                                       String message2=(String) request.getAttribute("mess2");%>
-                                    <% if (message1 != null) { %>
-                                     <div class="error-message"><%= message1 %></div>
-                                    <div class="error-message"><%= message2 %></div>
-                                    <% } %>                        <div class="checkbox clearfix">
+                                    <div class="checkbox clearfix">
                                         <div class="form-check checkbox-theme">
                                             <input class="form-check-input" type="checkbox" value="" id="rememberMe">
                                             <label class="form-check-label" for="rememberMe">

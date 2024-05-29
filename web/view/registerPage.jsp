@@ -82,59 +82,51 @@
                             <div class="login-inner-form">
                                 <form action="${pageContext.request.contextPath}/register" method="POST">
                                     <% 
-                                       String empty = (String) request.getAttribute("empty");
                                        user u = (user) request.getAttribute("u"); 
                                        String messEmail = (String) request.getAttribute("messEmail");
                                        String messPhone = (String) request.getAttribute("messPhone");
                                     %>
 
                                     <div class="form-group form-box">
-                                        <input type="text" name="fullname" class="input-text" placeholder="Full Name" value="<%= u != null ? u.getFullname() : "" %>">
+                                        <input type="text" name="fullname"  class="input-text" required="" placeholder="Full Name" required="" value="<%= u != null ? u.getFullname() : "" %>">
                                         <i class="flaticon-user"></i>
-                                        <% if (empty != null && u != null && u.getFullname().equals("")) { %>
-                                        <div class="error-message"><%= empty %></div>
-                                        <% } %>
                                     </div>  
 
                                     <div class="form-group form-box">
-                                        <input type="email" name="email" class="input-text" placeholder="Email Address" value="<%= u != null ? u.getEmail() : "" %>">
+                                        <input type="email" name="email"  class="input-text" required="" placeholder="Email Address" value="<%= u != null ? u.getEmail() : "" %>">
                                         <i class="flaticon-mail-2"></i>
                                         <% if (messEmail != null) { %>
                                         <div class="error-message"><%= messEmail %></div>
-                                        <% } else if (empty != null && u != null && u.getEmail().equals("")) { %>
-                                        <div class="error-message"><%= empty %></div>
                                         <% } %>
                                     </div>
 
                                     <div class="form-group form-box">
-                                        <input type="number" name="phone" class="input-text" placeholder="Number Phone" value="<%= u != null ? u.getPhone() : "" %>">
+                                        <input type="number" name="phone"  class="input-text" required="" placeholder="Number Phone" value="<%= u != null ? u.getPhone() : "" %>">
                                         <i class="flaticon-phone"></i>
                                         <% if (messPhone != null) { %>
                                         <div class="error-message"><%= messPhone %></div>
-                                        <% } else if (empty != null && u != null && u.getPhone().equals("")) { %>
-                                        <div class="error-message"><%= empty %></div>
-                                        <% } %>
+                                        <% } %>                                     
                                     </div>
 
                                     <div class="form-group form-box">
-                                        <input type="file" name="img" class="input-text" placeholder="Img">
+                                        <input type="file" name="img"  class="input-text"  placeholder="Img">
                                         <i class="flaticon-picture"></i>
                                     </div>
 
                                     <div class="form-group form-box">
-                                        <input type="password" name="password" class="input-text" placeholder="Password">
+                                        <input type="password" name="password"  class="input-text" required="" placeholder="Password">
                                         <i class="flaticon-password"></i>
-                                        <% if (empty != null && u != null && u.getPassword().equals("")) { %>
-                                        <div class="error-message"><%= empty %></div>
-                                        <% } %>
+                                        
+                                        
+                                        
                                     </div> 
                                     
                                     <div class="form-group form-box">
-                                        <input type="password" name="password" class="input-text" placeholder="Check password">
+                                        <input type="password" name="password"  class="input-text" required="" placeholder="Check password">
                                         <i class="flaticon-password"></i>
-                                        <% if (empty != null && u != null && u.getPassword().equals("")) { %>
-                                        <div class="error-message"><%= empty %></div>
-                                        <% } %>
+                                        
+                                        
+                                        
                                     </div> 
 
                                     <div class="input-group">
@@ -153,7 +145,7 @@
 
                                     <div class="checkbox clearfix">
                                         <div class="form-check checkbox-theme">
-                                            <input class="form-check-input" type="checkbox" value="" id="agreeTerms">
+                                            <input class="form-check-input" type="checkbox" value="" id="agreeTerms" checked="">
                                             <label class="form-check-label" for="agreeTerms">
                                                 I agree to the <a href="#">terms of service</a>
                                             </label>
