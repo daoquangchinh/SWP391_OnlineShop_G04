@@ -8,6 +8,10 @@
         <servlet-name>newPasswordUpdate</servlet-name>
         <servlet-class>controller.newPasswordUpdate</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>validatePassword</servlet-name>
+        <servlet-class>controller.validatePassword</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>forgotPassword</servlet-name>
         <url-pattern>/forgotpassword</url-pattern>
@@ -15,5 +19,9 @@
     <servlet-mapping>
         <servlet-name>newPasswordUpdate</servlet-name>
         <url-pattern>/updatepassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>validatePassword</servlet-name>
+        <url-pattern>/validatepassword</url-pattern>
     </servlet-mapping>
 </web-app>

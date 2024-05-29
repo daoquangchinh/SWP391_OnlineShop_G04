@@ -55,7 +55,7 @@
                     </div>
                     <h3>Recover your password</h3>
                     <div class="login-inner-form">
-                        <form action="forgotpassword" method="post">
+                        <form action="updatepassword" method="post">
                             <div class="form-group form-box">
                                 <input type="text" name="password" class="input-text" placeholder="NewPassword">
                                 
