@@ -10,13 +10,14 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import modal.user;
 
 /**
  *
  * @author ViQuan
  */
-public class RegisterServlet extends HttpServlet {
+public class ProfileServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,29 +31,10 @@ public class RegisterServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String fullname = request.getParameter("fullname");
-        String email = request.getParameter("email");
-        String phone = request.getParameter("phone");
-        String img = request.getParameter("img");
-        String password = request.getParameter("password");
-        String gender = request.getParameter("gender");
-        user u = new user(0, email, password, fullname, gender, phone, email, img, 2, 0);
         DAO dao = new DAO();
-        if (dao.checkUserbyEmail(email)) {
-            request.setAttribute("messEmail", "Email này đã tồn tại!!");
-            
-            
-
-        }else if (dao.getUserbyPhone(phone)) {
-                request.setAttribute("messPhone", "Số điện thoại đã tồn tại!!");
-                request.setAttribute("empty", "Vui lòng nhập thông tin");
-                request.setAttribute("u", u);
-            }
-        else{
-             dao.setUser(u);
-        }
-        request.getRequestDispatcher("view/registerPage.jsp").forward(request, response);
-        response.sendRedirect("view/loginPage.jsp");
+        user u = new user();
+        HttpSession session = request.getSession();
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -94,11 +76,4 @@ public class RegisterServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    public static void main(String[] args) {
-        DAO dao = new DAO();
-        if (dao.checkUserbyEmail("quanc@fpt") == true) {
-            System.out.println("dfghj");
-        }
-        dao.setUser(new user(0, "quannc@fpt", "123", "quannguyenvi", "male", "123456789", "quagbhj", "vbhnj", 2, 1));
-    }
 }

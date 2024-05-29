@@ -1,6 +1,6 @@
 <%-- 
     Document   : homePage
-    Created on : May 23, 2024, 10:48:35 AM
+    Created on : May 28, 2024, 10:48:35 AM
     Author     : ViQuan
 --%>
 <%@ page import="modal.user" %>
@@ -8,9 +8,10 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <meta charset="utf-8">
-        <title>MultiShop - Online Shop Website Template</title>
+    <head>  
+
+
+        <title>ShoeShop - Online Shop </title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="Free HTML Templates" name="keywords">
         <meta content="Free HTML Templates" name="description">
@@ -41,6 +42,12 @@
             .progress {
                 height: 5px;
             }
+            .error-message {
+                color: red;
+                font-family: 'Arial', sans-serif; /* Đổi sang phông chữ bạn muốn */
+                font-size: 14px; /* Kích thước phông chữ */
+                font-weight: bold; /* Độ đậm của phông chữ */
+            }
         </style>
     </head>
 
@@ -57,7 +64,7 @@
        imgSrc = "https://cellphones.com.vn/sforum/wp-content/uploads/2023/10/avatar-trang-4.jpg";
    }
         %>
-        <jsp:include page="view/homeTag.jsp"></jsp:include>
+        <jsp:include page="homeTag.jsp"></jsp:include>
 
             <h1>User Profile</h1>
             <div class="row">
@@ -67,11 +74,10 @@
                             <img src="<%= imgSrc %>" alt="avatar"
                              class="rounded-circle img-fluid">
                         <h5 class="my-3"><%= u.getUsername() %></h5>
-
-                        <div class="d-flex justify-content-center mb-2">
-                            <button type="button" class="btn btn-primary ms-1">Save</button>
-                            <button type="button" class="btn btn-outline-primary ms-1">Edit</button>
-                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center mb-2">
+                        <a href="editProfile.jsp"><button type="button" class="btn btn-primary ms-1">Edit Profile</button></a>
+                        <a href"${pageContext.request.contextPath}/logout"><button type="button" class="btn  btn-outline-primary ms-1 ">Logout</button></a>
                     </div>
                 </div>
                 <div class="card mb-4 mb-lg-0">
@@ -113,7 +119,7 @@
                                 <p class="mb-0">Full Name</p>
                             </div>
                             <div class="col-sm-9">
-                                <p class="text-muted mb-0"><%= u.getUsername() %></p>
+                                <p class="text-muted mb-0"><%= u.getFullname() %></p>
                             </div>
                         </div>
                         <hr>
@@ -153,14 +159,16 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
                 <%
                 } else {
                 %>
-                <p>Bạn chưa đăng nhập. Vui lòng <a href="login.jsp">đăng nhập</a>.</p>
+                <p>Bạn chưa đăng nhập. Vui lòng <a href="loginPage.jsp">đăng nhập</a>.</p>
                 <%
                     }
                 %>
+
                 <div class="row">
                     <div class="col-md-6">
                         <div class="card mb-4 mb-md-0">
@@ -233,7 +241,7 @@
         </div>
     </div>
 
-    <jsp:include page="view/FooterTag.jsp"></jsp:include>
+    <jsp:include page="FooterTag.jsp"></jsp:include>
 
         <!-- Back to Top -->
         <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>

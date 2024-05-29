@@ -6,17 +6,19 @@ package controller;
 
 import DAO.DAO;
 import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import modal.user;
 
 /**
  *
  * @author ViQuan
  */
-public class RegisterServlet extends HttpServlet {
+public class EdProfileServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,29 +32,39 @@ public class RegisterServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        DAO dao = new DAO();
+        HttpSession session = request.getSession();
+        user u = (user) session.getAttribute("acc");
+
         String fullname = request.getParameter("fullname");
-        String email = request.getParameter("email");
+        String email = u.getEmail();
         String phone = request.getParameter("phone");
         String img = request.getParameter("img");
-        String password = request.getParameter("password");
+        String password = u.getPassword();
         String gender = request.getParameter("gender");
-        user u = new user(0, email, password, fullname, gender, phone, email, img, 2, 0);
-        DAO dao = new DAO();
-        if (dao.checkUserbyEmail(email)) {
-            request.setAttribute("messEmail", "Email này đã tồn tại!!");
-            
-            
-
-        }else if (dao.getUserbyPhone(phone)) {
+        if (phone.equals(u.getPhone()) == false) {
+            if (dao.getUserbyPhone(phone)) {
+                request.setAttribute("phone", phone);
                 request.setAttribute("messPhone", "Số điện thoại đã tồn tại!!");
                 request.setAttribute("empty", "Vui lòng nhập thông tin");
-                request.setAttribute("u", u);
+               request.getRequestDispatcher("view/editProfile.jsp").forward(request, response);
             }
-        else{
-             dao.setUser(u);
+            else{
+                u = new user(0, email, password, fullname, gender, phone, email, img, 2, 0);
+                session.setAttribute("acc", u);
+                dao.updateUser(u);
+                response.sendRedirect("view/homePage.jsp");
+            }
+
+        }else{
+             u = new user(0, email, password, fullname, gender, phone, email, img, 2, 0);
+                dao.updateUser(u);
+                session.setAttribute("acc", u);
+                response.sendRedirect("view/profilePage.jsp");
+            
         }
-        request.getRequestDispatcher("view/registerPage.jsp").forward(request, response);
-        response.sendRedirect("view/loginPage.jsp");
+        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -94,11 +106,4 @@ public class RegisterServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    public static void main(String[] args) {
-        DAO dao = new DAO();
-        if (dao.checkUserbyEmail("quanc@fpt") == true) {
-            System.out.println("dfghj");
-        }
-        dao.setUser(new user(0, "quannc@fpt", "123", "quannguyenvi", "male", "123456789", "quagbhj", "vbhnj", 2, 1));
-    }
 }

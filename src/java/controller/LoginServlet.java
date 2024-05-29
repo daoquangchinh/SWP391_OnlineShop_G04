@@ -37,8 +37,7 @@ public class LoginServlet extends HttpServlet {
         DAO dao = new DAO();
         user u = dao.getlogin(name, pass);
         if (u.getUsername() == null) {
-            request.setAttribute("mess1", "Thông tin chưa chính xác.");
-            request.setAttribute("mess2", "Vui long kiểm tra lại thông tin.");
+            request.setAttribute("mess", "Vui long kiểm tra lại thông tin.");
             
             request.getRequestDispatcher("view/loginPage.jsp").forward(request, response);
         }  else {

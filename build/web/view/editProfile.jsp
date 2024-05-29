@@ -1,16 +1,16 @@
 <%-- 
-    Document   : homePage
-    Created on : May 23, 2024, 10:48:35 AM
+    Document   : editProfile
+    Created on : May 29, 2024, 10:42:14 PM
     Author     : ViQuan
 --%>
+
 <%@ page import="modal.user" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <meta charset="utf-8">
-        <title>MultiShop - Online Shop Website Template</title>
+    <head>  
+        <title>ShoeShop - Online Shop </title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <meta content="Free HTML Templates" name="keywords">
         <meta content="Free HTML Templates" name="description">
@@ -41,14 +41,40 @@
             .progress {
                 height: 5px;
             }
+            .error-message {
+                color: red;
+                font-family: 'Arial', sans-serif; /* Đổi sang phông chữ bạn muốn */
+                font-size: 14px; /* Kích thước phông chữ */
+                font-weight: bold; /* Độ đậm của phông chữ */
+            }
+            .radio-container b {
+                font-weight: bold;
+            }
+            .error-message {
+                color: red;
+                font-size: 14px;
+            }
+            .form-box {
+                border: 1px solid #ccc;
+                background-color: #f9f9f9;
+                float: left;
+                width: 90%;
+                padding: 11px 45px 11px 20px;
+                border-radius: 50px;
+                margin-bottom: 0px;
+            }
+
         </style>
     </head>
 
-    <body>
+    <body id="top">
         <%
       // Lấy đối tượng user từ session
       user u = (user) session.getAttribute("acc");
-        
+      String phone = (String) request.getAttribute("phone");
+      String messPhone = (String) request.getAttribute("messPhone");
+      String messEmail = (String) request.getAttribute("messEmail");
+
       // Kiểm tra xem người dùng có đăng nhập không
       if (u != null) {
         
@@ -57,7 +83,7 @@
        imgSrc = "https://cellphones.com.vn/sforum/wp-content/uploads/2023/10/avatar-trang-4.jpg";
    }
         %>
-        <jsp:include page="view/homeTag.jsp"></jsp:include>
+        <jsp:include page="homeTag.jsp"></jsp:include>
 
             <h1>User Profile</h1>
             <div class="row">
@@ -67,35 +93,31 @@
                             <img src="<%= imgSrc %>" alt="avatar"
                              class="rounded-circle img-fluid">
                         <h5 class="my-3"><%= u.getUsername() %></h5>
-
-                        <div class="d-flex justify-content-center mb-2">
-                            <button type="button" class="btn btn-primary ms-1">Save</button>
-                            <button type="button" class="btn btn-outline-primary ms-1">Edit</button>
-                        </div>
                     </div>
+
                 </div>
                 <div class="card mb-4 mb-lg-0">
                     <div class="card-body p-0">
                         <ul class="list-group list-group-flush rounded-3">
                             <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                                 <i class="fas fa-globe fa-lg text-warning"></i>
-                                <p class="mb-0">https://mdbootstrap.com</p>
+                                <p class="mb-0" style="margin-top: 15px;">https://mdbootstrap.com</p>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                                 <i class="fab fa-github fa-lg text-body"></i>
-                                <p class="mb-0">mdbootstrap</p>
+                                <p class="mb-0" style="margin-top: 15px;">mdbootstrap</p>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                                 <i class="fab fa-twitter fa-lg" style="color: #55acee;"></i>
-                                <p class="mb-0">@mdbootstrap</p>
+                                <p class="mb-0" style="margin-top: 15px;">@mdbootstrap</p>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                                 <i class="fab fa-instagram fa-lg" style="color: #ac2bac;"></i>
-                                <p class="mb-0">mdbootstrap</p>
+                                <p class="mb-0" style="margin-top: 15px;">mdbootstrap</p>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center p-3">
                                 <i class="fab fa-facebook-f fa-lg" style="color: #3b5998;"></i>
-                                <p class="mb-0">mdbootstrap</p>
+                                <p class="mb-0" style="margin-top: 15px;">mdbootstrap</p>
                             </li>
                         </ul>
                     </div>
@@ -105,62 +127,94 @@
 
             <!-- Hiển thị các thông tin khác của người dùng -->
 
-            <div class="col-lg-8">
+            <div class="col-lg-8 ">
                 <div class="card mb-4">
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <p class="mb-0">Full Name</p>
+                        <form action="${pageContext.request.contextPath}/edProfile" method="POST">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0" style="margin-top: 15px;" style="margin-top: 15px;">Full Name</p>
+                                </div>
+                                <div class="col-sm-9 ">
+                                    <div class="form-group  ">
+                                        <input type="text" name="fullname"  class="input-text form-box" required="" placeholder="Full Name" required="" value="<%= u != null ? u.getFullname() : "" %>">
+                                        <i class="flaticon-user"></i>
+                                    </div>  
+                                </div>
                             </div>
-                            <div class="col-sm-9">
-                                <p class="text-muted mb-0"><%= u.getUsername() %></p>
+
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0" style="margin-top: 15px;" >Email</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="form-group " >
+                                        <p type="email" name="email"  class="input-text form-box" required="" placeholder="Email Address" ><%=u.getEmail()%></p>
+                                        <i class="flaticon-mail-2"></i>
+                                        <% if (messEmail != null) { %>
+                                        <div class="error-message"><%= messEmail %></div>
+                                        <% } %>
+                                    </div>                            </div>
                             </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <p class="mb-0">Email</p>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0" style="margin-top: 15px;">Phone</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="form-group">
+                                        <input type="number" name="phone"  class="input-text form-box" required="" placeholder="Number Phone" value="<%= phone != null ?  phone : u.getPhone() %>">
+                                        <i class="flaticon-phone"></i>
+                                        <% if (messPhone != null) { %>
+                                        <div class="error-message"><%= messPhone %></div>
+                                        <% } %>                                     
+                                    </div>                            
+                                </div>
                             </div>
-                            <div class="col-sm-9">
-                                <p class="text-muted mb-0"><%= u.getEmail() %></p>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0" >Gender</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <div class="input-group">
+                                        <div class="p-t-10">
+                                            <label class="radio-container m-r-45">Male
+                                                <input type="radio" name="gender" value="male" <%= u != null && "male".equals(u.getGender()) ? "checked" : "" %>>
+                                                <span class="checkmark"></span>
+                                            </label>
+                                            <label class="radio-container">Female
+                                                <input type="radio" name="gender" value="female" <%= u != null && "female".equals(u.getGender()) ? "checked" : "" %>>
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <p class="mb-0">Phone</p>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0" style="margin-top: 15px;">Address</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <p class="text-muted mb-0 form-box">Bay Area, San Francisco, CA</p>
+                                </div>
                             </div>
-                            <div class="col-sm-9">
-                                <p class="text-muted mb-0"><%= u.getPhone() %></p>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <p class="mb-0">Gender</p>
-                            </div>
-                            <div class="col-sm-9">
-                                <p class="text-muted mb-0"><%= u.getGender() %></p>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <p class="mb-0">Address</p>
-                            </div>
-                            <div class="col-sm-9">
-                                <p class="text-muted mb-0">Bay Area, San Francisco, CA</p>
-                            </div>
-                        </div>
+
+
+                    </div>
+
+                </div> 
+                <div class="col-sm-12">
+                    <div class="d-flex justify-content-center mb-2">
+                        <button type="submit"class="btn btn-primary ms-1">Save Profile</button>
+                        <a href="${pageContext.request.contextPath}/logout"><button type="button" class="btn  btn-outline-primary ms-1 ">Logout</button></a>
                     </div>
                 </div>
-                <%
-                } else {
-                %>
-                <p>Bạn chưa đăng nhập. Vui lòng <a href="login.jsp">đăng nhập</a>.</p>
-                <%
-                    }
-                %>
+                </form>
+
+
                 <div class="row">
                     <div class="col-md-6">
                         <div class="card mb-4 mb-md-0">
@@ -232,8 +286,14 @@
             </div>
         </div>
     </div>
-
-    <jsp:include page="view/FooterTag.jsp"></jsp:include>
+    <%
+                    } else {
+    %>
+    <p>Bạn chưa đăng nhập. Vui lòng <a href="loginPage.jsp">đăng nhập</a>.</p>
+    <%
+        }
+    %>
+    <jsp:include page="FooterTag.jsp"></jsp:include>
 
         <!-- Back to Top -->
         <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
