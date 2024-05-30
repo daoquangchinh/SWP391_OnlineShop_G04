@@ -29,10 +29,10 @@ public class UserDAO extends DBContext{
                     user.setPassword(rs.getString("password"));
                     user.setFullname(rs.getString("fullname"));
                     user.setGender(rs.getString("gender"));
-                    user.setPhone(rs.getInt("phone"));
+                    user.setPhone(rs.getString("phone"));
                     user.setEmail(rs.getString("email"));
                     user.setImg(rs.getString("img"));
-                    user.setRoleId(rs.getInt("role_id"));
+                    user.setRoleId(rs.getString("role_id"));
                     return user;
                 }
             }

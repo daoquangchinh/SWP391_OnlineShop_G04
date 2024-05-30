@@ -14,15 +14,15 @@ public class User {
     private String password;
     private String fullname;
     private String gender;
-    private int phone;
+    private String phone;
     private String email;
     private String img;
-    private int roleId;
+    private String roleId;
 
     public User() {
     }
 
-    public User(String id, String username, String password, String fullname, String gender, int phone, String email, String img, int roleId) {
+    public User(String id, String username, String password, String fullname, String gender, String phone, String email, String img, String roleId) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -74,11 +74,11 @@ public class User {
         this.gender = gender;
     }
 
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
@@ -98,13 +98,16 @@ public class User {
         this.img = img;
     }
 
-    public int getRoleId() {
+    public String getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(int roleId) {
+    public void setRoleId(String roleId) {
         this.roleId = roleId;
     }
+
+    
+
     
     
 }
