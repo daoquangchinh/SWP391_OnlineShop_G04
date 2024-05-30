@@ -1,3 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
-    </web-app>
+    <servlet>
+        <servlet-name>forgotPassword</servlet-name>
+        <servlet-class>controller.forgotPassword</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>newPasswordUpdate</servlet-name>
+        <servlet-class>controller.newPasswordUpdate</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>validatePassword</servlet-name>
+        <servlet-class>controller.validatePassword</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>forgotPassword</servlet-name>
+        <url-pattern>/forgotpassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>newPasswordUpdate</servlet-name>
+        <url-pattern>/updatepassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>validatePassword</servlet-name>
+        <url-pattern>/validatepassword</url-pattern>
+    </servlet-mapping>
+</web-app>
