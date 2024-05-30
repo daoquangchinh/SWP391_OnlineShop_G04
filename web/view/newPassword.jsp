@@ -1,9 +1,4 @@
-<%-- 
-    Document   : forgotPassword
-    Created on : May 24, 2024, 7:49:50 AM
-    Author     : Dell
---%>
-
+<!doctype html>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="zxx">
@@ -60,13 +55,17 @@
                     </div>
                     <h3>Recover your password</h3>
                     <div class="login-inner-form">
-                        <form action="forgotpassword" method="post">
+                        <form action="updatepassword" method="post">
                             <div class="form-group form-box">
-                                <input type="email" name="email" class="input-text" placeholder="Email Address">
-                                <i class="flaticon-mail-2"></i>
+                                <input type="text" name="password" class="input-text" placeholder="NewPassword">
+                                
+                            </div>
+                            <div class="form-group form-box">
+                                <input type="password" name="confPassword" class="input-text" placeholder="confPassword">
+                                
                             </div>
                             <div class="form-group mb-0">
-                                <button type="submit" class="btn-md btn-theme btn-block">Send Me Email</button>
+                                <button type="submit" class="btn-md btn-theme btn-block">Save</button>
                             </div>
                         </form>
                     </div>
