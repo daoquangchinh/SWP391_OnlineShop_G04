@@ -6,13 +6,12 @@ package controller;
 
 import DAO.DAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import modal.user;
+import modal.User;
 
 /**
  *
@@ -34,7 +33,7 @@ public class EdProfileServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         DAO dao = new DAO();
         HttpSession session = request.getSession();
-        user u = (user) session.getAttribute("acc");
+        User u = (User) session.getAttribute("acc");
 
         String fullname = request.getParameter("fullname");
         String email = u.getEmail();
@@ -50,14 +49,14 @@ public class EdProfileServlet extends HttpServlet {
                request.getRequestDispatcher("view/editProfile.jsp").forward(request, response);
             }
             else{
-                u = new user(0, email, password, fullname, gender, phone, email, img, 2, 0);
+                u = new User(0, email, password, fullname, gender, phone, email, img, 2, 0);
                 session.setAttribute("acc", u);
                 dao.updateUser(u);
                 response.sendRedirect("view/homePage.jsp");
             }
 
         }else{
-             u = new user(0, email, password, fullname, gender, phone, email, img, 2, 0);
+             u = new User(0, email, password, fullname, gender, phone, email, img, 2, 0);
                 dao.updateUser(u);
                 session.setAttribute("acc", u);
                 response.sendRedirect("view/profilePage.jsp");

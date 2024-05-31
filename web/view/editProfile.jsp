@@ -4,7 +4,7 @@
     Author     : ViQuan
 --%>
 
-<%@ page import="modal.user" %>
+<%@ page import="modal.User" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -70,7 +70,7 @@
     <body id="top">
         <%
       // Lấy đối tượng user từ session
-      user u = (user) session.getAttribute("acc");
+      User u = (User) session.getAttribute("acc");
       String phone = (String) request.getAttribute("phone");
       String messPhone = (String) request.getAttribute("messPhone");
       String messEmail = (String) request.getAttribute("messEmail");

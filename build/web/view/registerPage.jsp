@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ page import="modal.user" %> <!-- Add this line to import the user class -->
+<%@ page import="modal.User" %> <!-- Add this line to import the user class -->
 <!DOCTYPE html>
 <html lang="zxx">
     <head>
@@ -82,7 +82,7 @@
                             <div class="login-inner-form">
                                 <form action="${pageContext.request.contextPath}/register" method="POST">
                                     <% 
-                                       user u = (user) request.getAttribute("u"); 
+                                       User u = (User) request.getAttribute("u"); 
                                        String messEmail = (String) request.getAttribute("messEmail");
                                        String messPhone = (String) request.getAttribute("messPhone");
                                     %>

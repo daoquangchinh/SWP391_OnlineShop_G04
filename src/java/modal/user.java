@@ -8,8 +8,8 @@ package modal;
  *
  * @author Dell
  */
-public class user {
-        private int id;
+public class User {
+      private int id;
     private String username;
     private String password;
     private String fullname;
@@ -20,10 +20,10 @@ public class user {
     private int role_id;
     private int status;
 
-    public user() {
+    public User() {
     }
 
-    public user(int id, String username, String password, String fullname, String gender, String phone, String email, String img, int role_id, int status) {
+    public User(int id, String username, String password, String fullname, String gender, String phone, String email, String img, int role_id, int status) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -118,8 +118,10 @@ public class user {
 
     @Override
     public String toString() {
-        return "user{" + "id=" + id + ", username=" + username + ", password=" + password + ", fullname=" + fullname + ", gender=" + gender + ", phone=" + phone + ", email=" + email + ", img=" + img + ", role_id=" + role_id + ", status=" + status + '}';
+        return "User{" + "id=" + id + ", username=" + username + ", password=" + password + ", fullname=" + fullname + ", gender=" + gender + ", phone=" + phone + ", email=" + email + ", img=" + img + ", role_id=" + role_id + ", status=" + status + '}';
     }
     
 
+  
+    
 }

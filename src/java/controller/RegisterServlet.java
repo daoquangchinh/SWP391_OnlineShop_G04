@@ -10,7 +10,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import modal.user;
+import modal.User;
 
 /**
  *
@@ -36,7 +36,7 @@ public class RegisterServlet extends HttpServlet {
         String img = request.getParameter("img");
         String password = request.getParameter("password");
         String gender = request.getParameter("gender");
-        user u = new user(0, email, password, fullname, gender, phone, email, img, 2, 0);
+        User u = new User(0, email, password, fullname, gender, phone, email, img, 2, 0);
         DAO dao = new DAO();
         if (dao.checkUserbyEmail(email)) {
             request.setAttribute("messEmail", "Email này đã tồn tại!!");
@@ -99,6 +99,6 @@ public class RegisterServlet extends HttpServlet {
         if (dao.checkUserbyEmail("quanc@fpt") == true) {
             System.out.println("dfghj");
         }
-        dao.setUser(new user(0, "quannc@fpt", "123", "quannguyenvi", "male", "123456789", "quagbhj", "vbhnj", 2, 1));
+        dao.setUser(new User(0, "quannc@fpt", "123", "quannguyenvi", "male", "123456789", "quagbhj", "vbhnj", 2, 1));
     }
 }

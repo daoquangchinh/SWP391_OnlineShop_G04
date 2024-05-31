@@ -16,6 +16,22 @@
         <servlet-name>EdProfileServlet</servlet-name>
         <servlet-class>controller.EdProfileServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ForgotPasswordServlet</servlet-name>
+        <servlet-class>controller.ForgotPasswordServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>NewPasswordUpdateServlet</servlet-name>
+        <servlet-class>controller.NewPasswordUpdateServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ValidatePasswordServlet</servlet-name>
+        <servlet-class>controller.ValidatePasswordServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChangePassServlet</servlet-name>
+        <servlet-class>controller.ChangePassServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
@@ -31,5 +47,21 @@
     <servlet-mapping>
         <servlet-name>EdProfileServlet</servlet-name>
         <url-pattern>/edProfile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ForgotPasswordServlet</servlet-name>
+        <url-pattern>/forgotPassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NewPasswordUpdateServlet</servlet-name>
+        <url-pattern>/newPasswordUpdate</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ValidatePasswordServlet</servlet-name>
+        <url-pattern>/validatePassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangePassServlet</servlet-name>
+        <url-pattern>/changePass</url-pattern>
     </servlet-mapping>
 </web-app>

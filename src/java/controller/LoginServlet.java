@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import modal.user;
+import modal.User;
 
 /**
  *
@@ -35,7 +35,7 @@ public class LoginServlet extends HttpServlet {
         String name = request.getParameter("name");
         String pass = request.getParameter("pass");
         DAO dao = new DAO();
-        user u = dao.getlogin(name, pass);
+        User u = dao.getlogin(name, pass);
         if (u.getUsername() == null) {
             request.setAttribute("mess", "Vui long kiểm tra lại thông tin.");
             
@@ -85,7 +85,7 @@ public class LoginServlet extends HttpServlet {
     }// </editor-fold>
 public static void main(String[] args) {
         DAO dao=new DAO();
-        user u = dao.getlogin("quan@fpt.edu", "123");
+        User u = dao.getlogin("quan@fpt.edu", "123");
         
         
         System.out.println(u.toString());

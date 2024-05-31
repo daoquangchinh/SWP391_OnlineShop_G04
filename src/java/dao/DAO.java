@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import modal.user;
+import modal.User;
 
 /**
  *
@@ -24,16 +24,16 @@ public class DAO {
     ResultSet rs = null;
 //Quannvhe172350: lay toan bo thong tin user
 
-    public List<user> getAllUser() {
+    public List<User> getAllUser() {
         String query = "SELECT * FROM users";
-        List<user> listUser = new ArrayList<>();
+        List<User> listUser = new ArrayList<>();
 
         try {
             conn = new DBContext().getConnection();//mo ket noi voi sql
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
             while (rs.next()) {
-                listUser.add(new user(
+                listUser.add(new User(
                         rs.getInt("id"),
                         rs.getString("username"),
                         rs.getString("password"),
@@ -55,7 +55,7 @@ public class DAO {
 
     public boolean checkUserbyEmail(String email) {
         String query = "SELECT * FROM users where email =?";
-        List<user> listUser = new ArrayList<>();
+        List<User> listUser = new ArrayList<>();
 
         try {
             conn = new DBContext().getConnection();//mo ket noi voi sql
@@ -63,7 +63,7 @@ public class DAO {
             ps.setString(1, email);
             rs = ps.executeQuery();
             while (rs.next()) {
-                listUser.add(new user(
+                listUser.add(new User(
                         rs.getInt("id"),
                         rs.getString("username"),
                         rs.getString("password"),
@@ -88,7 +88,7 @@ public class DAO {
 
     public boolean getUserbyPhone(String phone) {
         String query = "SELECT * FROM users where phone =?";
-        List<user> listUser = new ArrayList<>();
+        List<User> listUser = new ArrayList<>();
 
         try {
             conn = new DBContext().getConnection();//mo ket noi voi sql
@@ -96,7 +96,7 @@ public class DAO {
             ps.setString(1, phone);
             rs = ps.executeQuery();
             while (rs.next()) {
-                listUser.add(new user(
+                listUser.add(new User(
                         rs.getInt("id"),
                         rs.getString("username"),
                         rs.getString("password"),
@@ -119,7 +119,7 @@ public class DAO {
     }
 //Quannvhe172350: insert thông tin vao bang users
 
-    public boolean setUser(user u) {
+    public boolean setUser(User u) {
         String query = "INSERT INTO users (username, [password], fullname, gender, phone, email, img, role_id, Status) "
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
         try {
@@ -156,7 +156,7 @@ public class DAO {
     }
 
     //Quannvhe172350: update thông tin vao bang users
-    public boolean updateUser(user u) {
+    public boolean updateUser(User u) {
         String query = "UPDATE users\n"
                 + "SET\n"
                 + "    username = ?,\n"
@@ -203,9 +203,9 @@ public class DAO {
     }
     
 //Quannvhe172350:lay thông tin user theo tài khoản và mật khẩu 
-    public user getlogin(String name, String pass) {
+    public User getlogin(String name, String pass) {
         String query = "SELECT * FROM users where email= ? and password =? ; ";
-        user u = new user();
+        User u = new User();
 
         try {
             conn = new DBContext().getConnection();//mo ket noi voi sql
@@ -215,7 +215,7 @@ public class DAO {
             ps.setString(2, pass); // Thiết lập tham số cho mật khẩu 
             rs = ps.executeQuery();
             while (rs.next()) {
-                u = new user(
+                u = new User(
                         rs.getInt("id"),
                         rs.getString("username"),
                         rs.getString("password"),

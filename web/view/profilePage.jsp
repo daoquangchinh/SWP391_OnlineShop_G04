@@ -3,7 +3,7 @@
     Created on : May 28, 2024, 10:48:35 AM
     Author     : ViQuan
 --%>
-<%@ page import="modal.user" %>
+<%@ page import="modal.User" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -54,7 +54,7 @@
     <body>
         <%
       // Lấy đối tượng user từ session
-      user u = (user) session.getAttribute("acc");
+      User u = (User) session.getAttribute("acc");
         
       // Kiểm tra xem người dùng có đăng nhập không
       if (u != null) {
@@ -76,8 +76,8 @@
                         <h5 class="my-3"><%= u.getUsername() %></h5>
                     </div>
                     <div class="d-flex justify-content-center mb-2">
-                        <a href="editProfile.jsp"><button type="button" class="btn btn-primary ms-1">Edit Profile</button></a>
-                        <a href"${pageContext.request.contextPath}/logout"><button type="button" class="btn  btn-outline-primary ms-1 ">Logout</button></a>
+                        <a href="/SWP391_OnlineShop_G4/view/editProfile.jsp"><button type="button" class="btn btn-primary ms-1">Edit Profile</button></a>
+                        <a  href="/SWP391_OnlineShop_G4/view/changePass.jsp"><button type="button" class="btn  btn-outline-primary ms-1 "  >Change Password</button></a>
                     </div>
                 </div>
                 <div class="card mb-4 mb-lg-0">
@@ -161,6 +161,7 @@
                     </div>
 
                 </div>
+               
                 <%
                 } else {
                 %>

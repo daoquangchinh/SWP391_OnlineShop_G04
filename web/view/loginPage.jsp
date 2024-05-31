@@ -99,7 +99,7 @@
                                                 Remember me
                                             </label>
                                         </div>
-                                        <a href="#">Forgot Password</a>
+                                        <a href="/SWP391_OnlineShop_G4/view/forgotPassword.jsp">Forgot Password</a>
                                     </div>
                                     <div class="form-group">
                                         <button type="submit" class="btn-md btn-theme btn-block">Login</button>
