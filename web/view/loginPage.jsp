@@ -82,7 +82,7 @@
                             <div class="login-inner-form">
                                 <form action="${pageContext.request.contextPath}/login" method="POST">
                                     <div class="form-group form-box">
-                                        <input type="email" name="name" class="input-text" placeholder="Email Address" required="">
+                                        <input type="text" name="name" class="input-text" placeholder="Email Address" required="">
                                         <i class="flaticon-mail-2"></i>
                                     </div>
                                     <div class="form-group form-box">
