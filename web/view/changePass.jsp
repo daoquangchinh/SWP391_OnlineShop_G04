@@ -79,13 +79,16 @@
                                     <div class="form-group form-box">
                                         <input type="password" id="confPassword" name="confPassword" class="input-text" placeholder="Confirm Password">
                                     </div>
-                                    <div class="col d-flex justify-content-center align-items-center">
-                                        <!-- Checkbox -->
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="showPassword" onclick="togglePasswordVisibility()" checked="">
-                                            <label class="form-check-label" for="showPassword">Show pass</label>
+                                    <div class="col d-flex justify-content-end align-items-center">
+                                        <div class="form-group">
+                                            <!-- Checkbox -->
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="showPassword" onclick="togglePasswordVisibility()" checked="">
+                                                <label class="form-check-label" for="showPassword">Show pass</label>
+                                            </div>
                                         </div>
                                     </div>
+
                                     <div class="form-group mb-0">
                                         <button type="submit" class="btn-md btn-theme btn-block">Save</button>
                                     </div>
@@ -104,18 +107,18 @@
         <script src="${pageContext.request.contextPath}/assets_lg/js/bootstrap.min.js"></script>
         <!-- Custom JS Script -->
         <script>
-            function togglePasswordVisibility() {
-                var passwordField = document.getElementById('password');
-                var confPasswordField = document.getElementById('confPassword');
-                var showPasswordCheckbox = document.getElementById('showPassword');
-                if (showPasswordCheckbox.checked) {
-                    passwordField.type = 'text';
-                    confPasswordField.type = 'text';
-                } else {
-                    passwordField.type = 'password';
-                    confPasswordField.type = 'password';
+                function togglePasswordVisibility() {
+                    var passwordField = document.getElementById('password');
+                    var confPasswordField = document.getElementById('confPassword');
+                    var showPasswordCheckbox = document.getElementById('showPassword');
+                    if (showPasswordCheckbox.checked) {
+                        passwordField.type = 'text';
+                        confPasswordField.type = 'text';
+                    } else {
+                        passwordField.type = 'password';
+                        confPasswordField.type = 'password';
+                    }
                 }
-            }
         </script>
 
     </body>

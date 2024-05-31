@@ -128,6 +128,13 @@
                                         
                                         
                                     </div> 
+                                    <div class="col d-flex justify-content-center align-items-center">
+                                        <!-- Checkbox -->
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="showPassword" onclick="togglePasswordVisibility()" checked="">
+                                            <label class="form-check-label" for="showPassword">Show pass</label>
+                                        </div>
+                                    </div>
 
                                     <div class="input-group">
                                         <label class="label">Gender:   </label>
@@ -162,5 +169,19 @@
             </div>
         </div>
         <!-- Login 11 end -->
+        <script>
+            function togglePasswordVisibility() {
+                var passwordField = document.getElementById('password');
+                var confPasswordField = document.getElementById('confPassword');
+                var showPasswordCheckbox = document.getElementById('showPassword');
+                if (showPasswordCheckbox.checked) {
+                    passwordField.type = 'text';
+                    confPasswordField.type = 'text';
+                } else {
+                    passwordField.type = 'password';
+                    confPasswordField.type = 'password';
+                }
+            }
+        </script>
     </body>
 </html>
