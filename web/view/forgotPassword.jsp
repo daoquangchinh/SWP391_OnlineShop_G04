@@ -1,5 +1,5 @@
 <%-- 
-    Document   : forgotPassword
+        Document   : forgotPassword
     Created on : May 24, 2024, 7:49:50 AM
     Author     : Dell
 --%>
@@ -60,7 +60,11 @@
                     </div>
                     <h3>Recover your password</h3>
                     <div class="login-inner-form">
+<<<<<<< HEAD
                         <form action="forgotpassword" method="post">
+=======
+                        <form action="${pageContext.request.contextPath}/forgotPassword" method="post">
+>>>>>>> quannvhe172350
                             <div class="form-group form-box">
                                 <input type="email" name="email" class="input-text" placeholder="Email Address">
                                 <i class="flaticon-mail-2"></i>

@@ -9,7 +9,7 @@ package modal;
  * @author Dell
  */
 public class User {
-    private String id;
+      private int id;
     private String username;
     private String password;
     private String fullname;
@@ -17,12 +17,13 @@ public class User {
     private String phone;
     private String email;
     private String img;
-    private String roleId;
+    private int role_id;
+    private int status;
 
     public User() {
     }
 
-    public User(String id, String username, String password, String fullname, String gender, String phone, String email, String img, String roleId) {
+    public User(int id, String username, String password, String fullname, String gender, String phone, String email, String img, int role_id, int status) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -31,14 +32,15 @@ public class User {
         this.phone = phone;
         this.email = email;
         this.img = img;
-        this.roleId = roleId;
+        this.role_id = role_id;
+        this.status = status;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -98,16 +100,28 @@ public class User {
         this.img = img;
     }
 
-    public String getRoleId() {
-        return roleId;
+    public int getRole_id() {
+        return role_id;
     }
 
-    public void setRoleId(String roleId) {
-        this.roleId = roleId;
+    public void setRole_id(int role_id) {
+        this.role_id = role_id;
     }
 
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" + "id=" + id + ", username=" + username + ", password=" + password + ", fullname=" + fullname + ", gender=" + gender + ", phone=" + phone + ", email=" + email + ", img=" + img + ", role_id=" + role_id + ", status=" + status + '}';
+    }
     
 
-    
+  
     
 }

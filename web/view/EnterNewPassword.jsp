@@ -33,7 +33,11 @@
                                 } %>
 
                                 <div class="panel-body">
+<<<<<<< HEAD
                                     <form id="register-form" action="validatepassword" role="form" autocomplete="off" class="form" method="post">
+=======
+                                    <form id="register-form" action="${pageContext.request.contextPath}/validatePassword" role="form" autocomplete="off" class="form" method="post">
+>>>>>>> quannvhe172350
                                         <div class="form-group">
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="glyphicon glyphicon-envelope color-blue"></i></span>
