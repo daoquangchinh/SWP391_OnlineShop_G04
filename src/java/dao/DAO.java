@@ -204,7 +204,7 @@ public class DAO {
     
 //Quannvhe172350:lay thông tin user theo tài khoản và mật khẩu 
     public User getlogin(String name, String pass) {
-        String query = "SELECT * FROM users where email= ? and password =? ; ";
+        String query = "SELECT * FROM users where email= ? and password = ? ";
         User u = new User();
 
         try {
