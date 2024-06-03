@@ -4,7 +4,6 @@
  */
 package DAO;
 
-
 import dal.DBContext;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,13 +13,11 @@ import modal.User;
 /**
  * UserDAO class provides CRUD operations for User entities.
  */
-public class UserDAO extends DBContext{
-    
-   
+public class UserDAO extends DBContext {
 
     public User getUserByUsernamePassword(String userName, String password) {
         String sql = "SELECT * FROM [dbo].[Users] WHERE username = ? AND password = ?";
-        try ( PreparedStatement ps = getConnection().prepareStatement(sql)) {
+        try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
             // Set the parameters for the prepared statement
             ps.setString(1, userName);
             ps.setString(2, password);
@@ -47,21 +44,20 @@ public class UserDAO extends DBContext{
         }
         return null;  // Return null if no record is found or an exception occurs
     }
-    
+
     public boolean updatePassword(String email, String newPassword) {
-    try {
-        String sql = "UPDATE [dbo].[Users] SET [password] = ? WHERE [email] = ?";
-        try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
-            ps.setString(1, newPassword);
-            ps.setString(2, email);
-            int rowCount = ps.executeUpdate();
-            return rowCount > 0;
+        try {
+            String sql = "UPDATE [dbo].[Users] SET [password] = ? WHERE [email] = ?";
+            try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
+                ps.setString(1, newPassword);
+                ps.setString(2, email);
+                int rowCount = ps.executeUpdate();
+                return rowCount > 0;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
         }
-    } catch (SQLException ex) {
-        ex.printStackTrace();
-        return false;
     }
-}
-   
 
 }
