@@ -15,9 +15,30 @@
             <file>file:/D:/HK5/JavaWeb/SWP391_OnlineShop_G04/web/view/changePass.jsp</file>
             <file>file:/D:/HK5/JavaWeb/SWP391_OnlineShop_G04/web/view/newPassword.jsp</file>
             <file>file:/D:/HK5/JavaWeb/SWP391_OnlineShop_G04/web/view/profilePage.jsp</file>
-            <file>file:/D:/HK5/JavaWeb/SWP391_OnlineShop_G04/src/java/controller/ChangePassServlet.java</file>
+            <file>file:/D:/HK5/JavaWeb/SWP391_OnlineShop_G04/src/java/controller/EdProfileServlet.java</file>
+            <file>file:/D:/HK5/JavaWeb/SWP391_OnlineShop_G04/web/view/editProfile.jsp</file>
             <file>file:/D:/HK5/JavaWeb/SWP391_OnlineShop_G04/src/java/controller/RegisterServlet.java</file>
+            <file>file:/D:/HK5/JavaWeb/SWP391_OnlineShop_G04/web/view/homePage.jsp</file>
+            <file>file:/D:/HK5/JavaWeb/SWP391_OnlineShop_G04/src/java/controller/chinh.java</file>
+            <file>file:/D:/HK5/JavaWeb/SWP391_OnlineShop_G04/src/java/dao/DAO.java</file>
+            <file>file:/D:/HK5/JavaWeb/SWP391_OnlineShop_G04/web/view/loginPage.jsp</file>
+            <file>file:/D:/HK5/JavaWeb/SWP391_OnlineShop_G04/web/view/homeTag.jsp</file>
             <file>file:/D:/HK5/JavaWeb/SWP391_OnlineShop_G04/src/java/controller/LoginServlet.java</file>
+            <file>file:/D:/HK5/JavaWeb/SWP391_OnlineShop_G04/src/java/controller/ProfileServlet.java</file>
+            <file>file:/D:/HK5/JavaWeb/SWP391_OnlineShop_G04/src/java/dao/UserDAO.java</file>
+            <file>file:/D:/HK5/JavaWeb/SWP391_OnlineShop_G04/src/java/controller/NewPasswordUpdateServlet.java</file>
+            <file>file:/D:/HK5/JavaWeb/SWP391_OnlineShop_G04/web/view/forgotPassword.jsp</file>
+            <file>file:/D:/HK5/JavaWeb/SWP391_OnlineShop_G04/src/java/controller/homePage.java</file>
+            <file>file:/D:/HK5/JavaWeb/SWP391_OnlineShop_G04/src/java/controller/NewServlet.java</file>
+            <file>file:/D:/HK5/JavaWeb/SWP391_OnlineShop_G04/web/view/registerPage.jsp</file>
+            <file>file:/D:/HK5/JavaWeb/SWP391_OnlineShop_G04/web/newjsp.jsp</file>
+            <file>file:/D:/HK5/JavaWeb/SWP391_OnlineShop_G04/src/java/controller/ForgotPasswordServlet.java</file>
+            <file>file:/D:/HK5/JavaWeb/SWP391_OnlineShop_G04/src/java/modal/MaHoa.java</file>
+            <file>file:/D:/HK5/JavaWeb/SWP391_OnlineShop_G04/web/view/FooterTag.jsp</file>
+            <file>file:/D:/HK5/JavaWeb/SWP391_OnlineShop_G04/src/java/controller/LogoutServlet.java</file>
+            <file>file:/D:/HK5/JavaWeb/SWP391_OnlineShop_G04/src/java/controller/ChangePassServlet.java</file>
+            <file>file:/D:/HK5/JavaWeb/SWP391_OnlineShop_G04/web/view/EnterNewPassword.jsp</file>
+            <file>file:/D:/HK5/JavaWeb/SWP391_OnlineShop_G04/src/java/controller/ValidatePasswordServlet.java</file>
         </group>
     </open-files>
 </project-private>
