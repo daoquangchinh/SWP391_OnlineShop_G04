@@ -77,8 +77,8 @@
                         <h5 class="my-3"><%= u.getUsername() %></h5>
                     </div>
                     <div class="d-flex justify-content-center mb-2">
-                        <a href="/SWP391_OnlineShop_G4/view/editProfile.jsp"><button type="button" class="btn btn-primary ms-1">Edit Profile</button></a>
-                        <a  href="/SWP391_OnlineShop_G4/view/changePass.jsp"><button type="button" class="btn  btn-outline-primary ms-1 "  >Change Password</button></a>
+                        <a href="${pageContext.request.contextPath}/edProfile"><button type="button" class="btn btn-primary ms-1">Edit Profile</button></a>
+                        <a  href="${pageContext.request.contextPath}/changePass"><button type="button" class="btn  btn-outline-primary ms-1 "  >Change Password</button></a>
                     </div>
                 </div>
                 <div class="card mb-4 mb-lg-0">
@@ -166,7 +166,7 @@
                 <%
                 } else {
                 %>
-                <p>Bạn chưa đăng nhập. Vui lòng <a href="/SWP391_OnlineShop_G4/view/loginPage.jsp">đăng nhập</a>.</p>
+                <p>Bạn chưa đăng nhập. Vui lòng <a href="${pageContext.request.contextPath}/login">đăng nhập</a>.</p>
                 <%
                     }
                 %>

@@ -77,8 +77,8 @@
                             </div>
                             <h3>Sign into your account</h3>
                             <div class="btn-section clearfix">
-                                <a href="/SWP391_OnlineShop_G4/view/loginPage.jsp" class="link-btn active btn-1 active-bg">Login</a>
-                                <a href="/SWP391_OnlineShop_G4/view/registerPage.jsp" class="link-btn btn-2 default-bg">Register</a>
+                                <a href="${pageContext.request.contextPath}/login" class="link-btn active btn-1 active-bg">Login</a>
+                                <a href="${pageContext.request.contextPath}/register" class="link-btn btn-2 default-bg">Register</a>
                             </div> 
                             <div class="login-inner-form">
                                 <form action="${pageContext.request.contextPath}/login" method="POST">
@@ -95,7 +95,7 @@
                                     <% } %>
                                     <div class="checkbox clearfix">
                                         <!-- Checkbox -->
-                                        <div class="form-check">
+                                        <div class="form-check checkbox-theme">
                                             <input class="form-check-input" type="checkbox" id="showPassword" value="" onclick="togglePasswordVisibility()" >
                                             <label class="form-check-label" for="showPassword">Show pass</label>
                                         </div>
@@ -107,7 +107,7 @@
                                                 Remember me
                                             </label>
                                         </div>
-                                        <a href="/SWP391_OnlineShop_G4/view/forgotPassword.jsp">Forgot Password</a>
+                                        <a href="${pageContext.request.contextPath}/forgotPassword">Forgot Password</a>
                                     </div>
                                     <div class="form-group">
                                         <button type="submit" class="btn-md btn-theme btn-block">Login</button>

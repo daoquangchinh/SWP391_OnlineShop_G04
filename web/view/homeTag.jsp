@@ -23,11 +23,11 @@
                     <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">My Account</button>
                     <div class="dropdown-menu dropdown-menu-right">
                         <% if (session.getAttribute("acc") == null) { %>
-                        <a href="/SWP391_OnlineShop_G4/view/loginPage.jsp"><button class="dropdown-item" type="button">Sign in</button></a>
-                        <a href="/SWP391_OnlineShop_G4/view/registerPage.jsp"><button class="dropdown-item" type="button">Sign up</button></a>
+                        <a href="${pageContext.request.contextPath}/login"><button class="dropdown-item" type="button">Sign in</button></a>
+                        <a href="${pageContext.request.contextPath}/register"><button class="dropdown-item" type="button">Sign up</button></a>
                         <% } else { %> <button class="dropdown-item" type="button">
                             <a href="${pageContext.request.contextPath}/logout"><button class="dropdown-item" type="button">Logout</button></a>
-                            <a href="/SWP391_OnlineShop_G4/view/profilePage.jsp"><button class="dropdown-item" type="button">My Profile</button></a>
+                            <a href="${pageContext.request.contextPath}/profile"><button class="dropdown-item" type="button">My Profile</button></a>
                             <% } %>
                     </div>
                 </div>

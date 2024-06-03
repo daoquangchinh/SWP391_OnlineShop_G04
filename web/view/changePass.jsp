@@ -118,7 +118,7 @@
         <%
                 } else {
                 %>
-                <p>Bạn chưa đăng nhập. Vui lòng <a href="/SWP391_OnlineShop_G4/view/loginPage.jsp">đăng nhập</a>.</p>
+                <p>Bạn chưa đăng nhập. Vui lòng <a href="${pageContext.request.contextPath}/login">đăng nhập</a>.</p>
                 <%
                     }
                 %>
