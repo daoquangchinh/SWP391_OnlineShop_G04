@@ -60,11 +60,7 @@
                     </div>
                     <h3>Recover your password</h3>
                     <div class="login-inner-form">
-<<<<<<< HEAD
-                        <form action="forgotpassword" method="post">
-=======
-                        <form action="${pageContext.request.contextPath}/forgotPassword" method="post">
->>>>>>> quannvhe172350
+                        <form action="${pageContext.request.contextPath}/forgotPassword" method="post"><!<!-- quan merge -->
                             <div class="form-group form-box">
                                 <input type="email" name="email" class="input-text" placeholder="Email Address">
                                 <i class="flaticon-mail-2"></i>

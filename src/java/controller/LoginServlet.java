@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import modal.MaHoa;
 import modal.User;
 
 /**
@@ -33,11 +34,14 @@ public class LoginServlet extends HttpServlet {
     throws ServletException, IOException {
         String name = request.getParameter("name");
         String pass = request.getParameter("pass");
+        MaHoa ma= new MaHoa();
+        pass = ma.toSHA1(pass);
         DAO dao = new DAO();
+        
         User u = dao.getlogin(name, pass);
         if (u.getUsername() == null) {
             request.setAttribute("mess", "Vui long kiểm tra lại thông tin.");
-            
+            request.setAttribute("name", name);
             request.getRequestDispatcher("view/loginPage.jsp").forward(request, response);
         }  else {
             HttpSession session = request.getSession();

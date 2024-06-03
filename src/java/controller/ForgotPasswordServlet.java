@@ -22,6 +22,7 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import modal.MaHoa;
 
 /**
  *
@@ -40,11 +41,10 @@ public class ForgotPasswordServlet extends HttpServlet {
         RequestDispatcher dispatcher = null;
         HttpSession mySession = request.getSession();
         UserDAO userDAO = new UserDAO();
+        MaHoa ma = new MaHoa();
         if (email != null || !email.equals("")) {
             // sending new password
             String passGen = generateRandomPassword(8);
-            // update password generate random
-            userDAO.updatePassword(email, passGen);
 
             String to = email;// change accordingly
             // Get the session object
@@ -81,6 +81,9 @@ public class ForgotPasswordServlet extends HttpServlet {
                 // Handle any messaging related exceptions
                 throw new RuntimeException("Failed to send email", e);
             }
+            // update password generate random
+            passGen = ma.toSHA1(passGen);
+            userDAO.updatePassword(email, passGen);
             dispatcher = request.getRequestDispatcher("view/EnterNewPassword.jsp");
             request.setAttribute("message", "Mat khau moi da duoc gui den ban , vui long kiem tra email");
             mySession.setAttribute("passGen", passGen);
