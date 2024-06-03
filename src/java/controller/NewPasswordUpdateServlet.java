@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
+import modal.MaHoa;
 
 /**
  *
@@ -24,6 +25,7 @@ public class NewPasswordUpdateServlet extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         UserDAO userDAO = new UserDAO();
+        MaHoa ma = new MaHoa();
         // Get the current session
         HttpSession session = request.getSession();
 
@@ -38,10 +40,12 @@ public class NewPasswordUpdateServlet extends HttpServlet{
             String email = (String) session.getAttribute("email");
 
             // Attempt to update the user's password
+            newPassword= ma.toSHA1(newPassword);
             boolean success = userDAO.updatePassword(email, newPassword);
 
             if (success) {
                 request.setAttribute("status", "Đã đổi mật khẩu thành công !");
+                
             } else {
                 request.setAttribute("status", "Đổi mật khẩu thất bại!");
                 request.getRequestDispatcher("view/newPassword.jsp").forward(request, response);

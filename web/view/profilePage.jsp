@@ -52,6 +52,7 @@
     </head>
 
     <body>
+        <jsp:include page="homeTag.jsp"></jsp:include>
         <%
       // Lấy đối tượng user từ session
       User u = (User) session.getAttribute("acc");
@@ -64,7 +65,7 @@
        imgSrc = "https://cellphones.com.vn/sforum/wp-content/uploads/2023/10/avatar-trang-4.jpg";
    }
         %>
-        <jsp:include page="homeTag.jsp"></jsp:include>
+        
 
             <h1>User Profile</h1>
             <div class="row">
@@ -165,7 +166,7 @@
                 <%
                 } else {
                 %>
-                <p>Bạn chưa đăng nhập. Vui lòng <a href="loginPage.jsp">đăng nhập</a>.</p>
+                <p>Bạn chưa đăng nhập. Vui lòng <a href="/SWP391_OnlineShop_G4/view/loginPage.jsp">đăng nhập</a>.</p>
                 <%
                     }
                 %>

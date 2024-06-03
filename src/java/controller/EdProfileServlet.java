@@ -41,29 +41,26 @@ public class EdProfileServlet extends HttpServlet {
         String img = request.getParameter("img");
         String password = u.getPassword();
         String gender = request.getParameter("gender");
-        if (phone.equals(u.getPhone()) == false) {
-            if (dao.getUserbyPhone(phone)) {
-                request.setAttribute("phone", phone);
-                request.setAttribute("messPhone", "Số điện thoại đã tồn tại!!");
-                request.setAttribute("empty", "Vui lòng nhập thông tin");
-               request.getRequestDispatcher("view/editProfile.jsp").forward(request, response);
-            }
-            else{
-                u = new User(0, email, password, fullname, gender, phone, email, img, 2, 0);
-                session.setAttribute("acc", u);
-                dao.updateUser(u);
-                response.sendRedirect("view/homePage.jsp");
-            }
-
-        }else{
-             u = new User(0, email, password, fullname, gender, phone, email, img, 2, 0);
-                dao.updateUser(u);
-                session.setAttribute("acc", u);
-                response.sendRedirect("view/profilePage.jsp");
-            
+        boolean check = false;
+        if (dao.getUserbyPhone(phone)) {
+            request.setAttribute("messPhone", "Số điện thoại đã tồn tại!!");
+            check = true;
         }
-        
+        if (!phone.matches("(?:\\d{10}|\\d{3}-\\d{3}-\\d{4}|\\(\\d{3}\\)-\\d{3}-\\d{4}|\\d{3}\\.\\d{3}\\.\\d{4}|\\d{3} \\d{3} \\d{4}|\\d{3}-\\d{3}-\\d{4} (x|ext)\\d{4})")) {
+            request.setAttribute("messPhone", "Invalid phone number format.");
+            check = true;
+        }
+        if (check) {
+            request.setAttribute("phone", phone);
+            request.setAttribute("fullname", fullname);
+            request.getRequestDispatcher("view/editProfile.jsp").forward(request, response);
+            return;
+        }
 
+        u = new User(0, email, password, fullname, gender, phone, email, img, 2, 0);
+        dao.updateUser(u);
+        session.setAttribute("acc", u);
+        response.sendRedirect("view/profilePage.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

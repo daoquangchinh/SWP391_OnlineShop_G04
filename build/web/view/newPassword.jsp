@@ -1,4 +1,11 @@
 <!doctype html>
+<%-- 
+        Document   : forgotPassword
+    Created on : May 24, 2024, 7:49:50 AM
+    Author     : Dell : Quan merge all 
+--%>
+
+<!doctype html>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="zxx">

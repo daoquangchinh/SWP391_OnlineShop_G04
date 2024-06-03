@@ -5,6 +5,8 @@
 --%>
 
 <!doctype html>
+<%@ page import="modal.User" %>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="zxx">
@@ -39,8 +41,21 @@
         <!-- Custom Stylesheet -->
         <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/assets_lg/css/style.css">
         <link rel="stylesheet" type="text/css" id="style_sheet" href="${pageContext.request.contextPath}/assets_lg/css/skins/default.css">
+         <!-- Font Awesome -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+        <!-- Libraries Stylesheet -->
+        <link href="${pageContext.request.contextPath}/assets_h/lib/animate/animate.min.css" rel="stylesheet">
+        <link href="${pageContext.request.contextPath}/assets_h/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+        <!-- Customized Bootstrap Stylesheet -->
+        <link href="${pageContext.request.contextPath}/assets_h/css/style.css" rel="stylesheet">
     </head>
     <body id="top">
+        <jsp:include page="homeTag.jsp"></jsp:include>
+       <% User u = (User) session.getAttribute("acc");
+          if (u != null) {
+        %>
         <!-- Google Tag Manager (noscript) -->
         <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TAGCODE"
                           height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -100,6 +115,15 @@
             </div>
         </div>
         <!-- Login 11 end -->
+        <%
+                } else {
+                %>
+                <p>Bạn chưa đăng nhập. Vui lòng <a href="/SWP391_OnlineShop_G4/view/loginPage.jsp">đăng nhập</a>.</p>
+                <%
+                    }
+                %>
+                    <jsp:include page="FooterTag.jsp"></jsp:include>
+
 
         <!-- External JS libraries -->
         <script src="${pageContext.request.contextPath}/assets_lg/js/jquery-2.2.0.min.js"></script>
