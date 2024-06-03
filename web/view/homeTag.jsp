@@ -64,21 +64,23 @@
         <div class="col-lg-4">
             <a href="" class="text-decoration-none">
                 <span class="h1 text-uppercase text-primary bg-dark px-2">Multi</span>
-                <span class="h1 text-uppercase text-dark bg-primary px-2 ml-n1">Shop</span>
+                <span  class="h1 text-uppercase text-dark bg-primary px-2 ml-n1">Shop</span>
             </a>
         </div>
+        <!-- Seach -->
         <div class="col-lg-4 col-6 text-left">
-            <form action="">
+            <form action="${pageContext.request.contextPath}/productlist" method="get"">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for products">
+                    <input type="text" class="form-control" placeholder="Search" required="" name="query">
                     <div class="input-group-append">
                         <span class="input-group-text bg-transparent text-primary">
-                            <i class="fa fa-search"></i>
+                            <button><i class="fa fa-search"></i></button>
                         </span>
                     </div>
                 </div>
             </form>
         </div>
+        
         <div class="col-lg-4 col-6 text-right">
             <p class="m-0">Customer Service</p>
             <h5 class="m-0">+012 345 6789</h5>
@@ -115,8 +117,8 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto py-0">
-                        <a href="/SWP391_OnlineShop_G4/view/homePage.jsp" class="nav-item nav-link active">Home</a>
-                        <a href="#" class="nav-item nav-link">Shop</a>
+                        <a href="${pageContext.request.contextPath}/Home" class="nav-item nav-link active">Home</a>
+                        <a href="${pageContext.request.contextPath}/productlist" class="nav-item nav-link">Shop</a>
                         <a href="#" class="nav-item nav-link">Shop Detail</a>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages <i class="fa fa-angle-down mt-1"></i></a>

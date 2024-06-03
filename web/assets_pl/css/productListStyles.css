@@ -1,0 +1,280 @@
+/* Phần tử container */
+.price-range-container {
+    margin: 20px;
+}
+
+/* Tiêu đề "Price range" */
+.price-range-heading,
+.price-range-label {
+    font-weight: bold;
+}
+
+/* Thiết lập cho các checkbox */
+.price-options input[type="radio"] {
+    margin-right: 5px;
+}
+
+/* Thiết lập cho label của các checkbox */
+.price-options label {
+    cursor: pointer;
+}
+
+/* Thiết lập hiển thị thu gọn */
+.price-options {
+    max-height: 150px;
+    overflow-y: auto;
+    transition: max-height 0.5s ease;
+}
+
+.price-options.collapsed {
+    max-height: 0;
+}
+
+.button {
+  background-color: #808080; /* Màu xám */
+  border: none; /* Loại bỏ viền */
+  color: white; /* Màu chữ */
+  padding: 10px 20px; /* Giảm kích thước padding */
+  text-align: center; /* Căn giữa nội dung */
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px; /* Giảm kích thước font */
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 8px; /* Bo góc */
+}
+
+
+           
+
+
+
+
+
+/* Phần tử container */
+.size-container {
+    margin: 20px;
+}
+
+/* Tiêu đề "Size" */
+.size-heading {
+    font-weight: bold;
+}
+
+/* Thiết lập cho các checkbox */
+.size-options input[type="radio"] {
+    margin-right: 5px;
+}
+
+/* Thiết lập cho label của các checkbox */
+.size-options label {
+    cursor: pointer;
+}
+
+/* Thiết lập hiển thị thu gọn */
+.size-options {
+    max-height: 150px;
+    overflow-y: auto;
+    transition: max-height 0.5s ease;
+}
+
+.size-options.collapsed {
+    max-height: 0;
+}
+
+/* Phần tử container */
+.shoe-type-container {
+    margin: 20px;
+}
+
+/* Tiêu đề "Size" */
+.shoe-type-heading {
+    font-weight: bold;
+}
+
+/* Thiết lập cho các checkbox */
+.shoe-type-options input[type="radio"] {
+    margin-right: 5px;
+}
+
+/* Thiết lập cho label của các checkbox */
+.shoe-type-options label {
+    cursor: pointer;
+}
+
+/* Thiết lập hiển thị thu gọn */
+.shoe-type-options {
+    max-height: 150px;
+    overflow-y: auto;
+    transition: max-height 0.5s ease;
+}
+
+.shoe-type-options.collapsed {
+    max-height: 0;
+}
+
+/*color*/
+.shoe-color-container {
+    margin: 20px;
+}
+
+/* Tiêu đề "Size" */
+.shoe-color-heading {
+    font-weight: bold;
+}
+
+/* Thiết lập cho các checkbox */
+.shoe-color input[type="radio"] {
+    margin-right: 5px;
+}
+
+/* Thiết lập cho label của các checkbox */
+.shoe-color label {
+    cursor: pointer;
+}
+
+/* Thiết lập hiển thị thu gọn */
+.shoe-color {
+    max-height: 150px;
+    overflow-y: auto;
+    transition: max-height 0.5s ease;
+}
+
+.shoe-color.collapsed {
+    max-height: 0;
+}
+
+/*sports*/
+.shoe-sports-container {
+    margin: 20px;
+}
+
+/* Tiêu đề "Size" */
+.shoe-sports-heading {
+    font-weight: bold;
+}
+
+/* Thiết lập cho các checkbox */
+.shoe-sports input[type="radio"] {
+    margin-right: 5px;
+}
+
+/* Thiết lập cho label của các checkbox */
+.shoe-sports label {
+    cursor: pointer;
+}
+
+/* Thiết lập hiển thị thu gọn */
+.shoe-sports {
+    max-height: 150px;
+    overflow-y: auto;
+    transition: max-height 0.5s ease;
+}
+
+.shoe-sports.collapsed {
+    max-height: 0;
+}
+
+
+/*chia man hinh*/
+
+.header {
+    background-color: #333;
+    color: white;
+
+}
+
+.wrapper {
+    display: flex;
+}
+
+.left-nav-wrapper {
+    position: sticky;
+    top: 0;
+    width: 25%;
+    height: 100vh;
+    background-color: #ffffff;
+    overflow-y: auto;
+}
+
+.right-nav-wrapper {
+    flex: 1;
+    background-color: #ffffff;
+}
+
+.sort-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 10px; /* Khoảng cách với phần tử phía trên */
+}
+
+
+
+/*Button*/
+.custom-container {
+    /* Thiết lập padding và border cho container */
+
+}
+
+.custom-container .btn {
+    /* Thiết lập kiểu cho nút */
+    background-color: #ffb400;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.custom-container .btn:hover {
+    /* Hiệu ứng hover cho nút */
+    background-color: #ffffff;
+}
+
+.custom-expandable-content {
+    /* Thiết lập các thuộc tính cho nội dung mở rộng */
+    margin-top: 20px;
+}
+
+.custom-label {
+    /* Thiết lập kiểu cho nhãn */
+    display: block;
+    margin-bottom: 10px;
+}
+
+.custom-select-container {
+    /* Container cho select box */
+    max-height: 100px; /* Điều chỉnh chiều cao của khu vực chứa select box */
+    overflow-y: auto; /* Cho phép cuộn nếu nội dung vượt quá kích thước */
+}
+
+.custom-select {
+    /* Thiết lập kiểu cho select box */
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.custom-select-container {
+    /* Container cho select box */
+    overflow: hidden; /* Ẩn thanh cuộn */
+}
+
+.custom-select {
+    /* Thiết lập kiểu cho select box */
+    width: 150px; /* Đặt chiều rộng cố định cho select box */
+    padding: 10px; /* Điều chỉnh padding cho đẹp hơn */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    appearance: none; /* Loại bỏ giao diện mặc định của select box */
+        overflow: hidden; /* Ẩn thanh cuộn */
+}
