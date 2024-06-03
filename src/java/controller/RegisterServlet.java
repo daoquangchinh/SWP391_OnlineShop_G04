@@ -55,7 +55,7 @@ public class RegisterServlet extends HttpServlet {
             request.getRequestDispatcher("view/registerPage.jsp").forward(request, response);
             return;
         }
-        password =  ma.toSHA1(password);
+        password = ma.toSHA1(password);
         u.setPassword(password);
         dao.setUser(u);
         response.sendRedirect("view/loginPage.jsp");

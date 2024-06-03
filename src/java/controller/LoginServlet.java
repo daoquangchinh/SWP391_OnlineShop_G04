@@ -89,9 +89,11 @@ public class LoginServlet extends HttpServlet {
     }// </editor-fold>
 public static void main(String[] args) {
         DAO dao=new DAO();
-        User u = dao.getlogin("quan@fpt.edu", "123");
+        User u = new User(0, "QUna", "1234", "123466", "ád", "123456", "xcfghjk", "sdfghjk", 2, 0);
+       if(dao.setUser(u)){
+           System.out.println(u.toString());
+       }
         
         
-        System.out.println(u.toString());
     }
 }
