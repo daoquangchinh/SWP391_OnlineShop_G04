@@ -19,6 +19,10 @@ import modal.User;
  * @author ViQuan
  */
 public class ChangePassServlet extends HttpServlet {
+      @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher("view/changePass.jsp").forward(request, response);
+    }
 
     private static final long serialVersionUID = 1L;
 

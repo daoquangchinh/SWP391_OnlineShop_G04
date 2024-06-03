@@ -75,8 +75,8 @@
                             </div>
                             <h3>Create an account</h3>
                             <div class="btn-section clearfix">
-                                <a href="/SWP391_OnlineShop_G4/view/loginPage.jsp" class="link-btn active btn-1 default-bg">Login</a>
-                                <a href="/SWP391_OnlineShop_G4/view/registerPage.jsp" class="link-btn btn-2 active-bg">Register</a>
+                                <a href="${pageContext.request.contextPath}/login" class="link-btn active btn-1 default-bg">Login</a>
+                                <a href="${pageContext.request.contextPath}/register" class="link-btn btn-2 active-bg">Register</a>
                             </div>
                             <div class="login-inner-form">
                                 <form action="${pageContext.request.contextPath}/register" method="POST" >

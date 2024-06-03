@@ -23,11 +23,11 @@
                     <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">My Account</button>
                     <div class="dropdown-menu dropdown-menu-right">
                         <% if (session.getAttribute("acc") == null) { %>
-                        <a href="/SWP391_OnlineShop_G4/view/loginPage.jsp"><button class="dropdown-item" type="button">Sign in</button></a>
-                        <a href="/SWP391_OnlineShop_G4/view/registerPage.jsp"><button class="dropdown-item" type="button">Sign up</button></a>
+                        <a href="${pageContext.request.contextPath}/login"><button class="dropdown-item" type="button">Sign in</button></a>
+                        <a href="${pageContext.request.contextPath}/register"><button class="dropdown-item" type="button">Sign up</button></a>
                         <% } else { %> <button class="dropdown-item" type="button">
                             <a href="${pageContext.request.contextPath}/logout"><button class="dropdown-item" type="button">Logout</button></a>
-                            <a href="/SWP391_OnlineShop_G4/view/profilePage.jsp"><button class="dropdown-item" type="button">My Profile</button></a>
+                            <a href="${pageContext.request.contextPath}/profile"><button class="dropdown-item" type="button">My Profile</button></a>
                             <% } %>
                     </div>
                 </div>
@@ -115,7 +115,7 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto py-0">
-                        <a href="/SWP391_OnlineShop_G4/view/homePage.jsp" class="nav-item nav-link active">Home</a>
+                        <a href="${pageContext.request.contextPath}/Home" class="nav-item nav-link active">Home</a>
                         <a href="#" class="nav-item nav-link">Shop</a>
                         <a href="#" class="nav-item nav-link">Shop Detail</a>
                         <div class="nav-item dropdown">
