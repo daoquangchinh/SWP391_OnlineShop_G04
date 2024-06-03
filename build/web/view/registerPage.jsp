@@ -47,7 +47,6 @@
                 color: red;
                 font-size: 14px;
             }
-            
         </style>
     </head>
     <body id="top">
@@ -80,11 +79,15 @@
                                 <a href="/SWP391_OnlineShop_G4/view/registerPage.jsp" class="link-btn btn-2 active-bg">Register</a>
                             </div>
                             <div class="login-inner-form">
-                                <form action="${pageContext.request.contextPath}/register" method="POST">
+                                <form action="${pageContext.request.contextPath}/register" method="POST" >
                                     <% 
                                        User u = (User) request.getAttribute("u"); 
                                        String messEmail = (String) request.getAttribute("messEmail");
                                        String messPhone = (String) request.getAttribute("messPhone");
+                                       String messconfPassword = (String) request.getAttribute("messconfPassword");
+                                       String messpass = (String) request.getAttribute("messpass");
+                                       String confPassword = (String) request.getAttribute("confPassword");
+
                                     %>
 
                                     <div class="form-group form-box">
@@ -96,16 +99,16 @@
                                         <input type="email" name="email"  class="input-text" required="" placeholder="Email Address" value="<%= u != null ? u.getEmail() : "" %>">
                                         <i class="flaticon-mail-2"></i>
                                         <% if (messEmail != null) { %>
-                                        <div class="error-message"><%= messEmail %></div>
+                                        <div id="error-message-email" class="error-message"><%= messEmail %></div>
                                         <% } %>
                                     </div>
 
                                     <div class="form-group form-box">
-                                        <input type="number" name="phone"  class="input-text" required="" placeholder="Number Phone" value="<%= u != null ? u.getPhone() : "" %>">
+                                        <input type="number" name="phone" class="input-text" required="" placeholder="Number Phone" value="<%= u != null ? u.getPhone() : "" %>">
                                         <i class="flaticon-phone"></i>
                                         <% if (messPhone != null) { %>
-                                        <div class="error-message"><%= messPhone %></div>
-                                        <% } %>                                     
+                                        <div id="error-message-phone" class="error-message"><%= messPhone %></div>
+                                        <% } %>  
                                     </div>
 
                                     <div class="form-group form-box">
@@ -114,36 +117,36 @@
                                     </div>
 
                                     <div class="form-group form-box">
-                                        <input type="password" name="password"  class="input-text" required="" placeholder="Password">
+                                        <input type="password" id="password" name="password"  class="input-text" required="" placeholder=" Password"value="<%= u != null ? u.getPassword() : "" %>">
                                         <i class="flaticon-password"></i>
-                                        
-                                        
-                                        
+                                        <% if (messpass != null) { %>
+                                        <div id="error-message-phone" class="error-message"><%= messpass %></div>
+                                        <% } %>
                                     </div> 
-                                    
+
                                     <div class="form-group form-box">
-                                        <input type="password" name="password"  class="input-text" required="" placeholder="Check password">
+                                        <input type="password" id="confPassword" name="confPassword" class="input-text" required="" placeholder="Confirm Password" value="<%= confPassword != null && !confPassword.equals("") ? confPassword : "" %>">
                                         <i class="flaticon-password"></i>
-                                        
-                                        
-                                        
+                                        <% if (messconfPassword != null) { %>
+                                        <div id="error-message-phone" class="error-message"><%= messconfPassword %></div>
+                                        <% } %>
                                     </div> 
-                                    <div class="col d-flex justify-content-center align-items-center">
+                                    <div class="checkbox clearfix">
                                         <!-- Checkbox -->
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="showPassword" onclick="togglePasswordVisibility()" checked="">
+                                            <input class="form-check-input" type="checkbox" id="showPassword" value="" onclick="togglePasswordVisibility()" >
                                             <label class="form-check-label" for="showPassword">Show pass</label>
                                         </div>
                                     </div>
 
                                     <div class="input-group">
-                                        <label class="label">Gender:   </label>
+                                        <label  class="form-check-label" for="rememberMe">Gender:   </label>
                                         <div class="p-t-10">
-                                            <label class="radio-container m-r-45">Male
-                                                <input type="radio" name="gender" value="male" <%= u != null && "male".equals(u.getGender()) ? "checked" : "" %>>
+                                            <label  class="form-check-label" for="rememberMe">Male
+                                                <input type="radio" name="gender" value="male"   checked=""<%= u != null && "male".equals(u.getGender()) ? "checked" : "" %>>
                                                 <span class="checkmark"></span>
                                             </label>
-                                            <label class="radio-container">Female
+                                            <label  class="form-check-label" for="rememberMe">Female
                                                 <input type="radio" name="gender" value="female" <%= u != null && "female".equals(u.getGender()) ? "checked" : "" %>>
                                                 <span class="checkmark"></span>
                                             </label>

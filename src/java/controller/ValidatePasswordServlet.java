@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
+import modal.MaHoa;
 
 /**
  *
@@ -22,11 +23,13 @@ public class ValidatePasswordServlet extends HttpServlet{
 
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String value = request.getParameter("passValue");
+        MaHoa ma = new MaHoa();
         
         // Get the current session
-        HttpSession session = request.getSession();
-        String newPass = (String) session.getAttribute("passGen");
-
+        HttpSession mysession = request.getSession();
+        String newPass = (String) mysession.getAttribute("passGen");
+//        newPass = ma.toSHA1(newPass);
+        value = ma.toSHA1(value);
         RequestDispatcher dispatcher = null;
         
         // Check if user enter new password correct

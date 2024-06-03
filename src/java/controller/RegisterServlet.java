@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package controller;
 
 import DAO.DAO;
@@ -10,23 +6,11 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import modal.MaHoa;
 import modal.User;
 
-/**
- *
- * @author ViQuan
- */
 public class RegisterServlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -35,70 +19,62 @@ public class RegisterServlet extends HttpServlet {
         String phone = request.getParameter("phone");
         String img = request.getParameter("img");
         String password = request.getParameter("password");
+        String confPassword = request.getParameter("confPassword");
         String gender = request.getParameter("gender");
+        boolean check = false;
         User u = new User(0, email, password, fullname, gender, phone, email, img, 2, 0);
         DAO dao = new DAO();
+        MaHoa ma = new MaHoa();
+
         if (dao.checkUserbyEmail(email)) {
             request.setAttribute("messEmail", "Email này đã tồn tại!!");
-            
-            
-
-        }else if (dao.getUserbyPhone(phone)) {
-                request.setAttribute("messPhone", "Số điện thoại đã tồn tại!!");
-                request.setAttribute("empty", "Vui lòng nhập thông tin");
-                request.setAttribute("u", u);
-            }
-        else{
-             dao.setUser(u);
+            check = true;
         }
-        request.getRequestDispatcher("view/registerPage.jsp").forward(request, response);
+
+        if (dao.getUserbyPhone(phone)) {
+            request.setAttribute("messPhone", "Số điện thoại đã tồn tại!!");
+            check = true;
+        }
+        if (!phone.matches("(?:\\d{10}|\\d{3}-\\d{3}-\\d{4}|\\(\\d{3}\\)-\\d{3}-\\d{4}|\\d{3}\\.\\d{3}\\.\\d{4}|\\d{3} \\d{3} \\d{4}|\\d{3}-\\d{3}-\\d{4} (x|ext)\\d{4})")) {
+            request.setAttribute("messPhone", "Invalid phone number format.");
+            check = true;
+        }
+        if (!password.matches("^(?=.*[!@#$%^&*])[A-Za-z\\d!@#$%^&*]{8,}$")) {
+            request.setAttribute("messpass", "Password must be at least 8 characters long and contain at least one special character.");
+
+            check = true;
+        }
+
+        if (!password.equals(confPassword)) {
+            request.setAttribute("messconfPassword", "Passwords do not match.");
+            check = true;
+        }
+        if (check) {
+            request.setAttribute("confPassword", confPassword);
+            request.setAttribute("u", u);
+            request.getRequestDispatcher("view/registerPage.jsp").forward(request, response);
+            return;
+        }
+        password =  ma.toSHA1(password);
+        u.setPassword(password);
+        dao.setUser(u);
         response.sendRedirect("view/loginPage.jsp");
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
-
-    public static void main(String[] args) {
-        DAO dao = new DAO();
-        if (dao.checkUserbyEmail("quanc@fpt") == true) {
-            System.out.println("dfghj");
-        }
-        dao.setUser(new User(0, "quannc@fpt", "123", "quannguyenvi", "male", "123456789", "quagbhj", "vbhnj", 2, 1));
     }
 }

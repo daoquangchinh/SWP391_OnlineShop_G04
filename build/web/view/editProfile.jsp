@@ -68,29 +68,30 @@
     </head>
 
     <body id="top">
+        <jsp:include page="homeTag.jsp"></jsp:include>
         <%
       // Lấy đối tượng user từ session
       User u = (User) session.getAttribute("acc");
       String phone = (String) request.getAttribute("phone");
       String messPhone = (String) request.getAttribute("messPhone");
-      String messEmail = (String) request.getAttribute("messEmail");
+      String fullname = (String) request.getAttribute("fullname");
 
       // Kiểm tra xem người dùng có đăng nhập không
       if (u != null) {
-        
-   String imgSrc = u.getImg();
+      String displayedFullName = (fullname != null && !fullname.isEmpty()) ? fullname : u.getFullname();
+      String imgSrc = u.getImg();
    if (imgSrc == null || imgSrc.isEmpty()) {
        imgSrc = "https://cellphones.com.vn/sforum/wp-content/uploads/2023/10/avatar-trang-4.jpg";
    }
         %>
-        <jsp:include page="homeTag.jsp"></jsp:include>
 
-            <h1>User Profile</h1>
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="card mb-4">
-                        <div class="card-body text-center">
-                            <img src="<%= imgSrc %>" alt="avatar"
+
+        <h1>User Profile</h1>
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card mb-4">
+                    <div class="card-body text-center">
+                        <img src="<%= imgSrc %>" alt="avatar"
                              class="rounded-circle img-fluid">
                         <h5 class="my-3"><%= u.getUsername() %></h5>
                     </div>
@@ -137,7 +138,7 @@
                                 </div>
                                 <div class="col-sm-9 ">
                                     <div class="form-group  ">
-                                        <input type="text" name="fullname"  class="input-text form-box" required="" placeholder="Full Name" required="" value="<%= u != null ? u.getFullname() : "" %>">
+                                        <input type="text" name="fullname"  class="input-text form-box" required="" placeholder="Full Name" required="" value="<%= displayedFullName %>">
                                         <i class="flaticon-user"></i>
                                     </div>  
                                 </div>
@@ -152,10 +153,8 @@
                                     <div class="form-group " >
                                         <p type="email" name="email"  class="input-text form-box" required="" placeholder="Email Address" ><%=u.getEmail()%></p>
                                         <i class="flaticon-mail-2"></i>
-                                        <% if (messEmail != null) { %>
-                                        <div class="error-message"><%= messEmail %></div>
-                                        <% } %>
-                                    </div>                            </div>
+                                    </div>                            
+                                </div>
                             </div>
                             <hr>
                             <div class="row">
@@ -166,10 +165,10 @@
                                     <div class="form-group">
                                         <input type="number" name="phone"  class="input-text form-box" required="" placeholder="Number Phone" value="<%= phone != null ?  phone : u.getPhone() %>">
                                         <i class="flaticon-phone"></i>
+                                    </div>       <br> <br> 
                                         <% if (messPhone != null) { %>
                                         <div class="error-message"><%= messPhone %></div>
-                                        <% } %>                                     
-                                    </div>                            
+                                        <% } %>
                                 </div>
                             </div>
                             <hr>

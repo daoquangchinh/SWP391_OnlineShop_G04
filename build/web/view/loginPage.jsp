@@ -21,7 +21,7 @@
                 f.parentNode.insertBefore(j, f);
             })(window, document, 'script', 'dataLayer', 'GTM-TAGCODE');</script>
         <!-- End Google Tag Manager -->
-         <title>ShoeShop - Online Shop </title>
+        <title>ShoeShop - Online Shop </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <!-- External CSS libraries -->
@@ -50,6 +50,7 @@
     <body id="top">
         <% 
                                       String mess = (String) request.getAttribute("mess");
+                                      String name = (String) request.getAttribute("name");
         %>
         <!-- Google Tag Manager (noscript) -->
         <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TAGCODE"
@@ -82,16 +83,23 @@
                             <div class="login-inner-form">
                                 <form action="${pageContext.request.contextPath}/login" method="POST">
                                     <div class="form-group form-box">
-                                        <input type="text" name="name" class="input-text" placeholder="Email Address" required="">
+                                        <input type="text" name="name" class="input-text" placeholder="Email Address" value="<%= name != null ? name : "" %>"required="">
                                         <i class="flaticon-mail-2"></i>
                                     </div>
                                     <div class="form-group form-box">
-                                        <input type="password" name="pass" class="input-text" placeholder="Password" required="">
+                                        <input type="password" name="pass" class="input-text" id="password"  placeholder="Password" required="">
                                         <i class="flaticon-password"></i>
                                     </div>
                                     <% if (mess != null) { %>
                                     <div class="error-message"><%= mess %></div>
                                     <% } %>
+                                    <div class="checkbox clearfix">
+                                        <!-- Checkbox -->
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="showPassword" value="" onclick="togglePasswordVisibility()" >
+                                            <label class="form-check-label" for="showPassword">Show pass</label>
+                                        </div>
+                                    </div>
                                     <div class="checkbox clearfix">
                                         <div class="form-check checkbox-theme">
                                             <input class="form-check-input" type="checkbox" value="" id="rememberMe">
@@ -129,7 +137,20 @@
             </div>
         </div>
         <!-- Login 11 end -->
-
+        <script>
+            function togglePasswordVisibility() {
+                var passwordField = document.getElementById('password');
+                var confPasswordField = document.getElementById('confPassword');
+                var showPasswordCheckbox = document.getElementById('showPassword');
+                if (showPasswordCheckbox.checked) {
+                    passwordField.type = 'text';
+                    confPasswordField.type = 'text';
+                } else {
+                    passwordField.type = 'password';
+                    confPasswordField.type = 'password';
+                }
+            }
+        </script>
         <!-- External JS libraries -->
         <script src="${pageContext.request.contextPath}/assets_lg/js/jquery-2.2.0.min.js"></script>
         <script src="${pageContext.request.contextPath}/assets_lg/js/popper.min.js"></script>
