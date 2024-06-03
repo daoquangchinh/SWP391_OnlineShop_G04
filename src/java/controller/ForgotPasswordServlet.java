@@ -4,6 +4,7 @@
  */
 package controller;
 
+import DAO.DAO;
 import DAO.UserDAO;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -41,11 +42,15 @@ public class ForgotPasswordServlet extends HttpServlet {
         RequestDispatcher dispatcher = null;
         HttpSession mySession = request.getSession();
         UserDAO userDAO = new UserDAO();
+        DAO dao = new DAO();
         MaHoa ma = new MaHoa();
         if (email != null || !email.equals("")) {
+            if (!dao.checkUserbyEmail(email)) {
+                request.setAttribute("error", "email không tồn tại");
+                request.getRequestDispatcher("view/forgotPassword.jsp").forward(request, response);
+            }
             // sending new password
             String passGen = generateRandomPassword(8);
-
             String to = email;// change accordingly
             // Get the session object
             Properties props = new Properties();
