@@ -68,9 +68,15 @@
                             <div class="form-group mb-0">
                                 <button type="submit" class="btn-md btn-theme btn-block">Send Me Email</button>
                             </div>
+                            <div class="form-group mb-0">
+                                <% if (request.getAttribute("error") != null) { 
+                                    out.print("<p class='text-danger ml-1'>" + request.getAttribute("error") + "</p>"); 
+                                } %>
+                            </div>
                         </form>
                     </div>
                 </div>
+                        
             </div>
         </div>
     </div>
