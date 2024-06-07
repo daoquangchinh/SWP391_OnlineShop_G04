@@ -14,34 +14,40 @@ public class RegisterServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String fullname = request.getParameter("fullname");
-        String email = request.getParameter("email");
-        String phone = request.getParameter("phone");
-        String img = request.getParameter("img");
-        String password = request.getParameter("password");
-        String confPassword = request.getParameter("confPassword");
-        String gender = request.getParameter("gender");
+        String fullname = request.getParameter("fullname").trim();
+        String email = request.getParameter("email").trim();
+        String phone = request.getParameter("phone").trim();
+        String img = request.getParameter("img").trim();
+        String password = request.getParameter("password").trim();
+        String confPassword = request.getParameter("confPassword").trim();
+        String gender = request.getParameter("gender").trim();
         boolean check = false;
         User u = new User(0, email, password, fullname, gender, phone, email, img, 2, 0);
         DAO dao = new DAO();
         MaHoa ma = new MaHoa();
+         if (fullname.isEmpty()) {
+            request.setAttribute("messName", " Full name cannot be empty!!");
+            check = true;
+        }
 
         if (dao.checkUserbyEmail(email)) {
-            request.setAttribute("messEmail", "Email này đã tồn tại!!");
+            request.setAttribute("messEmail", "This email already exists!!");
             check = true;
         }
-
+        if (!dao.isValidEmail(email)) {
+            request.setAttribute("messEmail", "Email must be in correct form!!");
+            check = true;
+        }
         if (dao.getUserbyPhone(phone)) {
-            request.setAttribute("messPhone", "Số điện thoại đã tồn tại!!");
+            request.setAttribute("messPhone", "Phone number already exists!!");
             check = true;
         }
-        if (!phone.matches("(?:\\d{10}|\\d{3}-\\d{3}-\\d{4}|\\(\\d{3}\\)-\\d{3}-\\d{4}|\\d{3}\\.\\d{3}\\.\\d{4}|\\d{3} \\d{3} \\d{4}|\\d{3}-\\d{3}-\\d{4} (x|ext)\\d{4})")) {
+        if (!dao.isValidPhoneNumber(phone)) {
             request.setAttribute("messPhone", "Invalid phone number format.");
             check = true;
         }
         if (!password.matches("^(?=.*[!@#$%^&*])[A-Za-z\\d!@#$%^&*]{8,}$")) {
             request.setAttribute("messpass", "Password must be at least 8 characters long and contain at least one special character.");
-
             check = true;
         }
 
@@ -55,7 +61,7 @@ public class RegisterServlet extends HttpServlet {
             request.getRequestDispatcher("view/registerPage.jsp").forward(request, response);
             return;
         }
-        password =  ma.toSHA1(password);
+        password = ma.toSHA1(password);
         u.setPassword(password);
         dao.setUser(u);
         response.sendRedirect("view/loginPage.jsp");

@@ -75,7 +75,7 @@
       String phone = (String) request.getAttribute("phone");
       String messPhone = (String) request.getAttribute("messPhone");
       String fullname = (String) request.getAttribute("fullname");
-
+      String messname = (String) request.getAttribute("messname");
       // Kiểm tra xem người dùng có đăng nhập không
       if (u != null) {
       String displayedFullName = (fullname != null && !fullname.isEmpty()) ? fullname : u.getFullname();
@@ -140,6 +140,10 @@
                                     <div class="form-group  ">
                                         <input type="text" name="fullname"  class="input-text form-box" required="" placeholder="Full Name" required="" value="<%= displayedFullName %>">
                                         <i class="flaticon-user"></i>
+                                         <br> <br> 
+                                        <% if (messname != null) { %>
+                                        <div class="error-message"><%= messname %></div>
+                                        <% } %>
                                     </div>  
                                 </div>
                             </div>

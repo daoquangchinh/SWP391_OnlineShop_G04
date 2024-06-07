@@ -55,7 +55,7 @@
                 <div class="form-section">
                     <div class="logo clearfix">
                         <a href="login-11.html">
-                            <img src="${pageContext.request.contextPath}/assets_lg/img/logos/logo-2.png" alt="logo">
+                            <img src="${pageContext.request.contextPath}/assets_lg/img/logos/logo.jpg" alt="logo">
                         </a>
                     </div>
                     <h3>Recover your password</h3>

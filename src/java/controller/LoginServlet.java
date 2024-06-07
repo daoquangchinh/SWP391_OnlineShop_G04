@@ -32,15 +32,23 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        int check = 0;
-        Integer sCheck = (Integer) session.getAttribute("check"); // Ép kiểu Object về Integer
-
-        String name = request.getParameter("name");
-        String pass = request.getParameter("pass");
         MaHoa ma = new MaHoa();
-        pass = ma.toSHA1(pass);
-        DAO dao = new DAO();
+        int check = 0;
+        Integer sCheck = (Integer) session.getAttribute("check");
+        String name = request.getParameter("name").trim();
+        String pass = request.getParameter("pass").trim();
+        request.setAttribute("name", name);
 
+        DAO dao = new DAO();
+        if (!dao.isValidEmail(name) || !dao.checkUserbyEmail(name)) {
+            request.setAttribute("mess", "Please check your email again.");
+            doGet(request, response);
+        }
+        if (pass == null || pass.isEmpty()) {
+            request.setAttribute("mess", "Password is not empty.");
+            doGet(request, response);
+        }
+        pass = ma.toSHA1(pass);
         User u = dao.getlogin(name, pass);
         if (u.getUsername() == null) {
             if (sCheck != null) { // Kiểm tra xem giá trị thuộc tính đã tồn tại trong session chưa
@@ -53,9 +61,9 @@ public class LoginServlet extends HttpServlet {
 
             }
             session.setAttribute("check", check);
-            request.setAttribute("mess", "Vui long kiểm tra lại thông tin.");
+            request.setAttribute("mess", "Please check your password again.");
             request.setAttribute("name", name);
-            request.getRequestDispatcher("view/loginPage.jsp").forward(request, response);
+            doGet(request, response);
         } else {
             session.removeAttribute("check");
             session.setAttribute("acc", u);

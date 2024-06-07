@@ -11,6 +11,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import modal.User;
 
 /**
@@ -117,8 +119,44 @@ public class DAO {
         }
         return true;
     }
-//Quannvhe172350: insert thông tin vao bang users
 
+    //Quannvhe172350: tìm kiếm phone khi có mail 
+    public boolean checkPhone(String phone, String email) {
+        String query = "SELECT *\n"
+                + "FROM [dbo].[users]\n"
+                + "WHERE phone = ? AND email <> ?;";
+        List<User> listUser = new ArrayList<>();
+
+        try {
+            conn = new DBContext().getConnection();//mo ket noi voi sql
+            ps = conn.prepareStatement(query);
+            ps.setString(1, phone);
+            ps.setString(2, email);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                listUser.add(new User(
+                        rs.getInt("id"),
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getString("fullname"),
+                        rs.getString("gender"),
+                        rs.getString("phone"),
+                        rs.getString("email"),
+                        rs.getString("img"),
+                        rs.getInt("role_id"),
+                        rs.getInt("Status")
+                ));
+            }
+            if (listUser.isEmpty()) {
+                return false;
+            }
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+        return true;
+    }
+
+//Quannvhe172350: insert thông tin vao bang users
     public boolean setUser(User u) {
         String query = "INSERT INTO users (username, [password], fullname, gender, phone, email, img, role_id, Status) "
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
@@ -201,7 +239,7 @@ public class DAO {
         }
         return false;
     }
-    
+
 //Quannvhe172350:lay thông tin user theo tài khoản và mật khẩu 
     public User getlogin(String name, String pass) {
         String query = "SELECT * FROM users where email= ? and password = ? ";
@@ -233,4 +271,30 @@ public class DAO {
         }
         return u;
     }
+
+    public boolean isValidEmail(String email) {
+        String EMAIL_PATTERN = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        if (email == null) {
+            return false;
+        }
+        Pattern pattern = Pattern.compile(EMAIL_PATTERN);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
+
+    public boolean checkPass(String pass) {
+        return pass != null;
+    }
+
+    public boolean isValidPhoneNumber(String phoneNumber) {
+        String PHONE_PATTERN = "^0\\d{9,10}$";
+        if (phoneNumber == null) {
+            return false;
+        }
+
+        Pattern pattern = Pattern.compile(PHONE_PATTERN);
+        Matcher matcher = pattern.matcher(phoneNumber);
+        return matcher.matches();
+    }
+
 }

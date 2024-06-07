@@ -28,25 +28,29 @@ public class EdProfileServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         DAO dao = new DAO();
         HttpSession session = request.getSession();
         User u = (User) session.getAttribute("acc");
 
-        String fullname = request.getParameter("fullname");
+        String fullname = request.getParameter("fullname").trim();
         String email = u.getEmail();
-        String phone = request.getParameter("phone");
+        String phone = request.getParameter("phone").trim();
         String img = request.getParameter("img");
-        String password = u.getPassword();
+        String password = u.getPassword().trim();
         String gender = request.getParameter("gender");
         boolean check = false;
-        if (dao.getUserbyPhone(phone)) {
-            request.setAttribute("messPhone", "Số điện thoại đã tồn tại!!");
+        if(fullname.isEmpty()){
+            request.setAttribute("messname", "Full name cannot be empty");
             check = true;
         }
-        if (!phone.matches("(?:\\d{10}|\\d{3}-\\d{3}-\\d{4}|\\(\\d{3}\\)-\\d{3}-\\d{4}|\\d{3}\\.\\d{3}\\.\\d{4}|\\d{3} \\d{3} \\d{4}|\\d{3}-\\d{3}-\\d{4} (x|ext)\\d{4})")) {
+        if (dao.checkPhone(phone, email)) {
+            request.setAttribute("messPhone", "Phone number already exists!!");
+            check = true;
+        }
+        if (!dao.isValidPhoneNumber(phone)) {
             request.setAttribute("messPhone", "Invalid phone number format.");
             check = true;
         }

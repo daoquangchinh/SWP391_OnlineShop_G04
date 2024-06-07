@@ -28,16 +28,15 @@
         <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/assets_lg/css/bootstrap.min.css">
         <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/assets_lg/fonts/font-awesome/css/font-awesome.min.css">
         <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/assets_lg/fonts/flaticon/font/flaticon.css">
-
         <!-- Favicon icon -->
-        <link rel="shortcut icon" href="${pageContext.request.contextPath}/assets_lg/img/favicon.ico" type="image/x-icon" >
+        <link rel="shortcut icon" href="${pageContext.request.contextPath}/assets_lg/img/favicon.jpg" type="image/x-icon" >
 
         <!-- Google fonts -->
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800%7CPoppins:400,500,700,800,900%7CRoboto:100,300,400,400i,500,700">
 
         <!-- Custom Stylesheet -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
         <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/assets_lg/css/style.css">
-        <link rel="stylesheet" type="text/css" id="style_sheet" href="${pageContext.request.contextPath}/assets_lg/css/skins/default.css">
         <style>
             .error-message {
                 color: red;
@@ -61,18 +60,27 @@
         <!-- Login 11 start -->
         <div class="login-11">
             <div class="container-fluid">
+                <div class="login-11">
+                    <div class="container-fluid">
+                        <!-- Thêm biểu tượng home từ Font Awesome -->
+                        <a class="active" href="${pageContext.request.contextPath}/Home">
+                            <i class="fas fa-home">Home</i>
+                        </a>
+                        <!-- Các phần còn lại của mã HTML không thay đổi -->
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-lg-6 col-md-12 bg-img none-992">
                         <div class="info">
-                            <h1>Welcome to Logee</h1>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the.</p>
+                            <h1>Welcome to Shop</h1>
+                            <p>Your destination for stylish and high-quality shoes. From athletic to office shoes, we have the perfect options for you. Visit Shop today!</p>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-12 bg-color-13">
                         <div class="form-section">
                             <div class="logo clearfix">
-                                <a href="#">
-                                    <img src="${pageContext.request.contextPath}/assets_lg/img/logos/logo-2.png" alt="logo">
+                                <a href="${pageContext.request.contextPath}/login">
+                                    <img src="${pageContext.request.contextPath}/assets_lg/img/logos/logo.jpg" alt="logo">
                                 </a>
                             </div>
                             <h3>Sign into your account</h3>
@@ -83,11 +91,11 @@
                             <div class="login-inner-form">
                                 <form action="${pageContext.request.contextPath}/login" method="POST">
                                     <div class="form-group form-box">
-                                        <input type="text" name="name" class="input-text" placeholder="Email Address" value="<%= name != null ? name : "" %>"required="">
+                                        <input type="text" name="name" class="input-text" placeholder="Email Address" value="<%= name != null ? name : "" %>">
                                         <i class="flaticon-mail-2"></i>
                                     </div>
                                     <div class="form-group form-box">
-                                        <input type="password" name="pass" class="input-text" id="password"  placeholder="Password" required="">
+                                        <input type="password" name="pass" class="input-text" id="password"  placeholder="Password" >
                                         <i class="flaticon-password"></i>
                                     </div>
                                     <% if (mess != null) { %>
@@ -96,7 +104,7 @@
                                     <div class="checkbox clearfix">
                                         <!-- Checkbox -->
                                         <div class="form-check checkbox-theme">
-                                            <input class="form-check-input" type="checkbox" id="showPassword" value="" onclick="togglePasswordVisibility()" >
+                                            <input class="form-check-input" type="checkbox" id="showPassword" name="showPassword"   onclick="togglePasswordVisibility()" >
                                             <label class="form-check-label" for="showPassword">Show pass</label>
                                         </div>
                                     </div>
@@ -114,7 +122,7 @@
                                     </div>
                                 </form>
                             </div>
-                            <div class="social-list">
+<!--                            <div class="social-list">
                                 <a href="#" class="facebook-bg">
                                     <i class="fa fa-facebook"></i>
                                 </a>
@@ -130,7 +138,7 @@
                                 <a href="#" class="pinterest-bg">
                                     <i class="fa fa-pinterest"></i>
                                 </a>
-                            </div>
+                            </div>-->
                         </div>
                     </div>
                 </div>

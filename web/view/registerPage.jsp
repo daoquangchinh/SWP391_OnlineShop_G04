@@ -69,8 +69,8 @@
                     <div class="col-lg-6 col-md-12 bg-color-13">
                         <div class="form-section">
                             <div class="logo clearfix">
-                                <a href="#">
-                                    <img src="${pageContext.request.contextPath}/assets_lg/img/logos/logo-2.png" alt="logo">
+                                <a href="${pageContext.request.contextPath}/register">
+                                    <img src="${pageContext.request.contextPath}/assets_lg/img/logos/logo-2.jpg" alt="logo">
                                 </a>
                             </div>
                             <h3>Create an account</h3>
@@ -82,6 +82,7 @@
                                 <form action="${pageContext.request.contextPath}/register" method="POST" >
                                     <% 
                                        User u = (User) request.getAttribute("u"); 
+                                       String messName = (String) request.getAttribute("messName");
                                        String messEmail = (String) request.getAttribute("messEmail");
                                        String messPhone = (String) request.getAttribute("messPhone");
                                        String messconfPassword = (String) request.getAttribute("messconfPassword");
@@ -91,12 +92,15 @@
                                     %>
 
                                     <div class="form-group form-box">
-                                        <input type="text" name="fullname"  class="input-text" required="" placeholder="Full Name" required="" value="<%= u != null ? u.getFullname() : "" %>">
+                                        <input type="text" name="fullname"  class="input-text"  placeholder="Full Name"  value="<%= u != null ? u.getFullname() : "" %>">
                                         <i class="flaticon-user"></i>
+                                        <% if (messName != null) { %>
+                                        <div id="error-message-email" class="error-message"><%= messName %></div>
+                                        <% } %>
                                     </div>  
 
                                     <div class="form-group form-box">
-                                        <input type="email" name="email"  class="input-text" required="" placeholder="Email Address" value="<%= u != null ? u.getEmail() : "" %>">
+                                        <input type="text" name="email"  class="input-text"  placeholder="Email Address" value="<%= u != null ? u.getEmail() : "" %>">
                                         <i class="flaticon-mail-2"></i>
                                         <% if (messEmail != null) { %>
                                         <div id="error-message-email" class="error-message"><%= messEmail %></div>
@@ -104,7 +108,7 @@
                                     </div>
 
                                     <div class="form-group form-box">
-                                        <input type="number" name="phone" class="input-text" required="" placeholder="Number Phone" value="<%= u != null ? u.getPhone() : "" %>">
+                                        <input type="number" name="phone" class="input-text"  placeholder="Number Phone" value="<%= u != null ? u.getPhone() : "" %>">
                                         <i class="flaticon-phone"></i>
                                         <% if (messPhone != null) { %>
                                         <div id="error-message-phone" class="error-message"><%= messPhone %></div>
@@ -117,7 +121,7 @@
                                     </div>
 
                                     <div class="form-group form-box">
-                                        <input type="password" id="password" name="password"  class="input-text" required="" placeholder=" Password"value="<%= u != null ? u.getPassword() : "" %>">
+                                        <input type="password" id="password" name="password"  class="input-text"  placeholder=" Password"value="<%= u != null ? u.getPassword() : "" %>">
                                         <i class="flaticon-password"></i>
                                         <% if (messpass != null) { %>
                                         <div id="error-message-phone" class="error-message"><%= messpass %></div>
@@ -125,7 +129,7 @@
                                     </div> 
 
                                     <div class="form-group form-box">
-                                        <input type="password" id="confPassword" name="confPassword" class="input-text" required="" placeholder="Confirm Password" value="<%= confPassword != null && !confPassword.equals("") ? confPassword : "" %>">
+                                        <input type="password" id="confPassword" name="confPassword" class="input-text"  placeholder="Confirm Password" value="<%= confPassword != null && !confPassword.equals("") ? confPassword : "" %>">
                                         <i class="flaticon-password"></i>
                                         <% if (messconfPassword != null) { %>
                                         <div id="error-message-phone" class="error-message"><%= messconfPassword %></div>

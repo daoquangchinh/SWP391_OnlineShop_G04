@@ -29,7 +29,8 @@ public class MaHoa {
 		return result;
 	}
 
-	public  void main(String[] args) {
-		System.out.println(toSHA1("nTLTqY8X"));
+	public static void main(String[] args) {
+            MaHoa ma =new MaHoa();
+		System.out.println(ma.toSHA1("sfgh"));
 	}
 }
