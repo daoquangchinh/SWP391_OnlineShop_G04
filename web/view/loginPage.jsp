@@ -79,8 +79,9 @@
                     <div class="col-lg-6 col-md-12 bg-color-13">
                         <div class="form-section">
                             <div class="logo clearfix">
+
                                 <a href="${pageContext.request.contextPath}/login">
-                                    <img src="${pageContext.request.contextPath}/assets_lg/img/logos/logo.jpg" alt="logo">
+                                    <img src="${pageContext.request.contextPath}/assets_lg/img/nike.jpg" alt="logo">
                                 </a>
                             </div>
                             <h3>Sign into your account</h3>

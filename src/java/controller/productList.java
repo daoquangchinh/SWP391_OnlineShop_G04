@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import modal.Shoe;
 
@@ -46,7 +47,19 @@ public class productList extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-                    request.getRequestDispatcher("view/productList.jsp").forward(request, response);
+        String sortOption = request.getParameter("sort");
+        String priceRange = request.getParameter("price");
+        String sizeRaw = request.getParameter("size");
+        String brand = request.getParameter("Brand");
+        String sports = request.getParameter("Sports");
+        String color = request.getParameter("Color");
+        String gender = request.getParameter("Gender");
+
+        ShoeDAO pd = new ShoeDAO();
+        List<Shoe> filteredShoes = pd.getFilteredShoes(priceRange, sizeRaw, brand, sports, color, gender, sortOption);
+
+        request.setAttribute("MenuChose", filteredShoes);
+        request.getRequestDispatcher("view/productList.jsp").forward(request, response);
     }
 
 }

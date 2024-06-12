@@ -25,4 +25,7 @@ function toggleShoeSports() {
     shoeSports.classList.toggle('collapsed');
 }
 
-
+function toggleShoeGen() {
+    var shoeGen = document.querySelector('.shoe-gen');
+    shoeGen.classList.toggle('collapsed');
+}

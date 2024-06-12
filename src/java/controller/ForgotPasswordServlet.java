@@ -74,8 +74,8 @@ public class ForgotPasswordServlet extends HttpServlet {
                     MimeMessage message = new MimeMessage(session);
                     message.setFrom(new InternetAddress(email)); // Set the sender's email address
                     message.addRecipient(Message.RecipientType.TO, new InternetAddress(to)); // Set the recipient's email address
-                    message.setSubject("Xin chào!"); // Set the email subject
-                    message.setText("Mật khẩu mới của bạn là: " + passGen); // Set the email content
+                    message.setSubject("Hello!"); // Set the email subject
+                    message.setText("Your new password is: " + passGen); // Set the email content
 
                     // Send the message
                     transport.connect(); // Connect to the mail server
@@ -90,7 +90,7 @@ public class ForgotPasswordServlet extends HttpServlet {
             passGen = ma.toSHA1(passGen);
             userDAO.updatePassword(email, passGen);
             dispatcher = request.getRequestDispatcher("view/EnterNewPassword.jsp");
-            request.setAttribute("message", "Mat khau moi da duoc gui den ban , vui long kiem tra email");
+            request.setAttribute("message", "The key has been sent to you, please check your email");
             mySession.setAttribute("passGen", passGen);
             mySession.setMaxInactiveInterval(300);
             mySession.setAttribute("email", email);
