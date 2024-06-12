@@ -72,7 +72,7 @@
                         <div class="form-section">
                             <div class="logo clearfix">
                                 <a href="#">
-                                    <img src="${pageContext.request.contextPath}/assets_lg/img/logos/logo-2.png" alt="logo">
+                                    <img src="${pageContext.request.contextPath}/assets_lg/img/nike.jpg" alt="logo">
                                 </a>
                             </div>
                             <h3>Sign into your account</h3>

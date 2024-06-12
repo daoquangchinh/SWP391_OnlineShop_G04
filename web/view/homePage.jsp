@@ -48,31 +48,31 @@
                             </ol>
                             <div class="carousel-inner">
                                 <div class="carousel-item position-relative active" style="height: 430px;">
-                                    <img class="position-absolute w-100 h-100" src="${pageContext.request.contextPath}/assets_h/img/carousel-1.jpg" style="object-fit: cover;">
+                                    <img class="position-absolute w-100 h-100" src="${pageContext.request.contextPath}/img/img_sports/men.jpg" style="object-fit: cover;">
                                 <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                                     <div class="p-3" style="max-width: 700px;">
                                         <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">Men Fashion ${listBrands.size()}</h1>
-                                        <p class="mx-md-5 px-5 animate__animated animate__bounceIn">Lorem rebum magna amet lorem magna erat diam stet. Sadips duo stet amet amet ndiam elitr ipsum diam</p>
+                                        <p class="mx-md-5 px-5 animate__animated animate__bounceIn">iscover the latest trends in men's fashion with our exclusive collection. Stylish, modern, and designed for comfort.</p>
                                         <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="#">Shop Now</a>
                                     </div>
                                 </div>
                             </div>
                             <div class="carousel-item position-relative" style="height: 430px;">
-                                <img class="position-absolute w-100 h-100" src="${pageContext.request.contextPath}/assets_h/img/carousel-2.jpg" style="object-fit: cover;">
+                                <img class="position-absolute w-100 h-100" src="${pageContext.request.contextPath}/img/img_sports/women.jpg" style="object-fit: cover;">
                                 <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                                     <div class="p-3" style="max-width: 700px;">
                                         <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">Women Fashion</h1>
-                                        <p class="mx-md-5 px-5 animate__animated animate__bounceIn">Lorem rebum magna amet lorem magna erat diam stet. Sadips duo stet amet amet ndiam elitr ipsum diam</p>
+                                        <p class="mx-md-5 px-5 animate__animated animate__bounceIn">Explore our chic and elegant women's fashion collection. Perfect for every occasion, from casual to formal.</p>
                                         <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="#">Shop Now</a>
                                     </div>
                                 </div>
                             </div>
                             <div class="carousel-item position-relative" style="height: 430px;">
-                                <img class="position-absolute w-100 h-100" src="${pageContext.request.contextPath}/assets_h/img/carousel-3.jpg" style="object-fit: cover;">
+                                <img class="position-absolute w-100 h-100" src="${pageContext.request.contextPath}/img/img_sports/kids.jpg" style="object-fit: cover;">
                                 <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                                     <div class="p-3" style="max-width: 700px;">
                                         <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">Kids Fashion</h1>
-                                        <p class="mx-md-5 px-5 animate__animated animate__bounceIn">Lorem rebum magna amet lorem magna erat diam stet. Sadips duo stet amet amet ndiam elitr ipsum diam</p>
+                                        <p class="mx-md-5 px-5 animate__animated animate__bounceIn">Fun, colorful, and comfy styles for kids. Let your little ones shine with our trendy kids' fashion collection.</p>
                                         <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="#">Shop Now</a>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
                 </div>
                 <div class="col-lg-4">
                     <div class="product-offer mb-30" style="height: 200px;">
-                        <img class="img-fluid" src="${pageContext.request.contextPath}/assets_h/img/offer-1.jpg" alt="">
+                        <img class="img-fluid" src="${pageContext.request.contextPath}/img/img_sports/sale2.jpg" alt="">
                         <div class="offer-text">
                             <h6 class="text-white text-uppercase">Save 20%</h6>
                             <h3 class="text-white mb-3">Special Offer</h3>
@@ -90,9 +90,9 @@
                         </div>
                     </div>
                     <div class="product-offer mb-30" style="height: 200px;">
-                        <img class="img-fluid" src="${pageContext.request.contextPath}/assets_h/img/offer-2.jpg" alt="">
+                        <img class="img-fluid" src="${pageContext.request.contextPath}/img/img_sports/sale3.jpg" alt="">
                         <div class="offer-text">
-                            <h6 class="text-white text-uppercase">Save 20%</h6>
+                            <h6 class="text-white text-uppercase">Save 30%</h6>
                             <h3 class="text-white mb-3">Special Offer</h3>
                             <a href="" class="btn btn-primary">Shop Now</a>
                         </div>
@@ -134,169 +134,102 @@
         </div>
         <!-- Featured End -->
 
+
         <!--         Categories Start 
-                <div class="container-fluid pt-5">
-                    <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Categories</span></h2>
-                    <div class="row px-xl-5 pb-3">
-                        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                            <a class="text-decoration-none" href="">
-                                <div class="cat-item d-flex align-items-center mb-4">
-                                    <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                                        <img class="img-fluid" src="${pageContext.request.contextPath}/assets_h/img/cat-1.jpg" alt="">
-                                    </div>
-                                    <div class="flex-fill pl-3">
-                                        <h6>Category Name</h6>
-                                        <small class="text-body">100 Products</small>
-                                    </div>
-                                </div>
-                            </a>
+        --><div class="container-fluid pt-5">
+            <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Shop by Sport</span></h2>
+            <div class="row px-xl-5 pb-3">
+                <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                    <a class="text-decoration-none" href="">
+                        <div class="cat-item d-flex align-items-center mb-4">
+                            <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                                <img class="img-fluid" src="${pageContext.request.contextPath}/img/img_sports/basketball.jpg" alt="">
+                            </div>
+                            <div class="flex-fill pl-3">
+                                <h6>Nike Basketball</h6>
+                                <small class="text-body">100 Products</small>
+                            </div>
                         </div>
-                        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                            <a class="text-decoration-none" href="">
-                                <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                                    <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                                        <img class="img-fluid" src="${pageContext.request.contextPath}/assets_h/img/cat-2.jpg" alt="">
-                                    </div>
-                                    <div class="flex-fill pl-3">
-                                        <h6>Category Name</h6>
-                                        <small class="text-body">100 Products</small>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                            <a class="text-decoration-none" href="">
-                                <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                                    <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                                        <img class="img-fluid" src="${pageContext.request.contextPath}/assets_h/img/cat-3.jpg" alt="">
-                                    </div>
-                                    <div class="flex-fill pl-3">
-                                        <h6>Category Name</h6>
-                                        <small class="text-body">100 Products</small>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                            <a class="text-decoration-none" href="">
-                                <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                                    <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                                        <img class="img-fluid" src="${pageContext.request.contextPath}/assets_h/img/cat-4.jpg" alt="">
-                                    </div>
-                                    <div class="flex-fill pl-3">
-                                        <h6>Category Name</h6>
-                                        <small class="text-body">100 Products</small>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                            <a class="text-decoration-none" href="">
-                                <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                                    <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                                        <img class="img-fluid" src="${pageContext.request.contextPath}/assets_h/img/cat-4.jpg" alt="">
-                                    </div>
-                                    <div class="flex-fill pl-3">
-                                        <h6>Category Name</h6>
-                                        <small class="text-body">100 Products</small>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                            <a class="text-decoration-none" href="">
-                                <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                                    <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                                        <img class="img-fluid" src="${pageContext.request.contextPath}/assets_h/img/cat-3.jpg" alt="">
-                                    </div>
-                                    <div class="flex-fill pl-3">
-                                        <h6>Category Name</h6>
-                                        <small class="text-body">100 Products</small>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                            <a class="text-decoration-none" href="">
-                                <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                                    <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                                        <img class="img-fluid" src="${pageContext.request.contextPath}/assets_h/img/cat-2.jpg" alt="">
-                                    </div>
-                                    <div class="flex-fill pl-3">
-                                        <h6>Category Name</h6>
-                                        <small class="text-body">100 Products</small>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                            <a class="text-decoration-none" href="">
-                                <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                                    <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                                        <img class="img-fluid" src="${pageContext.request.contextPath}/assets_h/img/cat-1.jpg" alt="">
-                                    </div>
-                                    <div class="flex-fill pl-3">
-                                        <h6>Category Name</h6>
-                                        <small class="text-body">100 Products</small>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                            <a class="text-decoration-none" href="">
-                                <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                                    <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                                        <img class="img-fluid" src="${pageContext.request.contextPath}/assets_h/img/cat-2.jpg" alt="">
-                                    </div>
-                                    <div class="flex-fill pl-3">
-                                        <h6>Category Name</h6>
-                                        <small class="text-body">100 Products</small>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                            <a class="text-decoration-none" href="">
-                                <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                                    <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                                        <img class="img-fluid" src="${pageContext.request.contextPath}/assets_h/img/cat-1.jpg" alt="">
-                                    </div>
-                                    <div class="flex-fill pl-3">
-                                        <h6>Category Name</h6>
-                                        <small class="text-body">100 Products</small>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                            <a class="text-decoration-none" href="">
-                                <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                                    <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                                        <img class="img-fluid" src="${pageContext.request.contextPath}/assets_h/img/cat-4.jpg" alt="">
-                                    </div>
-                                    <div class="flex-fill pl-3">
-                                        <h6>Category Name</h6>
-                                        <small class="text-body">100 Products</small>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                            <a class="text-decoration-none" href="">
-                                <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                                    <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                                        <img class="img-fluid" src="${pageContext.request.contextPath}/assets_h/img/cat-3.jpg" alt="">
-                                    </div>
-                                    <div class="flex-fill pl-3">
-                                        <h6>Category Name</h6>
-                                        <small class="text-body">100 Products</small>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
+                    </a>
                 </div>
-                 Categories End -->
+                <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                    <a class="text-decoration-none" href="">
+                        <div class="cat-item img-zoom d-flex align-items-center mb-4">
+                            <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                                <img class="img-fluid" src="${pageContext.request.contextPath}/img/img_sports/golf.jpg" alt="">
+                            </div>
+                            <div class="flex-fill pl-3">
+                                <h6>Nike Golf</h6>
+                                <small class="text-body">100 Products</small>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                    <a class="text-decoration-none" href="">
+                        <div class="cat-item img-zoom d-flex align-items-center mb-4">
+                            <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                                <img class="img-fluid" src="${pageContext.request.contextPath}/img/img_sports/tennis.jpg" alt="">
+                            </div>
+                            <div class="flex-fill pl-3">
+                                <h6>Nike tennis</h6>
+                                <small class="text-body">100 Products</small>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                    <a class="text-decoration-none" href="">
+                        <div class="cat-item img-zoom d-flex align-items-center mb-4">
+                            <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                                <img class="img-fluid" src="${pageContext.request.contextPath}/img/img_sports/running.jpg" alt="">
+                            </div>
+                            <div class="flex-fill pl-3">
+                                <h6>Nike Running</h6>
+                                <small class="text-body">100 Products</small>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                    <a class="text-decoration-none" href="">
+                        <div class="cat-item img-zoom d-flex align-items-center mb-4">
+                            <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                                <img class="img-fluid" src="${pageContext.request.contextPath}/img/img_sports/fb.jpg" alt="">
+                            </div>
+                            <div class="flex-fill pl-3">
+                                <h6>Nike Running</h6>
+                                <small class="text-body">100 Products</small>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                    <a class="text-decoration-none" href="">
+                        <div class="cat-item img-zoom d-flex align-items-center mb-4">
+                            <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                                <img class="img-fluid" src="${pageContext.request.contextPath}/img/img_sports/volleyball.jpg" alt="">
+                            </div>
+                            <div class="flex-fill pl-3">
+                                <h6>Nike Volleyball</h6>
+                                <small class="text-body">100 Products</small>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+
+
+
+
+            </div>
+        </div><!--
+         Categories End -->
+
+
+
+
 
         <!-- Products Start -->
         <div class="container-fluid pt-5 pb-3">
@@ -307,12 +240,11 @@
                         <div class="product-item bg-light mb-4">
                             <div class="product-img position-relative overflow-hidden">
                                 <img class="img-fluid w-100" src="${item.getImage()}" alt="">
-<!--                                <div class="product-action">
+                                <div class="product-action">
                                     <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
                                     <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                                    <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
                                     <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
-                                </div>-->
+                                </div>
                             </div>
                             <div class="text-center py-4">
                                 <a class="h6 text-decoration-none text-truncate" href="">${item.getName()}</a>
@@ -337,71 +269,13 @@
         <!-- Products End -->
 
 
-        <!-- Offer Start -->
-        <div class="container-fluid pt-5 pb-3">
-            <div class="row px-xl-5">
-                <div class="col-md-6">
-                    <div class="product-offer mb-30" style="height: 300px;">
-                        <img class="img-fluid" src="${pageContext.request.contextPath}/assets_h/img/offer-1.jpg" alt="">
-                        <div class="offer-text">
-                            <h6 class="text-white text-uppercase">Save 20%</h6>
-                            <h3 class="text-white mb-3">Special Offer</h3>
-                            <a href="" class="btn btn-primary">Shop Now</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="product-offer mb-30" style="height: 300px;">
-                        <img class="img-fluid" src="${pageContext.request.contextPath}/assets_h/img/offer-2.jpg" alt="">
-                        <div class="offer-text">
-                            <h6 class="text-white text-uppercase">Save 20%</h6>
-                            <h3 class="text-white mb-3">Special Offer</h3>
-                            <a href="" class="btn btn-primary">Shop Now</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Offer End -->
 
 
-       
 
 
-        <!-- Vendor Start -->
-        <div class="container-fluid py-5">
-            <div class="row px-xl-5">
-                <div class="col">
-                    <div class="owl-carousel vendor-carousel">
-                        <div class="bg-light p-4">
-                            <img src="${pageContext.request.contextPath}/assets_h/img/vendor-1.jpg" alt="">
-                        </div>
-                        <div class="bg-light p-4">
-                            <img src="${pageContext.request.contextPath}/assets_h/img/vendor-2.jpg" alt="">
-                        </div>
-                        <div class="bg-light p-4">
-                            <img src="${pageContext.request.contextPath}/assets_h/img/vendor-3.jpg" alt="">
-                        </div>
-                        <div class="bg-light p-4">
-                            <img src="${pageContext.request.contextPath}/assets_h/img/vendor-4.jpg" alt="">
-                        </div>
-                        <div class="bg-light p-4">
-                            <img src="${pageContext.request.contextPath}/assets_h/img/vendor-5.jpg" alt="">
-                        </div>
-                        <div class="bg-light p-4">
-                            <img src="${pageContext.request.contextPath}/assets_h/img/vendor-6.jpg" alt="">
-                        </div>
-                        <div class="bg-light p-4">
-                            <img src="${pageContext.request.contextPath}/assets_h/img/vendor-7.jpg" alt="">
-                        </div>
-                        <div class="bg-light p-4">
-                            <img src="${pageContext.request.contextPath}/assets_h/img/vendor-8.jpg" alt="">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Vendor End -->
+
+
+
 
 
         <jsp:include page="FooterTag.jsp"></jsp:include>

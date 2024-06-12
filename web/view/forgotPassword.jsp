@@ -47,15 +47,15 @@
         <div class="row">
             <div class="col-lg-6 col-md-12 bg-img none-992">
                 <div class="info">
-                    <h1>Welcome to Logee</h1>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the.</p>
+                    <h1>password retrieval</h1>
+                    <p>Enter your email and you will receive the password change key.</p>
                 </div>
             </div>
             <div class="col-lg-6 col-md-12 bg-color-13">
                 <div class="form-section">
                     <div class="logo clearfix">
                         <a href="login-11.html">
-                            <img src="${pageContext.request.contextPath}/assets_lg/img/logos/logo-2.png" alt="logo">
+                            <img src="${pageContext.request.contextPath}/assets_lg/img/nike.jpg" alt="logo">
                         </a>
                     </div>
                     <h3>Recover your password</h3>

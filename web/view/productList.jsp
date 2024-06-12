@@ -38,6 +38,7 @@
     </head>
 
     <body>
+        
         <div class="header">
             <jsp:include page="homeTag.jsp"></jsp:include>
             </div>
@@ -53,10 +54,10 @@
                         <div class="price-range-heading" onclick="togglePriceOptions()">Price range</div>
                         <div class="price-range-labels" id="price-range-labels">
                             <ul class="price-options collapsed" id="price-options"> <!-- Thêm lớp 'collapsed' ở đây -->
-                                <li><input type="radio" name="price" id="price-option-1" value="1"><label for="price-option-1">1.000.000₫ - 2.000.000₫</label></li>
-                                <li><input type="radio" name="price" id="price-option-2" value="2"><label for="price-option-2">2.000.000₫ - 3.000.000₫</label></li>
-                                <li><input type="radio" name="price" id="price-option-3" value="3"><label for="price-option-3">3.000.000₫ - 5.000.000₫</label></li>
-                                <li><input type="radio" name="price" id="price-option-4" value="5"><label for="price-option-4">5.000.000₫ - 10.000.000₫</label></li>
+                                <li><input type="radio" name="price" id="price-option-1" value="1"><label for="price-option-1">$0 - $50</label></li>
+                                <li><input type="radio" name="price" id="price-option-2" value="2"><label for="price-option-2">$60 - $90</label></li>
+                                <li><input type="radio" name="price" id="price-option-3" value="3"><label for="price-option-3">$100 - $150</label></li>
+                                <li><input type="radio" name="price" id="price-option-4" value="4"><label for="price-option-4">$160 - $200</label></li>
                             </ul>
                         </div>
                     </div>
@@ -66,48 +67,122 @@
                         <div class="size-options collapsed">
                             <div class="size-options">
                                 <ul>
+                                    <li><input type="radio" name="size" id="size-option-37" value="37"><label for="size-option-37">Size 37</label></li>
+                                    <li><input type="radio" name="size" id="size-option-38" value="38"><label for="size-option-38">Size 38</label></li>
                                     <li><input type="radio" name="size" id="size-option-39" value="39"><label for="size-option-39">Size 39</label></li>
                                     <li><input type="radio" name="size" id="size-option-40" value="40"><label for="size-option-40">Size 40</label></li>
                                     <li><input type="radio" name="size" id="size-option-41" value="41"><label for="size-option-41">Size 41</label></li>
                                     <li><input type="radio" name="size" id="size-option-42" value="42"><label for="size-option-42">Size 42</label></li>
                                     <li><input type="radio" name="size" id="size-option-43" value="43"><label for="size-option-43">Size 43</label></li>
+                                    <li><input type="radio" name="size" id="size-option-43" value="43"><label for="size-option-44">Size 44</label></li>
+                                    <li><input type="radio" name="size" id="size-option-43" value="43"><label for="size-option-45">Size 45</label></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                     <div class="shoe-type-container">
-                        <div class="shoe-type-heading" onclick="toggleShoeTypeOptions()">Shoe Type</div>
+                        <div class="shoe-type-heading" onclick="toggleShoeTypeOptions()">Brand</div>
                         <div class="shoe-type-options collapsed">
                             <div class="shoe-type-options">
                                 <ul>
-                                    <li><input type="radio" name="shoe-type" id="shoe-type-nike" value="1"><label for="shoe-type-nike">Nike</label></li>
-                                    <li><input type="radio" name="shoe-type" id="shoe-type-air-jordan" value="2"><label for="shoe-type-air-jordan">Air Jordan</label></li>
+                                    <li><input type="radio" name="Brand" id="shoe-type-nike" value="Nike"><label for="shoe-type-nike">Nike</label></li>
+                                    <li><input type="radio" name="Brand" id="shoe-type-adidas" value="Adidas"><label for="shoe-type-adidas">Adidas</label></li>
+                                    <li><input type="radio" name="Brand" id="shoe-type-converse" value="Converse"><label for="shoe-type-converse">Converse</label></li>
+                                    <li><input type="radio" name="Brand" id="shoe-type-puma" value="Puma"><label for="shoe-type-puma">Puma</label></li>
+                                    <li><input type="radio" name="Brand" id="shoe-type-asics" value="Asics"><label for="shoe-type-asics">Asics</label></li>
+                                    <li><input type="radio" name="Brand" id="shoe-type-new-balance" value="New Balance"><label for="shoe-type-new-balance">New Balance</label></li>
+                                    <li><input type="radio" name="Brand" id="shoe-type-reebok" value="Reebok"><label for="shoe-type-reebok">Reebok</label></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
 
+
                     <div class="shoe-sports-container">
                         <div class="shoe-sports-heading" onclick="toggleShoeSports()">Sports</div>
-                        <div class="shoe-sports collapsed"> <!-- Thêm lớp 'collapsed' ở đây -->
+                        <div class="shoe-sports collapsed">
                             <ul>
-                                <li><input type="radio" name="shoe-type" id="shoe-sports-w" value="1"><label for="shoe-sports-w">W</label></li>
-                                <li><input type="radio" name="shoe-type" id="shoe-sports-B" value="2"><label for="shoe-sports-B">B</label></li>
+                                <li><input type="radio" name="Sports" id="shoe-sports-Lifestyles" value="Lifestyles"><label for="shoe-sports-Lifestyles">Lifestyles</label></li>
+                                <li><input type="radio" name="Sports" id="shoe-sports-Running" value="Running"><label for="shoe-sports-Running">Running</label></li>
+                                <li><input type="radio" name="Sports" id="shoe-sports-TG" value="Tennis"><label for="shoe-sports-TG">Tennis</label></li>
+                                <li><input type="radio" name="Sports" id="shoe-sports-Basketball" value="Basketball"><label for="shoe-sports-Basketball">Basketball</label></li>
+                                <li><input type="radio" name="Sports" id="shoe-sports-Basketball" value="Golf"><label for="shoe-sports-Basketball">Golf</label></li>
                             </ul>
                         </div>
                     </div>
 
+
+                    <style>
+                        #shoe-color-Black + label {
+                            color: black;
+                        }
+                        #shoe-color-Blue + label {
+                            color: blue;
+                        }
+                        #shoe-color-Brown + label {
+                            color: brown;
+                        }
+                        #shoe-color-green + label {
+                            color: green;
+                        }
+                        #shoe-color-Grey + label {
+                            color: grey;
+                        }
+                        #shoe-color-Orange + label {
+                            color: orange;
+                        }
+                        #shoe-color-Pink + label {
+                            color: pink;
+                        }
+                        #shoe-color-Red + label {
+                            color: red;
+                        }
+                        #shoe-color-White + label {
+                            color: white;
+                            background-color: black;
+                        }
+                        #shoe-color-Yellow + label {
+                            color: yellow;
+                        }
+                    </style>
+
                     <div class="shoe-color-container">
-                        <div class="shoe-color-heading" onclick="toggleShoeColor()()">Color</div>
+                        <div class="shoe-color-heading" onclick="toggleShoeColor()">Color</div>
                         <div class="shoe-color collapsed">
                             <div class="shoe-color">
                                 <ul>
-                                    <li><input type="radio" name="shoe-type" id="shoe-color-W" value="1"><label for="shoe-color-W">W</label></li>
-                                    <li><input type="radio" name="shoe-type" id="shoe-color-B" value="2"><label for="shoe-color-B">B</label></li>
+                                    <li><input type="radio" name="Color" id="shoe-color-Black" value="Black"><label for="shoe-color-Black">Black</label></li>
+                                    <li><input type="radio" name="Color" id="shoe-color-Blue" value="Blue"><label for="shoe-color-Blue">Blue</label></li>
+                                    <li><input type="radio" name="Color" id="shoe-color-Brown" value="Brown"><label for="shoe-color-Brown">Brown</label></li>
+                                    <li><input type="radio" name="Color" id="shoe-color-green" value="Green"><label for="shoe-color-green">Green</label></li>
+                                    <li><input type="radio" name="Color" id="shoe-color-Grey" value="Grey"><label for="shoe-color-Grey">Grey</label></li>
+                                    <li><input type="radio" name="Color" id="shoe-color-Orange" value="Orange"><label for="shoe-color-Orange">Orange</label></li>
+                                    <li><input type="radio" name="Color" id="shoe-color-Pink" value="Pink"><label for="shoe-color-Pink">Pink</label></li>
+                                    <li><input type="radio" name="Color" id="shoe-color-Red" value="Red"><label for="shoe-color-Red">Red</label></li>
+                                    <li><input type="radio" name="Color" id="shoe-color-White" value="White"><label for="shoe-color-White">White</label></li>
+                                    <li><input type="radio" name="Color" id="shoe-color-Yellow" value="Yellow"><label for="shoe-color-Yellow">Yellow</label></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
+
+                    <div class="shoe-gen-container">
+                        <div class="shoe-gen-heading" onclick="toggleShoeGen()">Gender</div>
+                        <div class="shoe-gen collapsed">
+                            <div class="shoe-gen">
+                                <ul>
+                                    <li><input type="radio" name="shoe-type" id="shoe-gen-Male" value="Male"><label for="shoe-gen-W">Male</label></li>
+                                    <li><input type="radio" name="shoe-type" id="shoe-gen-Female" value="Female"><label for="shoe-gen-B">Female</label></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
                     <button type="submit" class="button">Choose</button> 
 
                 </form>
@@ -123,14 +198,13 @@
                     <!-- Nút được tạo bằng Bootstrap -->
                     <button id="expandButton" class="btn btn-primary">Sort By ↖</button>
                     <!-- Nội dung mở rộng -->
-                    <div id="expandableContent" class="custom-expandable-content">
-                        <label for="option" class="custom-label"></label>
+                    <div id="expandableContent" class="custom-expandable-content" style="display: none;">
+                        <label for="option" class="custom-label">Sort Options:</label>
                         <div class="custom-select-container">
-                            <select id="option" class="custom-select" size="4">
-                                <option value="option1">Option 1</option>
-                                <option value="option2">Option 2</option>
-                                <option value="option3">Option 3</option>
-                                <option value="option3">Option 3</option>
+                            <select id="option" class="custom-select" size="3" onchange="redirectToProductList()">
+                                <option value="newest">Newest</option>
+                                <option value="priceAsc">Price: High-Low</option>
+                                <option value="priceDesc">Price: Low-High</option>
                             </select>
                         </div>
                     </div>
@@ -141,233 +215,93 @@
                     document.addEventListener("DOMContentLoaded", function () {
                         var expandButton = document.getElementById("expandButton");
                         var expandableContent = document.getElementById("expandableContent");
+                        var select = document.getElementById('option');
 
-                        // Ẩn nội dung mở rộng khi trang được tải
-                        expandableContent.style.display = "none";
+                        // Kiểm tra và khôi phục trạng thái của expandableContent từ localStorage
+                        if (localStorage.getItem("expandableContentVisible") === "true") {
+                            expandableContent.style.display = "block";
+                            expandButton.textContent = "Sort By ↘";
+                        } else {
+                            expandableContent.style.display = "none";
+                            expandButton.textContent = "Sort By ↖";
+                        }
+
+                        // Kiểm tra và khôi phục lựa chọn của select từ localStorage
+                        var selectedValue = localStorage.getItem("selectedOption");
+                        if (selectedValue) {
+                            select.value = selectedValue;
+                        }
 
                         expandButton.addEventListener("click", function () {
                             if (expandableContent.style.display === "none") {
                                 expandableContent.style.display = "block";
                                 expandButton.textContent = "Sort By ↘";
+                                localStorage.setItem("expandableContentVisible", "true");
                             } else {
                                 expandableContent.style.display = "none";
                                 expandButton.textContent = "Sort By ↖";
+                                localStorage.setItem("expandableContentVisible", "false");
                             }
                         });
                     });
+
+                    function redirectToProductList() {
+                        var select = document.getElementById('option');
+                        var selectedValue = select.value;
+                        localStorage.setItem("selectedOption", selectedValue); // Lưu lựa chọn vào localStorage
+                        window.location.href = `${pageContext.request.contextPath}/productlist?sort=` + selectedValue;
+                    }
                 </script>
 
 
-                <!-- Categories Start -->
-                <div class="container-fluid pt-5">
-                    <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Categories</span></h2>
-                    <div class="row px-xl-5 pb-3">
-                        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                            <a class="text-decoration-none" href="">
-                                <div class="cat-item d-flex align-items-center mb-4">
-                                    <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                                        <img class="img-fluid" src="${pageContext.request.contextPath}/assets_h/img/cat-1.jpg" alt="">
-                                    </div>
-                                    <div class="flex-fill pl-3">
-                                        <h6>Category Name</h6>
-                                        <small class="text-body">100 Products</small>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                            <a class="text-decoration-none" href="">
-                                <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                                    <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                                        <img class="img-fluid" src="${pageContext.request.contextPath}/assets_h/img/cat-2.jpg" alt="">
-                                    </div>
-                                    <div class="flex-fill pl-3">
-                                        <h6>Category Name</h6>
-                                        <small class="text-body">100 Products</small>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                            <a class="text-decoration-none" href="">
-                                <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                                    <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                                        <img class="img-fluid" src="${pageContext.request.contextPath}/assets_h/img/cat-3.jpg" alt="">
-                                    </div>
-                                    <div class="flex-fill pl-3">
-                                        <h6>Category Name</h6>
-                                        <small class="text-body">100 Products</small>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                            <a class="text-decoration-none" href="">
-                                <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                                    <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                                        <img class="img-fluid" src="${pageContext.request.contextPath}/assets_h/img/cat-4.jpg" alt="">
-                                    </div>
-                                    <div class="flex-fill pl-3">
-                                        <h6>Category Name</h6>
-                                        <small class="text-body">100 Products</small>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                            <a class="text-decoration-none" href="">
-                                <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                                    <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                                        <img class="img-fluid" src="${pageContext.request.contextPath}/assets_h/img/cat-4.jpg" alt="">
-                                    </div>
-                                    <div class="flex-fill pl-3">
-                                        <h6>Category Name</h6>
-                                        <small class="text-body">100 Products</small>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                            <a class="text-decoration-none" href="">
-                                <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                                    <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                                        <img class="img-fluid" src="${pageContext.request.contextPath}/assets_h/img/cat-3.jpg" alt="">
-                                    </div>
-                                    <div class="flex-fill pl-3">
-                                        <h6>Category Name</h6>
-                                        <small class="text-body">100 Products</small>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                            <a class="text-decoration-none" href="">
-                                <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                                    <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                                        <img class="img-fluid" src="${pageContext.request.contextPath}/assets_h/img/cat-2.jpg" alt="">
-                                    </div>
-                                    <div class="flex-fill pl-3">
-                                        <h6>Category Name</h6>
-                                        <small class="text-body">100 Products</small>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                            <a class="text-decoration-none" href="">
-                                <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                                    <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                                        <img class="img-fluid" src="${pageContext.request.contextPath}/assets_h/img/cat-1.jpg" alt="">
-                                    </div>
-                                    <div class="flex-fill pl-3">
-                                        <h6>Category Name</h6>
-                                        <small class="text-body">100 Products</small>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                            <a class="text-decoration-none" href="">
-                                <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                                    <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                                        <img class="img-fluid" src="${pageContext.request.contextPath}/assets_h/img/cat-2.jpg" alt="">
-                                    </div>
-                                    <div class="flex-fill pl-3">
-                                        <h6>Category Name</h6>
-                                        <small class="text-body">100 Products</small>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                            <a class="text-decoration-none" href="">
-                                <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                                    <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                                        <img class="img-fluid" src="${pageContext.request.contextPath}/assets_h/img/cat-1.jpg" alt="">
-                                    </div>
-                                    <div class="flex-fill pl-3">
-                                        <h6>Category Name</h6>
-                                        <small class="text-body">100 Products</small>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                            <a class="text-decoration-none" href="">
-                                <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                                    <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                                        <img class="img-fluid" src="${pageContext.request.contextPath}/assets_h/img/cat-4.jpg" alt="">
-                                    </div>
-                                    <div class="flex-fill pl-3">
-                                        <h6>Category Name</h6>
-                                        <small class="text-body">100 Products</small>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                            <a class="text-decoration-none" href="">
-                                <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                                    <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                                        <img class="img-fluid" src="${pageContext.request.contextPath}/assets_h/img/cat-3.jpg" alt="">
-                                    </div>
-                                    <div class="flex-fill pl-3">
-                                        <h6>Category Name</h6>
-                                        <small class="text-body">100 Products</small>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <!-- Categories End -->
+
 
 
                 <!-- Products Start -->
                 <div class="container-fluid pt-5 pb-3">
                     <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Products</span></h2>
                     <div class="row px-xl-5">   
-                            <c:forEach var="item" items="${MenuChose}">
-                                <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                                    <div class="product-item bg-light mb-4">
-                                        <div class="product-img position-relative overflow-hidden">
-                                            <img class="img-fluid w-100" src="${item.getImage()}" alt="">
-                                            <!--                                <div class="product-action">
-                                                                                <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                                                                                <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                                                                                <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                                                                                <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
-                                                                            </div>-->
-                                        </div>
-                                        <div class="text-center py-4">
-                                            <a class="h6 text-decoration-none text-truncate" href="">${item.getName()}</a>
-                                            <div class="d-flex align-items-center justify-content-center mt-2">
-                                                <c:choose>
-                                                    <c:when test="${item.getPriceDiscount() != 0}">
-                                                        <div class="d-flex align-items-center justify-content-center mt-2">
-                                                            <h5>$ ${item.getPriceDiscount()}</h5>
-                                                            <h6 class="text-muted ml-2"><del>$ ${item.getPrice()}</del></h6>
-                                                        </div> 
-                                                    </c:when>
+                        <c:forEach var="item" items="${MenuChose}">
+                            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                                <div class="product-item bg-light mb-4">
+                                    <div class="product-img position-relative overflow-hidden">
+                                        <img class="img-fluid w-100" src="${item.getImage()}" alt="">
+                                        <!--                                <div class="product-action">
+                                                                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
+                                                                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
+                                                                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
+                                                                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
+                                                                        </div>-->
+                                    </div>
+                                    <div class="text-center py-4">
+                                        <a class="h6 text-decoration-none text-truncate" href="">${item.getName()}</a>
+                                        <div class="d-flex align-items-center justify-content-center mt-2">
+                                            <c:choose>
+                                                <c:when test="${item.getPriceDiscount() != 0}">
+                                                    <div class="d-flex align-items-center justify-content-center mt-2">
+                                                        <h5>$ ${item.getPriceDiscount()}</h5>
+                                                        <h6 class="text-muted ml-2"><del>$ ${item.getPrice()}</del></h6>
+                                                    </div> 
+                                                </c:when>
 
-                                                    <c:otherwise>
-                                                        <h6><del>$ ${item.getPrice()}</del></h6>
-                                                    </c:otherwise>
-                                                </c:choose>
-                                                
-                                            </div>
-                                            <div class="d-flex align-items-center justify-content-center mb-1">
-                                                <small class="fa fa-star text-primary mr-1"></small>
-                                                <small class="fa fa-star text-primary mr-1"></small>
-                                                <small class="fa fa-star text-primary mr-1"></small>
-                                                <small class="fa fa-star text-primary mr-1"></small>
-                                                <small class="fa fa-star text-primary mr-1"></small>
-                                                <!--<small>(99)</small>-->
-                                            </div>
+                                                <c:otherwise>
+                                                    <h6><del>$ ${item.getPrice()}</del></h6>
+                                                </c:otherwise>
+                                            </c:choose>
+
+                                        </div>
+                                        <div class="d-flex align-items-center justify-content-center mb-1">
+                                            <small class="fa fa-star text-primary mr-1"></small>
+                                            <small class="fa fa-star text-primary mr-1"></small>
+                                            <small class="fa fa-star text-primary mr-1"></small>
+                                            <small class="fa fa-star text-primary mr-1"></small>
+                                            <small class="fa fa-star text-primary mr-1"></small>
+                                            <!--<small>(99)</small>-->
                                         </div>
                                     </div>
-                                </div> 
-                            </c:forEach>
+                                </div>
+                            </div> 
+                        </c:forEach>
                     </div>
                 </div>
                 <!-- Products End -->
