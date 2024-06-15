@@ -144,6 +144,14 @@
     max-height: 0;
 }
 
+
+
+
+
+
+
+
+
 /*sports*/
 .shoe-sports-container {
     margin: 20px;
@@ -175,6 +183,37 @@
     max-height: 0;
 }
 
+/*gender*/
+
+.shoe-gen-container {
+    margin: 20px;
+}
+
+/* Tiêu đề "Size" */
+.shoe-gen-heading {
+    font-weight: bold;
+}
+
+/* Thiết lập cho các checkbox */
+.shoe-gen input[type="radio"] {
+    margin-right: 5px;
+}
+
+/* Thiết lập cho label của các checkbox */
+.shoe-gen label {
+    cursor: pointer;
+}
+
+/* Thiết lập hiển thị thu gọn */
+.shoe-gen {
+    max-height: 150px;
+    overflow-y: auto;
+    transition: max-height 0.5s ease;
+}
+
+.shoe-gen.collapsed {
+    max-height: 0;
+}
 
 /*chia man hinh*/
 

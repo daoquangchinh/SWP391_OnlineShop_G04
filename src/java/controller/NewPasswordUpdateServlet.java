@@ -44,15 +44,15 @@ public class NewPasswordUpdateServlet extends HttpServlet{
             boolean success = userDAO.updatePassword(email, newPassword);
 
             if (success) {
-                request.setAttribute("status", "Đã đổi mật khẩu thành công !");
+                request.setAttribute("status", "Password changed successfully !");
                 
             } else {
-                request.setAttribute("status", "Đổi mật khẩu thất bại!");
+                request.setAttribute("status", "Password change failed!");
                 request.getRequestDispatcher("view/newPassword.jsp").forward(request, response);
             }
         } else {
             // Passwords do not match
-            request.setAttribute("status", "Mật khẩu không khớp!");
+            request.setAttribute("status", "password incorrect!");
             request.getRequestDispatcher("view/newPassword.jsp").forward(request, response);
         }
         request.getRequestDispatcher("view/homePage.jsp").forward(request, response);

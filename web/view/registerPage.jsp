@@ -70,7 +70,7 @@
                         <div class="form-section">
                             <div class="logo clearfix">
                                 <a href="${pageContext.request.contextPath}/register">
-                                    <img src="${pageContext.request.contextPath}/assets_lg/img/logos/logo-2.jpg" alt="logo">
+                                    <img src="${pageContext.request.contextPath}/assets_lg/img/nike.jpg" alt="logo">
                                 </a>
                             </div>
                             <h3>Create an account</h3>
