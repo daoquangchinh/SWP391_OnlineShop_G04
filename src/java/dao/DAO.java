@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import modal.Cart_Item;
 import modal.User;
 
 /**
@@ -271,6 +272,201 @@ public class DAO {
         }
         return u;
     }
+
+    //dao.cart 
+    public List<Cart_Item> getCart(int userId) {
+        String query = "SELECT \n"
+                + "    ci.id AS idCartItem,\n"
+                + "    img.img AS img,\n"
+                + "    s.shoe_name,\n"
+                + "    ss.size,\n"
+                + "    sc.color,\n"
+                + "    s.price,\n"
+                + "    ci.quantity AS quatityCart,\n"
+                + "    p.quantity AS quatityProduct,\n"
+                + "    s.id AS shoe_id\n"
+                + "FROM \n"
+                + "    cart_item ci\n"
+                + "JOIN \n"
+                + "    product p ON ci.product_id = p.id\n"
+                + "JOIN \n"
+                + "    shoe s ON p.shoe_id = s.id\n"
+                + "JOIN \n"
+                + "    shoe_size ss ON p.shoe_size_id = ss.id\n"
+                + "JOIN \n"
+                + "    shoe_color sc ON p.shoe_color_id = sc.id\n"
+                + "JOIN \n"
+                + "    img img ON img.shoe_id = s.id AND img.shoe_color_id = sc.id\n"
+                + "WHERE \n"
+                + "    ci.[user_id] = ?;";
+        List<Cart_Item> listC = new ArrayList<>();
+        try {
+            conn = new DBContext().getConnection();//mo ket noi voi sql
+            ps = conn.prepareStatement(query);
+
+            ps.setInt(1, userId); // Thiết lập tham số cho id người dùng
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                listC.add(new Cart_Item(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getInt(4),
+                        rs.getString(5),
+                        rs.getDouble(6),
+                        rs.getInt(7),
+                        rs.getInt(8),
+                        rs.getInt(9)));
+
+            }
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+        return listC;
+    }
+
+    public Cart_Item getCartitem(int cartId) {
+        String query = "SELECT \n"
+                + "    ci.id AS idCartItem,\n"
+                + "    img.img AS img,\n"
+                + "    s.shoe_name,\n"
+                + "    ss.size,\n"
+                + "    sc.color,\n"
+                + "    s.price,\n"
+                + "    ci.quantity AS quatityCart,\n"
+                + "    p.quantity AS quatityProduct,\n"
+                + "    s.id AS shoe_id\n"
+                + "FROM \n"
+                + "    cart_item ci\n"
+                + "JOIN \n"
+                + "    product p ON ci.product_id = p.id\n"
+                + "JOIN \n"
+                + "    shoe s ON p.shoe_id = s.id\n"
+                + "JOIN \n"
+                + "    shoe_size ss ON p.shoe_size_id = ss.id\n"
+                + "JOIN \n"
+                + "    shoe_color sc ON p.shoe_color_id = sc.id\n"
+                + "JOIN \n"
+                + "    img img ON img.shoe_id = s.id AND img.shoe_color_id = sc.id\n"
+                + "WHERE \n"
+                + "    ci.[id] = ?;";
+        Cart_Item listC = new Cart_Item();
+        try {
+            conn = new DBContext().getConnection();//mo ket noi voi sql
+            ps = conn.prepareStatement(query);
+
+            ps.setInt(1, cartId); // Thiết lập tham số cho id người dùng
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                listC = new Cart_Item(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getInt(4),
+                        rs.getString(5),
+                        rs.getDouble(6),
+                        rs.getInt(7),
+                        rs.getInt(8),
+                        rs.getInt(9));
+
+            }
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+        return listC;
+    }
+// update
+
+    public boolean setCarItem(int id, String color, int size) {
+        String query = "UPDATE cart_item\n"
+                + "SET product_id = (\n"
+                + "        SELECT p.id\n"
+                + "        FROM product p\n"
+                + "        JOIN shoe_color sc ON p.shoe_color_id = sc.id\n"
+                + "        JOIN shoe_size ss ON p.shoe_size_id = ss.id\n"
+                + "        WHERE sc.color = ? AND ss.size = ?\n"
+                + "    ),\n"
+                + "WHERE id = ?;";
+        try {
+            conn = new DBContext().getConnection(); // mở kết nối với SQL
+            ps = conn.prepareStatement(query);
+            ps.setString(1, color);
+            ps.setInt(2, size);
+            ps.setInt(3, id);
+            ps.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            System.err.println(e);
+        } finally {
+            // Đóng tài nguyên
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
+        }
+        return false;
+    }
+
+    public boolean updateQuantity(int id, int quantity) {
+        String query = "UPDATE cart_item\n"
+                + "SET quantity = ?\n"
+                + "WHERE id = ?;";
+        try {
+            conn = new DBContext().getConnection(); // mở kết nối với SQL
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, quantity);
+            ps.setInt(2, id);
+            ps.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            System.err.println(e);
+        } finally {
+            // Đóng tài nguyên
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
+        }
+        return false;
+    }
+
+    public boolean delete(int id) {
+        String query = "DELETE FROM cart_item\n"
+                + "WHERE id = ?;";
+        try {
+            conn = new DBContext().getConnection(); // mở kết nối với SQL
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, id);
+            ps.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            System.err.println(e);
+        } finally {
+            // Đóng tài nguyên
+            try {
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e);
+            }
+        }
+        return false;
+    }
+//check input
 
     public boolean isValidEmail(String email) {
         String EMAIL_PATTERN = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";

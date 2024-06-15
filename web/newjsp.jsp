@@ -1,256 +1,105 @@
-<%-- 
-    Document   : homePage
-    Created on : May 23, 2024, 10:48:35 AM
-    Author     : ViQuan
---%>
-<%@ page import="modal.user" %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page import="modal.Cart_Item" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
 <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cart Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets_h/css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets_cart/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="cart-items">
+            <% 
+                List<Cart_Item> listC = (List<Cart_Item>) request.getAttribute("cart_item");
+                String mess = (String) request.getAttribute("mess");
 
-    <head>
-        <meta charset="utf-8">
-        <title>MultiShop - Online Shop Website Template</title>
-        <meta content="width=device-width, initial-scale=1.0" name="viewport">
-        <meta content="Free HTML Templates" name="keywords">
-        <meta content="Free HTML Templates" name="description">
+                if (listC == null) {
+                    listC = new ArrayList<>(); // Khởi tạo danh sách rỗng nếu null
+                }
 
-        <!-- Favicon -->
-        <link href="${pageContext.request.contextPath}/assets_h/img/favicon.ico" rel="icon">
-
-        <!-- Google Web Fonts -->
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">  
-
-        <!-- Font Awesome -->
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-
-        <!-- Libraries Stylesheet -->
-        <link href="${pageContext.request.contextPath}/assets_h/lib/animate/animate.min.css" rel="stylesheet">
-        <link href="${pageContext.request.contextPath}/assets_h/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-
-        <!-- Customized Bootstrap Stylesheet -->
-        <link href="${pageContext.request.contextPath}/assets_h/css/style.css" rel="stylesheet">
-        <style>
-            .breadcrumb {
-                background-color: #eee;
-            }
-            .card-body img {
-                width: 150px;
-            }
-            .progress {
-                height: 5px;
-            }
-        </style>
-    </head>
-
-    <body>
-        <%
-      // Lấy đối tượng user từ session
-      user u = (user) session.getAttribute("acc");
-        
-      // Kiểm tra xem người dùng có đăng nhập không
-      if (u != null) {
-        
-   String imgSrc = u.getImg();
-   if (imgSrc == null || imgSrc.isEmpty()) {
-       imgSrc = "https://cellphones.com.vn/sforum/wp-content/uploads/2023/10/avatar-trang-4.jpg";
-   }
-        %>
-        <jsp:include page="view/homeTag.jsp"></jsp:include>
-
-            <h1>User Profile</h1>
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="card mb-4">
-                        <div class="card-body text-center">
-                            <img src="<%= imgSrc %>" alt="avatar"
-                             class="rounded-circle img-fluid">
-                        <h5 class="my-3"><%= u.getUsername() %></h5>
-
-                        <div class="d-flex justify-content-center mb-2">
-                            <button type="button" class="btn btn-primary ms-1">Save</button>
-                            <button type="button" class="btn btn-outline-primary ms-1">Edit</button>
-                        </div>
+                for (Cart_Item item : listC) { 
+            %>
+            <div class="cart-item">
+                <div class="product-details">
+                    <div class="product-image">
+                        <img src="<%= item.getImg() %>" alt="product image">
+                    </div>
+                    <div class="product-info">
+                        <h3><%= item.getShoe_name() %></h3>
+                        <p>Color: <%= item.getColor() %></p>
+                        <p>Size: <%= item.getSize() %></p>
+                        <p>Price: ₫<%= item.getPrice() %></p>
                     </div>
                 </div>
-                <div class="card mb-4 mb-lg-0">
-                    <div class="card-body p-0">
-                        <ul class="list-group list-group-flush rounded-3">
-                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                <i class="fas fa-globe fa-lg text-warning"></i>
-                                <p class="mb-0">https://mdbootstrap.com</p>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                <i class="fab fa-github fa-lg text-body"></i>
-                                <p class="mb-0">mdbootstrap</p>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                <i class="fab fa-twitter fa-lg" style="color: #55acee;"></i>
-                                <p class="mb-0">@mdbootstrap</p>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                <i class="fab fa-instagram fa-lg" style="color: #ac2bac;"></i>
-                                <p class="mb-0">mdbootstrap</p>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                                <i class="fab fa-facebook-f fa-lg" style="color: #3b5998;"></i>
-                                <p class="mb-0">mdbootstrap</p>
-                            </li>
-                        </ul>
+                <div class="quantity-actions">
+                    <div class="quantity">
+                        <button class="decrement">-</button>
+                        <input class="quantity-input" type="text" value="<%= item.getQuatityCart() %>" data-cart-id="<%= item.getIdCartItem() %>">
+                        <button class="increment">+</button>
                     </div>
+                    <div class="total-price">Total: ₫<%= item.getQuatityCart() * item.getPrice() %></div>
+                    <button class="delete">Delete</button>
                 </div>
             </div>
+            <% } %>
+        </div>
 
-
-            <!-- Hiển thị các thông tin khác của người dùng -->
-
-            <div class="col-lg-8">
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <p class="mb-0">Full Name</p>
-                            </div>
-                            <div class="col-sm-9">
-                                <p class="text-muted mb-0"><%= u.getUsername() %></p>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <p class="mb-0">Email</p>
-                            </div>
-                            <div class="col-sm-9">
-                                <p class="text-muted mb-0"><%= u.getEmail() %></p>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <p class="mb-0">Phone</p>
-                            </div>
-                            <div class="col-sm-9">
-                                <p class="text-muted mb-0"><%= u.getPhone() %></p>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <p class="mb-0">Gender</p>
-                            </div>
-                            <div class="col-sm-9">
-                                <p class="text-muted mb-0"><%= u.getGender() %></p>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <p class="mb-0">Address</p>
-                            </div>
-                            <div class="col-sm-9">
-                                <p class="text-muted mb-0">Bay Area, San Francisco, CA</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <%
-                } else {
-                %>
-                <p>Bạn chưa đăng nhập. Vui lòng <a href="login.jsp">đăng nhập</a>.</p>
-                <%
-                    }
-                %>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="card mb-4 mb-md-0">
-                            <div class="card-body">
-                                <p class="mb-4"><span class="text-primary font-italic me-1">assigment</span> Project Status
-                                </p>
-                                <p class="mb-1" style="font-size: .77rem;">Web Design</p>
-                                <div class="progress rounded">
-                                    <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80"
-                                         aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <p class="mt-4 mb-1" style="font-size: .77rem;">Website Markup</p>
-                                <div class="progress rounded">
-                                    <div class="progress-bar" role="progressbar" style="width: 72%" aria-valuenow="72"
-                                         aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <p class="mt-4 mb-1" style="font-size: .77rem;">One Page</p>
-                                <div class="progress rounded">
-                                    <div class="progress-bar" role="progressbar" style="width: 89%" aria-valuenow="89"
-                                         aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <p class="mt-4 mb-1" style="font-size: .77rem;">Mobile Template</p>
-                                <div class="progress rounded">
-                                    <div class="progress-bar" role="progressbar" style="width: 55%" aria-valuenow="55"
-                                         aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <p class="mt-4 mb-1" style="font-size: .77rem;">Backend API</p>
-                                <div class="progress rounded mb-2">
-                                    <div class="progress-bar" role="progressbar" style="width: 66%" aria-valuenow="66"
-                                         aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                        </div>  
-                    </div>
-                    <div class="col-md-6">
-                        <div class="card mb-4 mb-md-0">
-                            <div class="card-body">
-                                <p class="mb-4"><span class="text-primary font-italic me-1">assigment</span> Project Status
-                                </p>
-                                <p class="mb-1" style="font-size: .77rem;">Web Design</p>
-                                <div class="progress rounded">
-                                    <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80"
-                                         aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <p class="mt-4 mb-1" style="font-size: .77rem;">Website Markup</p>
-                                <div class="progress rounded">
-                                    <div class="progress-bar" role="progressbar" style="width: 72%" aria-valuenow="72"
-                                         aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <p class="mt-4 mb-1" style="font-size: .77rem;">One Page</p>
-                                <div class="progress rounded">
-                                    <div class="progress-bar" role="progressbar" style="width: 89%" aria-valuenow="89"
-                                         aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <p class="mt-4 mb-1" style="font-size: .77rem;">Mobile Template</p>
-                                <div class="progress rounded">
-                                    <div class="progress-bar" role="progressbar" style="width: 55%" aria-valuenow="55"
-                                         aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <p class="mt-4 mb-1" style="font-size: .77rem;">Backend API</p>
-                                <div class="progress rounded mb-2">
-                                    <div class="progress-bar" role="progressbar" style="width: 66%" aria-valuenow="66"
-                                         aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="cart-footer">
+            <button class="btn btn-primary checkout-btn">Proceed to Checkout</button>
         </div>
     </div>
 
-    <jsp:include page="view/FooterTag.jsp"></jsp:include>
 
-        <!-- Back to Top -->
-        <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.quantity-actions .increment').on('click', function () {
+                var input = $(this).siblings('.quantity-input');
+                var newQuantity = parseInt(input.val()) + 1;
+                updateQuantity(input, newQuantity);
+            });
 
+            $('.quantity-actions .decrement').on('click', function () {
+                var input = $(this).siblings('.quantity-input');
+                var newQuantity = Math.max(parseInt(input.val()) - 1, 1);
+                updateQuantity(input, newQuantity);
+            });
 
-        <!-- JavaScript Libraries -->
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-        <script src="${pageContext.request.contextPath}/assets_h/lib/easing/easing.min.js"></script>
-    <script src="${pageContext.request.contextPath}/assets_h/lib/owlcarousel/owl.carousel.min.js"></script>
+            $('.quantity-actions .quantity-input').on('input', function () {
+                var input = $(this);
+                var newQuantity = parseInt(input.val().replace(/[^\d]/g, '')) || 1;
+                updateQuantity(input, newQuantity);
+            });
 
-    <!-- Contact Javascript File -->
-    <script src="${pageContext.request.contextPath}/assets_h/mail/jqBootstrapValidation.min.js"></script>
-    <script src="mail/contact.js"></script>
+            function updateQuantity(input, newQuantity) {
+                var cartItemId = input.data('cart-id');
 
-    <!-- Template Javascript -->
-    <script src="${pageContext.request.contextPath}/assets_h/js/main.js"></script>
+                $.ajax({
+                    url: "${pageContext.request.contextPath}/cart",
+                    method: "POST",
+                    data: {
+                        cartItemId: cartItemId,
+                        quantity: newQuantity
+                    },
+                    success: function (response) {
+                        // Xử lý phản hồi từ servlet nếu cần
+                        console.log(response);
+                        // Cập nhật lại tổng giá tiền của sản phẩm
+                        var totalPriceElement = input.closest('.cart-item').find('.total-price');
+                        totalPriceElement.text('Total: ₫' + (response.price * newQuantity));
+                    },
+                    error: function () {
+                        alert('Failed to update quantity.');
+                    }
+                });
+            }
+        });
+    </script>
 </body>
-
 </html>

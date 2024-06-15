@@ -83,4 +83,11 @@ public class RegisterServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }
+    public static void main(String[] args) {
+        DAO dao = new DAO();
+        User u = new User(0,"quan", "123456", "quannv", "male", "012345789", "viquan", "ertyu", 1, 0);
+        if(dao.setUser(u)){
+            System.out.println("quan");
+        }
+    }
 }

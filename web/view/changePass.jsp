@@ -75,8 +75,8 @@
                     <div class="col-lg-6 col-md-12 bg-color-13">
                         <div class="form-section">
                             <div class="logo clearfix">
-                                <a href="login-11.html">
-                                    <img src="${pageContext.request.contextPath}/assets_lg/img/logos/logo-2.png" alt="logo">
+                                <a href="#">
+                                    <img src="${pageContext.request.contextPath}/assets_lg/img/logos/newPass.jpg" alt="logo">
                                 </a>
                             </div>
                             <% 
@@ -97,7 +97,7 @@
                                     <div class="col d-flex justify-content-end align-items-center">
                                         <div class="form-group">
                                             <!-- Checkbox -->
-                                            <div class="form-check">
+                                            <div class="form-check checkbox-theme">
                                                 <input class="form-check-input" type="checkbox" id="showPassword" onclick="togglePasswordVisibility()" checked="">
                                                 <label class="form-check-label" for="showPassword">Show pass</label>
                                             </div>
