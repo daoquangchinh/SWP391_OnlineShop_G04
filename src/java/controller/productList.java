@@ -29,6 +29,7 @@ public class productList extends HttpServlet {
         if (searchText == null) {
             ArrayList<Shoe> list_menu = null;
             list_menu = pd.getAllShoes();
+            System.out.println(list_menu.get(0).getImage());
             request.setAttribute("MenuChose", list_menu);
             request.getRequestDispatcher("view/productList.jsp").forward(request, response);
             return;

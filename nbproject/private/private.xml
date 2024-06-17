@@ -1,34 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
-        <file>
-            <url>web/view/forgotPassword.jsp</url>
-            <bookmark id="1">
-                <name/>
-                <line>62</line>
-                <key/>
-            </bookmark>
-        </file>
-    </editor-bookmarks>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-<<<<<<< HEAD
         <group>
-<<<<<<< HEAD
-            <file>file:/D:/HK5/JavaWeb/SWP391_OnlineShop_G04/src/java/modal/MaHoa.java</file>
-            <file>file:/D:/HK5/JavaWeb/SWP391_OnlineShop_G04/src/java/dao/DAO.java</file>
-            <file>file:/D:/HK5/JavaWeb/SWP391_OnlineShop_G04/web/view/loginPage.jsp</file>
-            <file>file:/D:/HK5/JavaWeb/SWP391_OnlineShop_G04/src/java/controller/LoginServlet.java</file>
-=======
-            <file>file:/F:/SWP/SWP391/SWP391_OnlineShop_G04/src/java/controller/ChangePassServlet.java</file>
-            <file>file:/F:/SWP/SWP391/SWP391_OnlineShop_G04/src/java/controller/productList.java</file>
-            <file>file:/F:/SWP/SWP391/SWP391_OnlineShop_G04/src/java/controller/ForgotPasswordServlet.java</file>
-            <file>file:/F:/SWP/SWP391/SWP391_OnlineShop_G04/web/view/EnterNewPassword.jsp</file>
-            <file>file:/F:/SWP/SWP391/SWP391_OnlineShop_G04/src/java/dao/DAO.java</file>
-            <file>file:/F:/SWP/SWP391/SWP391_OnlineShop_G04/web/view/forgotPassword.jsp</file>
->>>>>>> af41df7100102669531326046ffdc446ba1aa651
+            <file>file:/F:/SWP/merge/SWP391_OnlineShop_G04/web/view/homePage.jsp</file>
+            <file>file:/F:/SWP/merge/SWP391_OnlineShop_G04/src/java/controller/HomeServlet.java</file>
         </group>
-=======
-        <group/>
->>>>>>> origin/Chinh
     </open-files>
 </project-private>
