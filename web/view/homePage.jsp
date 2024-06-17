@@ -284,6 +284,7 @@
             <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
 
 
+        <script src="${pageContext.request.contextPath}/assets_h/js/main.js"></script>
             <!-- JavaScript Libraries -->
             <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
             <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
@@ -295,7 +296,6 @@
         <script src="mail/contact.js"></script>
 
         <!-- Template Javascript -->
-        <script src="${pageContext.request.contextPath}/assets_h/js/main.js"></script>
     </body>
 
 </html>

@@ -4,10 +4,13 @@
  */
 package modal;
 
+import java.util.List;
+
 /**
  *
  * @author ViQuan
  */
+
 public class Cart_Item {
 
     private int idCartItem;
@@ -18,11 +21,37 @@ public class Cart_Item {
     private Double price;
     private int quatityCart;
     private int quatityProduct;
-    private int shoe_id; 
+    private int shoe_id;
+    private List<ShoeColor> availableColors; // Danh sách các màu sắc có sẵn cho sản phẩm
+    private List<ShoeSize> availableSizes; // Danh sách các kích cỡ có sẵn cho sản phẩm
 
     @Override
     public String toString() {
-        return "Cart_Item{" + "idCartItem=" + idCartItem + ", img=" + img + ", shoe_name=" + shoe_name + ", size=" + size + ", color=" + color + ", price=" + price + ", quatityCart=" + quatityCart + ", quatityProduct=" + quatityProduct + ", shoe_id=" + shoe_id + '}';
+        return "Cart_Item{" +
+                "idCartItem=" + idCartItem +
+                ", img='" + img + '\'' +
+                ", shoe_name='" + shoe_name + '\'' +
+                ", size=" + size +
+                ", color='" + color + '\'' +
+                ", price=" + price +
+                ", quatityCart=" + quatityCart +
+                ", quatityProduct=" + quatityProduct +
+                ", shoe_id=" + shoe_id +
+                ", availableColors=" + availableColors +
+                ", availableSizes=" + availableSizes +
+                '}';
+    }
+
+    public Cart_Item(int idCartItem, String img, String shoe_name, int size, String color, Double price, int quatityCart, int quatityProduct, int shoe_id) {
+        this.idCartItem = idCartItem;
+        this.img = img;
+        this.shoe_name = shoe_name;
+        this.size = size;
+        this.color = color;
+        this.price = price;
+        this.quatityCart = quatityCart;
+        this.quatityProduct = quatityProduct;
+        this.shoe_id = shoe_id;
     }
 
     public int getIdCartItem() {
@@ -97,7 +126,23 @@ public class Cart_Item {
         this.shoe_id = shoe_id;
     }
 
-    public Cart_Item(int idCartItem, String img, String shoe_name, int size, String color, Double price, int quatityCart, int quatityProduct, int shoe_id) {
+    public List<ShoeColor> getAvailableColors() {
+        return availableColors;
+    }
+
+    public void setAvailableColors(List<ShoeColor> availableColors) {
+        this.availableColors = availableColors;
+    }
+
+    public List<ShoeSize> getAvailableSizes() {
+        return availableSizes;
+    }
+
+    public void setAvailableSizes(List<ShoeSize> availableSizes) {
+        this.availableSizes = availableSizes;
+    }
+
+    public Cart_Item(int idCartItem, String img, String shoe_name, int size, String color, Double price, int quatityCart, int quatityProduct, int shoe_id, List<ShoeColor> availableColors, List<ShoeSize> availableSizes) {
         this.idCartItem = idCartItem;
         this.img = img;
         this.shoe_name = shoe_name;
@@ -107,10 +152,10 @@ public class Cart_Item {
         this.quatityCart = quatityCart;
         this.quatityProduct = quatityProduct;
         this.shoe_id = shoe_id;
+        this.availableColors = availableColors;
+        this.availableSizes = availableSizes;
     }
 
     public Cart_Item() {
     }
-
-
 }

@@ -187,7 +187,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     margin: 0 5px 5px 0;
     padding: 2px 4px;
     white-space: nowrap;
-    max-width: 120px;
+    max-width: 110px;
 }
 
 .ship_img {
@@ -243,6 +243,20 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     border-bottom: 2px dashed  #ffd33378;
 }
 
+.footerend {
+    border: 0px solid #000;
+    background: #f3f1ef;
+    max-width: 95%;
+    margin: 20px auto;
+    box-sizing: border-box;
+    padding: .75rem 0;
+    border-bottom: 2px dashed  #ffd33378;
+    box-shadow: -3px -11px 15px rgba(0, 0, 0, 0.3);
+    position: sticky;
+    bottom: 0;
+    z-index: 4;
+
+}
 
 .voucher {
     margin: 0 30px;

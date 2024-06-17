@@ -11,14 +11,13 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
-import modal.ShoeColor;
+import modal.Cart_Item;
 
 /**
  *
  * @author ViQuan
  */
-public class DeleteCartItemServlet extends HttpServlet {
+public class getColorsAndSizes extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,10 +36,10 @@ public class DeleteCartItemServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet DeleteCartItemServlet</title>");
+            out.println("<title>Servlet getColorsAndSizes</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet DeleteCartItemServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet getColorsAndSizes at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -58,13 +57,7 @@ public class DeleteCartItemServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        DAO dao = new DAO();
-
-        // Get parameters from request
-        int cartItemId = Integer.parseInt(request.getParameter("cartItemId"));
-
-        // Update quantity in the database (replace userId with actual user ID)
-        dao.delete(cartItemId);
+        processRequest(request, response);
     }
 
     /**
@@ -81,12 +74,17 @@ public class DeleteCartItemServlet extends HttpServlet {
         DAO dao = new DAO();
 
         // Get parameters from request
-        int shoe_id = Integer.parseInt(request.getParameter("shoe_id"));
-        List<ShoeColor> listColor = dao.getColorByShoeId(shoe_id);
-        // Convert listColor to JSON
+        int cartItemId = Integer.parseInt(request.getParameter("cartId"));
+
+        // Update quantity in the database (replace userId with actual user ID)
+        Cart_Item ci = new Cart_Item();
+        ci = dao.getCartItem(1);
+
+        // Prepare JSON response
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
-        out.println("{ \"listColor\":" + listColor + "}"); // Replace 100 with actual calculated price
+        out.println("{ \"size\":" + ci.getSize()+ "}"); // Replace 100 with actual calculated price
+        out.println("{ \"color\":" + ci.getColor() + "}"); // Replace 100 with actual calculated price
         out.close();
     }
 
