@@ -218,11 +218,6 @@
                         </div>
                     </a>
                 </div>
-
-
-
-
-
             </div>
         </div><!--
          Categories End -->
@@ -232,40 +227,54 @@
 
 
         <!-- Products Start -->
+        
         <div class="container-fluid pt-5 pb-3">
-            <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Featured Products</span></h2>
-            <div class="row px-xl-5">
-                <c:forEach var="item" items="${listShoes}">
-                    <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                        <div class="product-item bg-light mb-4">
-                            <div class="product-img position-relative overflow-hidden">
-                                <img class="img-fluid w-100" src="${item.getImage()}" alt="">
-                                <div class="product-action">
-                                    <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                                    <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                                    <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
-                                </div>
-                            </div>
-                            <div class="text-center py-4">
-                                <a class="h6 text-decoration-none text-truncate" href="">${item.getName()}</a>
-                                <div class="d-flex align-items-center justify-content-center mt-2">
-                                    <h5>$ ${item.getPriceDiscount()}</h5><h6 class="text-muted ml-2"><del>$ ${item.getPrice()}</del></h6>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-center mb-1">
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <small class="fa fa-star text-primary mr-1"></small>
-                                    <!--<small>(99)</small>-->
-                                </div>
-                            </div>
-                        </div>
-                    </div> 
-                </c:forEach>
+                    <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Products</span></h2>
+                    <div class="row px-xl-5">   
+                        <c:forEach var="item" items="${requestScope.listShoes}">
+                            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                                <div class="product-item bg-light mb-4">
+                                    <div class="product-img position-relative overflow-hidden">
+                                        
+                                        <img class="img-fluid w-100" src="${pageContext.request.contextPath}${item.getImage()}" alt="">
+                                        <!--                                <div class="product-action">
+                                                                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
+                                                                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
+                                                                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
+                                                                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
+                                                                        </div>-->
+                                    </div>
+                                    <div class="text-center py-4">
+                                        <a class="h6 text-decoration-none text-truncate" href="">${item.getName()}</a>
+                                        <div class="d-flex align-items-center justify-content-center mt-2">
+                                            <c:choose>
+                                                <c:when test="${item.getPriceDiscount() != 0}">
+                                                    <div class="d-flex align-items-center justify-content-center mt-2">
+                                                        <h5>$ ${item.getPriceDiscount()}</h5>
+                                                        <h6 class="text-muted ml-2"><del>$ ${item.getPrice()}</del></h6>
+                                                    </div> 
+                                                </c:when>
 
-            </div>
-        </div>
+                                                <c:otherwise>
+                                                    <h6><del>$ ${item.getPrice()}</del></h6>
+                                                </c:otherwise>
+                                            </c:choose>
+
+                                        </div>
+                                        <div class="d-flex align-items-center justify-content-center mb-1">
+                                            <small class="fa fa-star text-primary mr-1"></small>
+                                            <small class="fa fa-star text-primary mr-1"></small>
+                                            <small class="fa fa-star text-primary mr-1"></small>
+                                            <small class="fa fa-star text-primary mr-1"></small>
+                                            <small class="fa fa-star text-primary mr-1"></small>
+                                            <!--<small>(99)</small>-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                        </c:forEach>
+                    </div>
+                </div>
         <!-- Products End -->
 
 

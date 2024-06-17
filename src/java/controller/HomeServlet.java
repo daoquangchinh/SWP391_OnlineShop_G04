@@ -26,25 +26,12 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        BrandDAO brandDAO = new BrandDAO();
         ShoeDAO shoeDAO = new ShoeDAO();
 
-        int brandId = 0;
 
-        if (request.getParameter("BrandId") != null) {
-            try {
-                brandId = Integer.parseInt(request.getParameter("brandId"));
-                if (brandId < 0) {
-                    brandId = 0;
-                }
-            } catch (Exception e) {
-            }
-        }
 
-        ArrayList<Brand> listBrands = brandDAO.getBrands();
-        ArrayList<Shoe> listShoes = shoeDAO.getShoes(brandId);
+        ArrayList<Shoe> listShoes = shoeDAO.getAllShoes();
 
-        request.setAttribute("listBrands", listBrands);
         request.setAttribute("listShoes", listShoes);
 
         request.getRequestDispatcher("view/homePage.jsp").forward(request, response);

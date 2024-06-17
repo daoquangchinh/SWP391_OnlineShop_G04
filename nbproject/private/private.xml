@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
-        <file>
-            <url>web/view/forgotPassword.jsp</url>
-            <bookmark id="1">
-                <name/>
-                <line>62</line>
-                <key/>
-            </bookmark>
-        </file>
-    </editor-bookmarks>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+<<<<<<< HEAD
         <group/>
+=======
+        <group>
+            <file>file:/F:/SWP/merge/SWP391_OnlineShop_G04/src/java/dal/DBContext.java</file>
+            <file>file:/F:/SWP/merge/SWP391_OnlineShop_G04/web/view/homeTag.jsp</file>
+            <file>file:/F:/SWP/merge/SWP391_OnlineShop_G04/web/view/homePage.jsp</file>
+            <file>file:/F:/SWP/merge/SWP391_OnlineShop_G04/src/java/controller/CartServlet.java</file>
+            <file>file:/F:/SWP/merge/SWP391_OnlineShop_G04/src/java/modal/MaHoa.java</file>
+            <file>file:/F:/SWP/merge/SWP391_OnlineShop_G04/web/view/productList.jsp</file>
+            <file>file:/F:/SWP/merge/SWP391_OnlineShop_G04/src/java/controller/HomeServlet.java</file>
+        </group>
+>>>>>>> 215ac559a398e03cb0b5aadd5aecb73013f10618
     </open-files>
 </project-private>

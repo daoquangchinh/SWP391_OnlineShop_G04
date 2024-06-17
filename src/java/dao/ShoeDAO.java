@@ -36,7 +36,7 @@ public class ShoeDAO {
                 + "      ,[discount]\n"
                 + "      ,[created_at]\n"
                 + "      ,[updated_at]\n"
-                + "      , image\n"
+                + "      , img\n"
                 + "  FROM [shoe] ";
         if (brandId != 0) {
             sql += "  Where brand_id = " + brandId;
@@ -82,7 +82,7 @@ public class ShoeDAO {
                 + "      ,[discount]\n"
                 + "      ,[created_at]\n"
                 + "      ,[updated_at]\n"
-                + "      , image\n"
+                + "      , img\n"
                 + "  FROM [shoe] ";
 
         ArrayList<Shoe> list = new ArrayList<>();
@@ -102,9 +102,9 @@ public class ShoeDAO {
                 shoe.setDescriptionm(rs.getString("description"));
                 shoe.setPrice(rs.getDouble("price"));
                 shoe.setDiscount(rs.getDouble("discount"));
+                shoe.setImage(rs.getString("img"));
                 shoe.setCreatedAt(rs.getString("created_at"));
                 shoe.setUpdatedAt(rs.getString("updated_at"));
-                shoe.setImage(rs.getString("image"));
 
                 list.add(shoe);
             }
@@ -264,9 +264,9 @@ public class ShoeDAO {
 
     public static void main(String[] args) throws SQLException {
         ShoeDAO productDAO = new ShoeDAO();
-        List<Shoe> list = productDAO.searchShoeByName("Nike");
+        List<Shoe> list = productDAO.getAllShoes();
         if (list != null) {
-            System.out.println(list.get(1).getName());
+            System.out.println(list.get(0).getImage());
         } else {
             System.out.println("No shoes found within the specified price range.");
         }
