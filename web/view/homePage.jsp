@@ -305,6 +305,7 @@
 
         <!-- Template Javascript -->
         <script src="${pageContext.request.contextPath}/assets_h/js/main.js"></script>
+        
     </body>
 
 </html>
