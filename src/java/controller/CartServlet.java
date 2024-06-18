@@ -30,7 +30,7 @@ public class CartServlet extends HttpServlet {
         } else {
             // If user is not logged in, you might want to redirect to a login page or handle it differently
             // For testing purposes, default to user ID 1
-            cartItems = dao.getCart(1);
+            cartItems = (List<Cart_Item>) session.getAttribute("cart");
         }
 
         request.setAttribute("mess", "quan");

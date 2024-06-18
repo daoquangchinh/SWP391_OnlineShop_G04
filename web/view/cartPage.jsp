@@ -146,7 +146,7 @@
                                                     <span class="sapn01">-</span>
                                                 </button>
                                                 <!--thay đổi khi nhập dữ liệu-->
-                                                <input class="WNSVcC g2m9n4 quantity" type="text" value="<%= item.getQuatityCart() %>" data-cart-id="<%= item.getIdCartItem() %>">
+                                                <input class="WNSVcC g2m9n4 quantity" id="" type="text" value="<%= item.getQuatityCart() %>" data-cart-id="<%= item.getIdCartItem() %>">
                                                 <button class="WNSVcC increment">
                                                     <span class="sapn01">+</span>
                                                 </button>
@@ -371,9 +371,9 @@
                             PriceElement.innerHTML = '₫' + (response.price.toLocaleString('en')) + '.0';
                             selectedItems(); // Update selected items count and total price display
                         }
-//                        error: function () {
-//                            alert('Failed to update quantity.');
-//                        }
+                        error: function () {
+                            alert('Failed to update quantity.');
+                        }
                     });
                 }
 
@@ -414,7 +414,7 @@
 
                 document.querySelectorAll('.quantity').forEach(input => {
                     input.addEventListener('input', function () {
-                        input.value = input.value.replace(/[^\d]/g, '') || 0;
+                        input.value = input.value.replace(/[^\d]/g, '') || "";
                         sendUpdateRequest(input.dataset.cartId, input.value);
                     });
                 });
