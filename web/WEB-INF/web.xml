@@ -41,10 +41,6 @@
         <servlet-class>controller.CartServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>DeleteCartItemServlet</servlet-name>
-        <servlet-class>controller.DeleteCartItemServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>getColorsAndSizes</servlet-name>
         <servlet-class>controller.getColorsAndSizes</servlet-class>
     </servlet>
@@ -87,10 +83,6 @@
     <servlet-mapping>
         <servlet-name>CartServlet</servlet-name>
         <url-pattern>/cart</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>DeleteCartItemServlet</servlet-name>
-        <url-pattern>/deleteCartItem</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>getColorsAndSizes</servlet-name>

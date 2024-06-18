@@ -60,7 +60,7 @@ public class DAO {
     public Cart_Item getCartItem(int cartItemId) {
         String query = "SELECT "
                 + "ci.id AS idCartItem, "
-                + "img.img AS img, "
+                + "s.img AS img, "
                 + "s.shoe_name, "
                 + "ss.size, "
                 + "sc.color, "
@@ -73,7 +73,6 @@ public class DAO {
                 + "JOIN shoe s ON p.shoe_id = s.id "
                 + "JOIN shoe_size ss ON p.shoe_size_id = ss.id "
                 + "JOIN shoe_color sc ON p.shoe_color_id = sc.id "
-                + "JOIN img img ON img.shoe_id = s.id AND img.shoe_color_id = sc.id "
                 + "WHERE ci.id = ?";
 
         Cart_Item cartItem = null;
@@ -110,7 +109,7 @@ public class DAO {
     public List<Cart_Item> getCart(int userId) {
         String query = "SELECT \n"
                 + "    ci.id AS idCartItem,\n"
-                + "    img.img AS img,\n"
+                + "    s.img AS img,\n"
                 + "    s.shoe_name,\n"
                 + "    ss.size,\n"
                 + "    sc.color,\n"
@@ -128,8 +127,6 @@ public class DAO {
                 + "    shoe_size ss ON p.shoe_size_id = ss.id\n"
                 + "JOIN \n"
                 + "    shoe_color sc ON p.shoe_color_id = sc.id\n"
-                + "JOIN \n"
-                + "    img img ON img.shoe_id = s.id AND img.shoe_color_id = sc.id\n"
                 + "WHERE \n"
                 + "    ci.user_id = ?;"; // Change to filter by ci.user_id = ?
 

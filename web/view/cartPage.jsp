@@ -49,23 +49,23 @@
                             <div class="col-lg-6">
                                 <div class="product">
                                     <input class="checkbox_input" type="checkbox" id="select_all_header">
-                                    <p>Sản Phẩm</p>
+                                    <p>Product</p>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="row">
                                     <div class="nhom">
                                         <div class="col-lg-3 nhom1">
-                                            <div>Đơn Giá</div>
+                                            <div>Unit Price</div>
                                         </div>
                                         <div class="col-lg-3 nhom1">
-                                            <div>Số Lượng</div>
+                                            <div>Quantity</div>
                                         </div>
                                         <div class="col-lg-3 nhom1">
-                                            <div>Số Tiền</div>
+                                            <div>Money(vnđ)</div>
                                         </div>
                                         <div class="col-lg-3 nhom1">
-                                            <div>Thao Tác</div>
+                                            <div>Action</div>
                                         </div>
                                     </div>
                                 </div>
@@ -95,23 +95,23 @@
                                 <div class="product">
                                     <input class="checkbox_input item-checkbox" type="checkbox">
                                     <a title="<%= item.getShoe_name() %>" href="#">
-                                        <img class="product_img" src="<%= item.getImg() %>" alt="product image">
+                                        <img class="product_img" src="${pageContext.request.contextPath}<%= item.getImg() %>" alt="product image">
                                     </a>
                                     <div class="c54pg1 col-lg-4">
                                         <a title="<%= item.getShoe_name() %>" href="#"><%= item.getShoe_name() %></a>
-                                        <div class="co-inspection"><span>Đổi ý miễn phí 15 ngày</span></div>
+                                        <div class="co-inspection"><span>Free exchange 15 days</span></div>
                                         <img class="ship_img" src="https://down-vn.img.susercontent.com/file/vn-50009109-adeb9f40700bf1e29996a6caf07746e2" alt="loading..">
                                         <div class="gvFc9h"></div>
                                     </div>
                                     <div class="col-lg-3" style="left: 30px;">
                                         <div class="qNRZqG1 dropdown">
-                                            <button class="mM4TZ8 dropdown-toggle" data-toggle="dropdown">
-                                                <div class="iIg1CN" data-shoe-id="<%= item.getShoe_id()%>">Phân loại hàng:</div>
+                                            <button class="mM4TZ8 dropdown-toggle btn" data-toggle="dropdown">
+                                                <div class="iIg1CN" data-shoe-id="<%= item.getShoe_id()%>">Product classification:</div>
                                                 <div class="iIg1CN"><%= item.getColor() %>, <%= item.getSize() %></div>
                                             </button>
                                             <div class="bfr5fB dropdown-menu">
                                                 <div class="bfr5fB1">
-                                                    <label class="UTcc4z"id="mau">Màu:</label>
+                                                    <label class="UTcc4z"id="mau">Color:</label>
                                                     <%-- Hiển thị tất cả các màu có sẵn trong item --%>
                                                     <% for (ShoeColor colorItem : item.getAvailableColors()) {%>
                                                     <button class="dropdown-item" data-item-type="color"><%= colorItem.getColor() %></button>
@@ -124,8 +124,8 @@
                                                     <% } %>
                                                 </div>
                                                 <div class="ZQrI2V">
-                                                    <button class="cancel-btn">Trở Lại</button>
-                                                    <button class="xacnhan">Xác nhận</button>
+                                                    <button class="cancel-btn">Cancel</button>
+                                                    <button class="xacnhan">Confirm</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -156,7 +156,7 @@
                                             <div class="total-price priceform sapn02" id="cart<%= item.getIdCartItem() %>">₫<%= item.getQuatityCart() * item.getPrice() %></div>
                                         </div>
                                         <div class="col-lg-3 nhom1">
-                                            <button class="delete" onclick="deleteGroup(<%= item.getIdCartItem() %>)">Xóa</button>
+                                            <button class="delete" onclick="deleteGroup(<%= item.getIdCartItem() %>)">Delete</button>
                                         </div>
                                     </div>
                                 </div>
@@ -171,7 +171,7 @@
             <section class="footerend">
                 <div class="voucher">               
                     <div>Shop Voucher</div>
-                    <button class="voucher-button">Chọn hoặc nhập mã</button>
+                    <button class="voucher-button">Add voucher</button>
                 </div>
                 <div class="total">
                     <div class="stardust-checkbox">
@@ -180,31 +180,97 @@
                             <div class="stardust-checkbox__box"></div>
                         </label>
                     </div>
-                    <button class="select_all btn" type="checkbox" id="select_all">Chọn Tất Cả (<%= listC.size() %>)</button>
-                    <button class="btn" onclick="DeleteSelectedItems()">Xóa</button>
+                    <button class="select_all btn" type="checkbox" id="select_all">Select All (<%= listC.size() %>)</button>
+                    <button class="btn" style="color: red" onclick="DeleteSelectedItems()">Delete</button>
                     <div>
                         <!--                            <button class="btn"><p class="btn" style="color: red">Bỏ sản phẩm không hoạt động</p></button>-->
                     </div>
-                    <button class="btn">Lưu vào mục Đã thích</button>
+                    <button class="btn">Save to Liked</button>
                     <div></div>
                     <div role="">
                         <div class="btn">
                             <div class="total_thanhtien">
-                                <div id ="totalproduct" style="margin-right: 10px">Tổng thanh toán (0 Sản phẩm):</div>
+                                <div id ="totalproduct" style="margin-right: 10px">Total Payment (0 Products)</div>
                                 <div class="sapn02 priceform" id="totalprice">₫0</div>
                             </div>
                         </div>
                         <div></div>
                     </div>
                     <button class="pay">
-                        <span class="" >Mua hàng</span>
+                        <span class="" >Purchase</span>
                     </button>
                 </div>
             </section>
 
         </div>
+        <!-- Button to trigger modal -->
+<!--        <button id="open-error-modal-btn">Open Modal</button>-->
+
+        <!-- Modal -->
+        <div id="error-modal" class="modal">
+            <div class="modal-content">
+                <p id="error-mess" style="color: red">This is a feature not a bug.</p>
+                <div class="modal-buttons">
+                    <button id="close-error-modal-btn">Cancel</button>
+                </div>
+            </div>
+        </div>
+        <div id="confirm-modal" class="modal">
+            <div class="modal-content">
+                <p id="confirm-message" class="modal-message">This is a feature not a bug.</p>
+                <div class="modal-buttons">
+                    <button id="cancel-btn" class="modal-btn">Cancel</button>
+                    <button id="confirm-btn" class="modal-btn">OK</button>
+                </div>
+            </div>
+        </div>
+
         <jsp:include page="FooterTag.jsp"></jsp:include>
+
             <!-- JavaScript to handle the checkbox functionality -->
+            <script>        // Lấy modal và các phần tử liên quan
+                var openModal = document.getElementById('open-error-modal-btn');
+                var errorModal = document.getElementById('error-modal');
+                var closeErrorButton = document.getElementById('close-error-modal-btn');
+                var modalMessage = document.getElementById('error-mess');
+                var confirmModal = document.getElementById('confirm-modal');
+                var confirmMessage = document.getElementById('confirm-message');
+                var confirmButton = document.getElementById('confirm-btn');
+                var cancelButton = document.getElementById('cancel-btn');
+
+                function closeConfirmModal() {
+                    confirmModal.style.display = 'none';
+                }
+                function showConfirmModal(message) {
+                    confirmMessage.textContent = message; // Thiết lập nội dung thông báo
+                    confirmModal.style.display = 'block'; // Hiển thị modal
+                }
+                cancelButton.onclick = function () {
+                    confirmResult = false;
+                    closeConfirmModal();
+                };
+                // Hàm hiển thị modal lỗi khi xóa không thành công và thiết lập nội dung
+                function showErrorModal(message) {
+                    modalMessage.textContent = message; // Thiết lập nội dung thông báo
+                    errorModal.style.display = 'block'; // Hiển thị modal
+                }
+                // Mở để test
+                openModal.onclick = function () {
+                    errorModal.style.display = 'block';
+                };
+                // Đóng modal khi nhấn nút Close
+                closeErrorButton.onclick = function () {
+                    errorModal.style.display = 'none';
+                };
+
+                // Đóng modal khi nhấn phím ESC
+                window.onkeydown = function (event) {
+                    if (event.key === 'Escape') {
+                        errorModal.style.display = 'none';
+                    }
+                };
+            </script>
+
             <script>
                 $(document).ready(function () {
                     // Đóng dropdown-menu khi nhấp vào nút "Trở lại"
@@ -273,9 +339,10 @@
                 function deleteGroup(cartItemId) {
                     // Function to delete a group via AJAX
                     $.ajax({
-                        url: "${pageContext.request.contextPath}/deleteCartItem", // Adjust URL as per your server endpoint
-                        method: "GET",
+                        url: "${pageContext.request.contextPath}/cart",
+                        method: "POST",
                         data: {
+                            action: "deleteCartItem",
                             cartItemId: cartItemId
                         },
                         success: function (response) {
@@ -285,7 +352,7 @@
                             selectedItems(); // Update selected items count and total price display
                         },
                         error: function () {
-                            alert('Failed to delete group from cart.');
+                            showErrorModal('Failed to delete group from cart.');
                         }
                     });
                 }
@@ -313,11 +380,11 @@
                         total += quantity * price;
                     });
                     var totalproduct = document.getElementById("totalproduct");
-                    totalproduct.innerHTML = "Tổng thanh toán (" + check + " Sản phẩm):";
+                    totalproduct.innerHTML = "Total payment (" + check + " Product):";
                     var totalprice = document.getElementById("totalprice");
                     totalprice.innerHTML = "₫" + total.toLocaleString('en') + '.0';
                     var totalCartItem = document.getElementById("select_all");
-                    totalCartItem.innerHTML = "Chọn Tất Cả (" + quantityCartItem.length + ")";
+                    totalCartItem.innerHTML = "Select All (" + quantityCartItem.length + ")";
                 }
         </script>
 
@@ -328,15 +395,15 @@
                 const selectAllFooter = document.getElementById('select_all_footer');
                 const itemCheckboxes = document.querySelectorAll('.item-checkbox');
 
+                // Function to update select all checkboxes based on individual checkboxes
                 function updateSelectAllCheckboxes() {
-                    // Function to update select all checkboxes functionality
                     const allChecked = [...itemCheckboxes].every(checkbox => checkbox.checked);
                     selectAllHeader.checked = allChecked;
                     selectAllFooter.checked = allChecked;
                 }
 
+                // Function to toggle all checkboxes based on header/footer checkbox state
                 function toggleAllCheckboxes(isChecked) {
-                    // Function to toggle all checkboxes based on header/footer checkbox
                     itemCheckboxes.forEach(checkbox => {
                         checkbox.checked = isChecked;
                     });
@@ -344,74 +411,105 @@
                     selectAllFooter.checked = isChecked;
                 }
 
+                // Event listener for select all checkboxes (header and footer)
                 [selectAllHeader, selectAllFooter].forEach(selectAll => {
                     selectAll.addEventListener('change', function () {
                         toggleAllCheckboxes(selectAll.checked);
                     });
                 });
 
+                // Event listener for individual item checkboxes
                 itemCheckboxes.forEach(checkbox => {
                     checkbox.addEventListener('change', updateSelectAllCheckboxes);
                 });
 
+                // Function to send AJAX request to update item quantity on the server
                 function sendUpdateRequest(cartItemId, newQuantity) {
-                    // Function to send AJAX request to update item quantity
                     $.ajax({
                         url: "${pageContext.request.contextPath}/cart",
                         method: "POST",
                         data: {
+                            action: "updateQuantity",
                             cartItemId: cartItemId,
                             quantity: newQuantity
                         },
                         success: function (response) {
-                            // Update total price of the item
+                            // Update the total price and unit price in the UI
                             var totalPriceElement = document.getElementById("cart" + cartItemId);
                             totalPriceElement.innerHTML = '₫' + (response.price * newQuantity).toLocaleString('en') + '.0';
                             var PriceElement = document.getElementById("price" + cartItemId);
                             PriceElement.innerHTML = '₫' + (response.price.toLocaleString('en')) + '.0';
-                            selectedItems(); // Update selected items count and total price display
+                            selectedItems(); // Update the selected items count and total price display
+
                         }
-                        error: function () {
-                            alert('Failed to update quantity.');
-                        }
+//            error: function () {
+//            showErrorModal('Failed to update quantity.');
+//            }
                     });
                 }
 
+                // Function to update quantity based on increment/decrement buttons
                 function updateQuantity(input, increment) {
-                    // Function to update quantity based on increment/decrement buttons
                     const cartItemId = input.dataset.cartId;
 
                     let quantity = parseInt(input.value, 10);
                     quantity = increment ? quantity + 1 : Math.max(0, quantity - 1);
                     if (quantity === 0) {
-                        // Display a confirmation dialog
-                        if (window.confirm("Bạn có muốn xóa không?" + cartItemId)) {
-                            // User confirmed deletion, you can proceed with any further deletion logic here
-                            deleteGroup(cartItemId); // Call delete function with corresponding cartItemId
+                        // Display a confirmation dialog for deletion
+                        showConfirmModal("Do you want to remove this product from your cart?");
+                        confirmButton.onclick = function () { // Corrected line
+                            deleteGroup(cartItemId); // Call delete function with the corresponding cartItemId
+                            closeConfirmModal();
+                        };
+                        cancelButton.onclick = function () { // Corrected line
 
-                        } else {
-                            // User canceled deletion, you may keep the quantity at 0 or take other appropriate actions
-                            quantity = 1; // Reset quantity to 1
-                        }
+                            closeConfirmModal();
+                        };
+
+                        quantity = 1; // Reset quantity to 1 if deletion is canceled
                     }
+
                     input.value = quantity;
                     sendUpdateRequest(cartItemId, quantity);
                 }
-
+// Event listeners for increment buttons
                 document.querySelectorAll('.increment').forEach(button => {
                     button.addEventListener('click', function () {
                         const quantityInput = button.closest('.nhom1').querySelector('.quantity');
-                        updateQuantity(quantityInput, true);
+                        fetchQuantityAndUpdate(quantityInput, true);
                     });
                 });
 
+// Event listeners for decrement buttons
                 document.querySelectorAll('.decrement').forEach(button => {
                     button.addEventListener('click', function () {
                         const quantityInput = button.closest('.nhom1').querySelector('.quantity');
-                        updateQuantity(quantityInput, false);
+                        fetchQuantityAndUpdate(quantityInput, false);
                     });
                 });
 
+// Function to fetch quantity from the database and update it
+                function fetchQuantityAndUpdate(input, increment) {
+                    const cartItemId = input.dataset.cartId;
+
+                    $.ajax({
+                        url: "${pageContext.request.contextPath}/cart", // URL của servlet để lấy quantity từ database
+                        method: "POST",
+                        data: {
+                            action: "fetchQuantity",
+                            cartItemId: cartItemId
+                        },
+                        success: function (response) {
+                            // Call updateQuantity with the fetched quantity and increment
+                            input.value = response.quantity;
+                            updateQuantity(input, increment);
+                        },
+                        error: function () {
+                            showErrorModal('Failed to fetch quantity from database.');
+                        }
+                    });
+                }
+                // Event listeners for manual quantity input changes
                 document.querySelectorAll('.quantity').forEach(input => {
                     input.addEventListener('input', function () {
                         input.value = input.value.replace(/[^\d]/g, '') || "";
@@ -419,12 +517,12 @@
                     });
                 });
 
+                // Initialize select all checkboxes based on individual checkbox states
                 updateSelectAllCheckboxes();
             });
 
             document.addEventListener('DOMContentLoaded', function () {
                 // Initialize selectedItems function on page load
-                // Checkbox change event listener
                 var itemCheckboxes = document.querySelectorAll('.checkbox_input');
                 itemCheckboxes.forEach(checkbox => {
                     checkbox.addEventListener('change', function () {
@@ -432,7 +530,7 @@
                     });
                 });
 
-                // Format price elements
+                // Format price elements to include commas and currency symbol
                 var priceElements = document.querySelectorAll('.priceform');
                 priceElements.forEach(element => {
                     var currentPrice = parseFloat(element.textContent.replace('₫', '').replace(/,/g, ''));
@@ -440,6 +538,7 @@
                     element.textContent = "₫" + formattedPrice + ".0";
                 });
             });
+
         </script>
 
 
