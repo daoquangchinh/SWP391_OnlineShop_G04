@@ -41,6 +41,8 @@
 
     <body>
         <jsp:include page="homeTag.jsp"></jsp:include>
+            <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Shop Cart</span></h2>
+
             <div> 
                 <!--header cart--> 
                 <div class="footer">
@@ -49,7 +51,7 @@
                             <div class="col-lg-6">
                                 <div class="product">
                                     <input class="checkbox_input" type="checkbox" id="select_all_header">
-                                    <p>Product</p>
+                                    <p style="color: #212529">Product</p>
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -156,7 +158,7 @@
                                             <div class="total-price priceform sapn02" id="cart<%= item.getIdCartItem() %>">₫<%= item.getQuatityCart() * item.getPrice() %></div>
                                         </div>
                                         <div class="col-lg-3 nhom1">
-                                            <button class="delete" onclick="deleteGroup(<%= item.getIdCartItem() %>)">Delete</button>
+                                            <button class="delete " onclick="deleteGroup(<%= item.getIdCartItem() %>)">Delete</button>
                                         </div>
                                     </div>
                                 </div>
@@ -204,12 +206,12 @@
 
         </div>
         <!-- Button to trigger modal -->
-<!--        <button id="open-error-modal-btn">Open Modal</button>-->
+        <button id="open-error-modal-btn" style="display: none">Open Modal</button>
 
         <!-- Modal -->
         <div id="error-modal" class="modal">
             <div class="modal-content">
-                <p id="error-mess" style="color: red">This is a feature not a bug.</p>
+                <p id="error-mess" style="color: red">This is a feature not a bug1.</p>
                 <div class="modal-buttons">
                     <button id="close-error-modal-btn">Cancel</button>
                 </div>
@@ -224,6 +226,7 @@
                 </div>
             </div>
         </div>
+        <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Shop by Sport</span></h2>
 
         <jsp:include page="FooterTag.jsp"></jsp:include>
 
@@ -435,6 +438,8 @@
                         },
                         success: function (response) {
                             // Update the total price and unit price in the UI
+                            // newQuantity = response.quantity;
+//                            updateQuantity()
                             var totalPriceElement = document.getElementById("cart" + cartItemId);
                             totalPriceElement.innerHTML = '₫' + (response.price * newQuantity).toLocaleString('en') + '.0';
                             var PriceElement = document.getElementById("price" + cartItemId);
@@ -453,7 +458,7 @@
                     const cartItemId = input.dataset.cartId;
 
                     let quantity = parseInt(input.value, 10);
-                    quantity = increment ? quantity + 1 : Math.max(0, quantity - 1);
+//                    quantity = increment ? quantity + 1 : Math.max(0, quantity - 1);
                     if (quantity === 0) {
                         // Display a confirmation dialog for deletion
                         showConfirmModal("Do you want to remove this product from your cart?");
@@ -465,10 +470,9 @@
 
                             closeConfirmModal();
                         };
-
                         quantity = 1; // Reset quantity to 1 if deletion is canceled
-                    }
 
+                    }
                     input.value = quantity;
                     sendUpdateRequest(cartItemId, quantity);
                 }
@@ -476,6 +480,8 @@
                 document.querySelectorAll('.increment').forEach(button => {
                     button.addEventListener('click', function () {
                         const quantityInput = button.closest('.nhom1').querySelector('.quantity');
+                        var quantity = parseInt(quantityInput.value, 10);
+                        quantityInput.value = quantity + 1;
                         fetchQuantityAndUpdate(quantityInput, true);
                     });
                 });
@@ -484,6 +490,8 @@
                 document.querySelectorAll('.decrement').forEach(button => {
                     button.addEventListener('click', function () {
                         const quantityInput = button.closest('.nhom1').querySelector('.quantity');
+                        var quantity = parseInt(quantityInput.value, 10);
+                        quantityInput.value = quantity - 1;
                         fetchQuantityAndUpdate(quantityInput, false);
                     });
                 });
@@ -497,10 +505,14 @@
                         method: "POST",
                         data: {
                             action: "fetchQuantity",
-                            cartItemId: cartItemId
+                            cartItemId: cartItemId,
+                            quantity: input.value
                         },
                         success: function (response) {
-                            // Call updateQuantity with the fetched quantity and increment
+                            var strErr = response.strErr;
+                            if (strErr !== null && strErr.trim() !== "") {
+                                showErrorModal(strErr);
+                            }
                             input.value = response.quantity;
                             updateQuantity(input, increment);
                         },
@@ -511,11 +523,18 @@
                 }
                 // Event listeners for manual quantity input changes
                 document.querySelectorAll('.quantity').forEach(input => {
+                    // Kiểm tra và loại bỏ ký tự không phải số khi người dùng nhập
                     input.addEventListener('input', function () {
-                        input.value = input.value.replace(/[^\d]/g, '') || "";
-                        sendUpdateRequest(input.dataset.cartId, input.value);
+                        input.value = input.value.replace(/[^\d]/g, '');
+                    });
+
+                    // Kiểm tra và loại bỏ ký tự không phải số khi người dùng rời khỏi ô nhập liệu
+                    input.addEventListener('blur', function () {
+                        input.value = input.value.replace(/[^\d]/g, '');
+                        fetchQuantityAndUpdate(input, false);
                     });
                 });
+
 
                 // Initialize select all checkboxes based on individual checkbox states
                 updateSelectAllCheckboxes();
@@ -540,15 +559,19 @@
             });
 
         </script>
-
-
-
-
-        <!-- Back to Top -->
         <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
 
 
+        <script src="${pageContext.request.contextPath}/assets_h/js/main.js"></script>
+        <!-- JavaScript Libraries -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets_h/lib/easing/easing.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets_h/lib/owlcarousel/owl.carousel.min.js"></script>
 
+        <!-- Contact Javascript File -->
+        <script src="${pageContext.request.contextPath}/assets_h/mail/jqBootstrapValidation.min.js"></script>
+        <script src="mail/contact.js"></script>
 
     </body>
 </html>

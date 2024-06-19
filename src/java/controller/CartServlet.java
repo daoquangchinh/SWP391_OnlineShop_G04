@@ -30,7 +30,8 @@ public class CartServlet extends HttpServlet {
         } else {
             // If user is not logged in, you might want to redirect to a login page or handle it differently
             // For testing purposes, default to user ID 1
-            cartItems = (List<Cart_Item>) session.getAttribute("cart");
+            //cartItems = (List<Cart_Item>) session.getAttribute("cart");
+            cartItems = dao.getCart(2);
         }
 
         request.setAttribute("mess", "quan");
@@ -43,16 +44,34 @@ public class CartServlet extends HttpServlet {
             throws ServletException, IOException {
         String action = request.getParameter("action");
         int cartItemId = Integer.parseInt(request.getParameter("cartItemId"));
-
         DAO dao = new DAO();
         Cart_Item ci = dao.getCartItem(cartItemId);
 
         if ("fetchQuantity".equals(action)) {
-            // Handle fetch quantity request
-            response.setContentType("application/json");
-            PrintWriter out = response.getWriter();
-            out.println("{ \"quantity\": " + ci.getQuatityCart() + " }");
-            out.close();
+            String strquantity = request.getParameter("quantity");
+        int quantity;
+        PrintWriter out = response.getWriter();
+
+        if (strquantity == null || strquantity.isEmpty()) {
+            quantity = ci.getQuatityCart();
+        } else {
+            quantity = Integer.parseInt(strquantity);
+        }
+
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+
+        String strErr = "";
+        if (quantity > ci.getQuatityProduct()) {
+            ci.setQuatityCart(ci.getQuatityProduct());
+            strErr = "Unfortunately, you can only purchase a maximum of " + ci.getQuatityCart() + " products.";
+        } else {
+            ci.setQuatityCart(quantity);
+        }
+
+        // Create a JSON response
+        out.println("{ \"strErr\": \"" + strErr + "\", \"quantity\": " + ci.getQuatityCart() + " }");
+        out.close();
         } else if ("updateQuantity".equals(action)) {
             // Handle update quantity request
             int quantity = Integer.parseInt(request.getParameter("quantity"));
@@ -70,15 +89,17 @@ public class CartServlet extends HttpServlet {
 
     public static void main(String[] args) {
         DAO dao = new DAO();
-        List<Cart_Item> i = dao.getCart(2);
-        List<ShoeColor> cartItems = dao.getColorByShoeId(1);
-        if(dao.delete(2)){
-            System.out.println("èghjk");
-        }
-        for (Cart_Item c : i) {
-            System.out.println(c.toString());
-            System.out.println(i.size());
-        }
+        int ia = Integer.parseInt("");
+        System.out.println(ia);
+//        List<Cart_Item> i = dao.getCart(2);
+//        List<ShoeColor> cartItems = dao.getColorByShoeId(1);
+//        if (dao.delete(2)) {
+//            System.out.println("èghjk");
+//        }
+//        for (Cart_Item c : i) {
+//            System.out.println(c.toString());
+//            System.out.println(i.size());
+//        }
 
     }
 }
