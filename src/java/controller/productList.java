@@ -29,7 +29,6 @@ public class productList extends HttpServlet {
         if (searchText == null) {
             ArrayList<Shoe> list_menu = null;
             list_menu = pd.getAllShoes();
-            System.out.println(list_menu.get(0).getImage());
             request.setAttribute("MenuChose", list_menu);
             request.getRequestDispatcher("view/productList.jsp").forward(request, response);
             return;
@@ -49,7 +48,7 @@ public class productList extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String sortOption = request.getParameter("sort");
-        String priceRange = request.getParameter("price");
+        String priceRange = request.getParameter("null");
         String sizeRaw = request.getParameter("size");
         String brand = request.getParameter("Brand");
         String sports = request.getParameter("Sports");
@@ -57,7 +56,7 @@ public class productList extends HttpServlet {
         String gender = request.getParameter("Gender");
 
         ShoeDAO pd = new ShoeDAO();
-        List<Shoe> filteredShoes = pd.getFilteredShoes(priceRange, sizeRaw, brand, sports, color, gender, sortOption);
+        ArrayList<Shoe> filteredShoes = pd.getFilter(priceRange, sizeRaw, brand, sports, color, gender, sortOption);
 
         request.setAttribute("MenuChose", filteredShoes);
         request.getRequestDispatcher("view/productList.jsp").forward(request, response);

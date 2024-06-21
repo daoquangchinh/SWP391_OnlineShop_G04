@@ -245,7 +245,7 @@
                                                                         </div>-->
                                     </div>
                                     <div class="text-center py-4">
-                                        <a class="h6 text-decoration-none text-truncate" href="">${item.getName()}</a>
+                                        <a class="h6 text-decoration-none text-truncate" href="${pageContext.request.contextPath}/productdetail?shoeid=${item.getId()}">${item.getName()}</a>
                                         <div class="d-flex align-items-center justify-content-center mt-2">
                                             <c:choose>
                                                 <c:when test="${item.getPriceDiscount() != 0}">

@@ -8,18 +8,20 @@ package modal;
  *
  * @author Dell
  */
-public class Product_Color {
+public class Img {
     private int id;
-    private String color;
     private String img;
+    private int shoe_id;
+    private int shoe_color_id;
 
-    public Product_Color() {
+    public Img() {
     }
 
-    public Product_Color(int id, String color, String img) {
+    public Img(int id, String img, int shoe_id, int shoe_color_id) {
         this.id = id;
-        this.color = color;
         this.img = img;
+        this.shoe_id = shoe_id;
+        this.shoe_color_id = shoe_color_id;
     }
 
     public int getId() {
@@ -30,20 +32,28 @@ public class Product_Color {
         this.id = id;
     }
 
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
-
     public String getImg() {
         return img;
     }
 
     public void setImg(String img) {
         this.img = img;
+    }
+
+    public int getShoe_id() {
+        return shoe_id;
+    }
+
+    public void setShoe_id(int shoe_id) {
+        this.shoe_id = shoe_id;
+    }
+
+    public int getShoe_color_id() {
+        return shoe_color_id;
+    }
+
+    public void setShoe_color_id(int shoe_color_id) {
+        this.shoe_color_id = shoe_color_id;
     }
     
     

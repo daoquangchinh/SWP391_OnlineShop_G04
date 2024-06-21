@@ -38,7 +38,7 @@
     </head>
 
     <body>
-        
+
         <div class="header">
             <jsp:include page="homeTag.jsp"></jsp:include>
             </div>
@@ -67,36 +67,33 @@
                         <div class="size-options collapsed">
                             <div class="size-options">
                                 <ul>
-                                    <li><input type="radio" name="size" id="size-option-37" value="37"><label for="size-option-37">Size 37</label></li>
                                     <li><input type="radio" name="size" id="size-option-38" value="38"><label for="size-option-38">Size 38</label></li>
                                     <li><input type="radio" name="size" id="size-option-39" value="39"><label for="size-option-39">Size 39</label></li>
                                     <li><input type="radio" name="size" id="size-option-40" value="40"><label for="size-option-40">Size 40</label></li>
                                     <li><input type="radio" name="size" id="size-option-41" value="41"><label for="size-option-41">Size 41</label></li>
                                     <li><input type="radio" name="size" id="size-option-42" value="42"><label for="size-option-42">Size 42</label></li>
                                     <li><input type="radio" name="size" id="size-option-43" value="43"><label for="size-option-43">Size 43</label></li>
-                                    <li><input type="radio" name="size" id="size-option-43" value="43"><label for="size-option-44">Size 44</label></li>
-                                    <li><input type="radio" name="size" id="size-option-43" value="43"><label for="size-option-45">Size 45</label></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="shoe-type-container">
-                        <div class="shoe-type-heading" onclick="toggleShoeTypeOptions()">Brand</div>
-                        <div class="shoe-type-options collapsed">
-                            <div class="shoe-type-options">
-                                <ul>
-                                    <li><input type="radio" name="Brand" id="shoe-type-nike" value="Nike"><label for="shoe-type-nike">Nike</label></li>
-                                    <li><input type="radio" name="Brand" id="shoe-type-adidas" value="Adidas"><label for="shoe-type-adidas">Adidas</label></li>
-                                    <li><input type="radio" name="Brand" id="shoe-type-converse" value="Converse"><label for="shoe-type-converse">Converse</label></li>
-                                    <li><input type="radio" name="Brand" id="shoe-type-puma" value="Puma"><label for="shoe-type-puma">Puma</label></li>
-                                    <li><input type="radio" name="Brand" id="shoe-type-asics" value="Asics"><label for="shoe-type-asics">Asics</label></li>
-                                    <li><input type="radio" name="Brand" id="shoe-type-new-balance" value="New Balance"><label for="shoe-type-new-balance">New Balance</label></li>
-                                    <li><input type="radio" name="Brand" id="shoe-type-reebok" value="Reebok"><label for="shoe-type-reebok">Reebok</label></li>
+                                    <li><input type="radio" name="size" id="size-option-44" value="44"><label for="size-option-44">Size 44</label></li>
+                                    <li><input type="radio" name="size" id="size-option-45" value="45"><label for="size-option-45">Size 45</label></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
 
+                    <div class="shoe-type-container">
+                        <div class="shoe-type-heading" onclick="toggleShoeTypeOptions()">Brand</div>
+                        <div class="shoe-type-options collapsed">
+                            <div class="shoe-type-options">
+                                <ul>
+                                    <li><input type="radio" name="Brand" id="shoe-type-nike" value="Nike Sportswear"><label for="shoe-type-nike">Nike Sportswear</label></li>
+                                    <li><input type="radio" name="Brand" id="shoe-type-adidas" value="Jordan"><label for="shoe-type-adidas">Jordan</label></li>
+                                    <li><input type="radio" name="Brand" id="shoe-type-converse" value="Nike By You"><label for="shoe-type-converse">Nike By You</label></li>
+                                    <li><input type="radio" name="Brand" id="shoe-type-puma" value="NikeLab"><label for="shoe-type-puma">NikeLab</label></li>
+                                    <li><input type="radio" name="Brand" id="shoe-type-asics" value="ACG"><label for="shoe-type-asics">ACG</label></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="shoe-sports-container">
                         <div class="shoe-sports-heading" onclick="toggleShoeSports()">Sports</div>
@@ -104,13 +101,12 @@
                             <ul>
                                 <li><input type="radio" name="Sports" id="shoe-sports-Lifestyles" value="Lifestyles"><label for="shoe-sports-Lifestyles">Lifestyles</label></li>
                                 <li><input type="radio" name="Sports" id="shoe-sports-Running" value="Running"><label for="shoe-sports-Running">Running</label></li>
-                                <li><input type="radio" name="Sports" id="shoe-sports-TG" value="Tennis"><label for="shoe-sports-TG">Tennis</label></li>
+                                <li><input type="radio" name="Sports" id="shoe-sports-Tennis" value="Tennis"><label for="shoe-sports-Tennis">Tennis</label></li>
                                 <li><input type="radio" name="Sports" id="shoe-sports-Basketball" value="Basketball"><label for="shoe-sports-Basketball">Basketball</label></li>
-                                <li><input type="radio" name="Sports" id="shoe-sports-Basketball" value="Golf"><label for="shoe-sports-Basketball">Golf</label></li>
+                                <li><input type="radio" name="Sports" id="shoe-sports-Golf" value="Golf"><label for="shoe-sports-Golf">Golf</label></li>
                             </ul>
                         </div>
                     </div>
-
 
                     <style>
                         #shoe-color-Black + label {
@@ -153,10 +149,9 @@
                                 <ul>
                                     <li><input type="radio" name="Color" id="shoe-color-Black" value="Black"><label for="shoe-color-Black">Black</label></li>
                                     <li><input type="radio" name="Color" id="shoe-color-Blue" value="Blue"><label for="shoe-color-Blue">Blue</label></li>
-                                    <li><input type="radio" name="Color" id="shoe-color-Brown" value="Brown"><label for="shoe-color-Brown">Brown</label></li>
-                                    <li><input type="radio" name="Color" id="shoe-color-green" value="Green"><label for="shoe-color-green">Green</label></li>
-                                    <li><input type="radio" name="Color" id="shoe-color-Grey" value="Grey"><label for="shoe-color-Grey">Grey</label></li>
-                                    <li><input type="radio" name="Color" id="shoe-color-Orange" value="Orange"><label for="shoe-color-Orange">Orange</label></li>
+                                    <li><input type="radio" name="Color" id="shoe-color-Brown" value="Brown"><label for="shoe-color-Brown">Brown</label></li>                                    
+                                    <li><input type="radio" name="Color" id="shoe-color-Grey" value="Gray"><label for="shoe-color-Grey">Gray</label></li>
+                                    <li><input type="radio" name="Color" id="shoe-color-Orange" value="Purple"><label for="shoe-color-Orange">Purple</label></li>
                                     <li><input type="radio" name="Color" id="shoe-color-Pink" value="Pink"><label for="shoe-color-Pink">Pink</label></li>
                                     <li><input type="radio" name="Color" id="shoe-color-Red" value="Red"><label for="shoe-color-Red">Red</label></li>
                                     <li><input type="radio" name="Color" id="shoe-color-White" value="White"><label for="shoe-color-White">White</label></li>
@@ -171,22 +166,19 @@
                         <div class="shoe-gen collapsed">
                             <div class="shoe-gen">
                                 <ul>
-                                    <li><input type="radio" name="shoe-type" id="shoe-gen-Male" value="Male"><label for="shoe-gen-W">Male</label></li>
-                                    <li><input type="radio" name="shoe-type" id="shoe-gen-Female" value="Female"><label for="shoe-gen-B">Female</label></li>
+                                    <li><input type="radio" name="Gender" id="shoe-gen-Male" value="Male"><label for="shoe-gen-Male">Male</label></li>
+                                    <li><input type="radio" name="Gender" id="shoe-gen-Female" value="Female"><label for="shoe-gen-Female">Female</label></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
 
-
-
-
-
-
                     <button type="submit" class="button">Choose</button> 
 
                 </form>
             </div>
+
+
             <!-- ListChose -->
 
 
@@ -194,22 +186,25 @@
             <!-- Start product -->
             <div class="right-nav-wrapper">
 
-                <div class="custom-container">
-                    <!-- Nút được tạo bằng Bootstrap -->
-                    <button id="expandButton" class="btn btn-primary">Sort By ↖</button>
-                    <!-- Nội dung mở rộng -->
-                    <div id="expandableContent" class="custom-expandable-content" style="display: none;">
-                        <label for="option" class="custom-label">Sort Options:</label>
-                        <div class="custom-select-container">
-                            <select id="option" class="custom-select" size="3" onchange="redirectToProductList()">
-                                <option value="newest">Newest</option>
-                                <option value="priceAsc">Price: High-Low</option>
-                                <option value="priceDesc">Price: Low-High</option>
-                            </select>
+                <div class="right-nav-wrapper">
+                    <div class="custom-container">
+                        <!-- Nút được tạo bằng Bootstrap -->
+                        <button id="expandButton" class="btn btn-primary">Sort By ↖</button>
+                        <!-- Nội dung mở rộng -->
+                        <div id="expandableContent" class="custom-expandable-content" style="display: none;">
+                            <form id="sortForm" action="${pageContext.request.contextPath}/productlist" method="post">
+                                <label for="option" class="custom-label">Sort Options:</label>
+                                <div class="custom-select-container">
+                                    <select id="option" name="sort" class="custom-select" size="3" onchange="submitForm()">
+                                        <option value="newest">Newest</option>
+                                        <option value="priceAsc">Price: High-Low</option>
+                                        <option value="priceDesc">Price: Low-High</option>
+                                    </select>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
-
 
                 <script>
                     document.addEventListener("DOMContentLoaded", function () {
@@ -245,11 +240,11 @@
                         });
                     });
 
-                    function redirectToProductList() {
+                    function submitForm() {
                         var select = document.getElementById('option');
                         var selectedValue = select.value;
                         localStorage.setItem("selectedOption", selectedValue); // Lưu lựa chọn vào localStorage
-                        window.location.href = `${pageContext.request.contextPath}/productlist?sort=` + selectedValue;
+                        document.getElementById('sortForm').submit();
                     }
                 </script>
 
@@ -262,7 +257,7 @@
                             <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
                                 <div class="product-item bg-light mb-4">
                                     <div class="product-img position-relative overflow-hidden">
-                                        
+
                                         <img class="img-fluid w-100" src="${pageContext.request.contextPath}${item.getImage()}" alt="">
                                         <!--                                <div class="product-action">
                                                                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
@@ -272,7 +267,7 @@
                                                                         </div>-->
                                     </div>
                                     <div class="text-center py-4">
-                                        <a class="h6 text-decoration-none text-truncate" href="">${item.getName()}</a>
+                                        <a class="h6 text-decoration-none text-truncate" href="${pageContext.request.contextPath}/productdetail?shoeid=${item.getId()}">${item.getName()}</a>
                                         <div class="d-flex align-items-center justify-content-center mt-2">
                                             <c:choose>
                                                 <c:when test="${item.getPriceDiscount() != 0}">

@@ -68,17 +68,5 @@ public class CartServlet extends HttpServlet {
         }
     }
 
-    public static void main(String[] args) {
-        DAO dao = new DAO();
-        List<Cart_Item> i = dao.getCart(2);
-        List<ShoeColor> cartItems = dao.getColorByShoeId(1);
-        if(dao.delete(2)){
-            System.out.println("èghjk");
-        }
-        for (Cart_Item c : i) {
-            System.out.println(c.toString());
-            System.out.println(i.size());
-        }
-
-    }
+   
 }

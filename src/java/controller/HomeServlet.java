@@ -4,7 +4,7 @@
  */
 package controller;
 
-import DAO.BrandDAO;
+import DAO.DetailDao;
 import DAO.ShoeDAO;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -31,7 +31,6 @@ public class HomeServlet extends HttpServlet {
 
 
         ArrayList<Shoe> listShoes = shoeDAO.getAllShoes();
-
         request.setAttribute("listShoes", listShoes);
 
         request.getRequestDispatcher("view/homePage.jsp").forward(request, response);

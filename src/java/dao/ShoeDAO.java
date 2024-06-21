@@ -10,7 +10,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import modal.Brand;
 import modal.Shoe;
 
@@ -149,97 +151,120 @@ public class ShoeDAO {
         return list;
     }
 
-    public List<Shoe> getFilteredShoes(String priceRange, String sizeRaw, String brand, String sports, String color, String gender, String sortOption) {
-        List<Shoe> shoes = new ArrayList<>();
+    
 
-        String query = "SELECT s.* FROM shoe s "
+    public ArrayList<Shoe> getFilter(String priceRange, String sizeRaw, String brand, String sports, String color, String gender, String sortOption) {
+        ArrayList<Shoe> shoes = new ArrayList<>();
+
+        StringBuilder query = new StringBuilder(
+                "SELECT "
+        );
+        
+        if (color != null) {
+            query.append("distinct"); // JOIN product if color is present
+        }
+        
+        query.append(" s.*, b.Brand_name, sp.Sports_name, g.gender_name ");
+        
+        if (color != null) {
+            query.append(", sc.color");
+        }
+        // Conditionally append columns based on filters
+        if (color != null) {
+            query.append(", sc.color");
+        }
+
+        query.append(
+                " FROM shoe s "
                 + "JOIN Brand b ON s.brand_id = b.id "
                 + "JOIN Sports sp ON s.sports_id = sp.id "
                 + "JOIN Gender g ON s.gender_id = g.id "
-                + "JOIN shoe_color sc ON s.id = sc.shoe_id "
-                + "JOIN shoe_size ss ON sc.id = ss.shoe_color_id "
-                + "JOIN product_size ps ON ss.product_size_id = ps.id "
-                + "WHERE 1=1 ";
+        );
 
+        // Conditionally join product and shoe_size and shoe_color
+        if (sizeRaw != null || color != null) {
+            query.append("JOIN product p ON s.id = p.shoe_id "); // JOIN product if color is present
+        }
+        if (color != null) {
+            query.append("LEFT JOIN shoe_color sc ON p.shoe_color_id = sc.id "); // LEFT JOIN shoe_color for optional color
+        }
+        if (sizeRaw != null) {
+            query.append("LEFT JOIN shoe_size ss ON p.shoe_size_id = ss.id "); // LEFT JOIN shoe_size for optional size
+        }
+        query.append(" WHERE 1=1 ");
+
+        // Append conditions based on filters
         if (priceRange != null) {
             switch (priceRange) {
                 case "1":
-                    query += "AND s.price BETWEEN 0 AND 5000000 ";
+                    query.append("AND s.price BETWEEN 0 AND 5000000 ");
                     break;
                 case "2":
-                    query += "AND s.price BETWEEN 5000000 AND 9000000 ";
+                    query.append("AND s.price BETWEEN 5000000 AND 9000000 ");
                     break;
                 case "3":
-                    query += "AND s.price BETWEEN 10000000 AND 15000000 ";
+                    query.append("AND s.price BETWEEN 10000000 AND 15000000 ");
                     break;
                 case "4":
-                    query += "AND s.price BETWEEN 16000000 AND 20000000 ";
+                    query.append("AND s.price BETWEEN 16000000 AND 20000000 ");
                     break;
             }
         }
-
         if (sizeRaw != null) {
-            query += "AND ps.size = ? ";
+            query.append("AND ss.size = ? ");
         }
-
         if (brand != null) {
-            query += "AND b.Brand_name = ? ";
+            query.append("AND b.Brand_name = ? ");
         }
 
         if (sports != null) {
-            query += "AND sp.Sports_name = ? ";
+            query.append("AND sp.Sports_name = ? ");
         }
 
         if (color != null) {
-            query += "AND sc.color = ? ";
+            query.append("AND sc.color = ? ");
         }
 
         if (gender != null) {
-            query += "AND g.gender_name = ? ";
+            query.append("AND g.gender_name = ? ");
         }
 
         if (sortOption != null) {
             switch (sortOption) {
                 case "priceAsc":
-                    query += "ORDER BY s.price ASC ";
+                    query.append("ORDER BY s.price ASC ");
                     break;
                 case "priceDesc":
-                    query += "ORDER BY s.price DESC ";
+                    query.append("ORDER BY s.price DESC ");
                     break;
                 case "newest":
-                    query += "ORDER BY s.created_at DESC ";
+                    query.append("ORDER BY s.created_at DESC ");
                     break;
             }
         }
 
-        try {
-            conn = new DBContext().getConnection();
-            PreparedStatement ps = conn.prepareStatement(query);
-            ResultSet rs = ps.executeQuery();
+        try (Connection conn = new DBContext().getConnection(); PreparedStatement ps = conn.prepareStatement(query.toString())) {
+
             int paramIndex = 1;
 
+            // Set parameters based on filters
             if (sizeRaw != null) {
                 ps.setInt(paramIndex++, Integer.parseInt(sizeRaw));
             }
-
             if (brand != null) {
                 ps.setString(paramIndex++, brand);
             }
-
             if (sports != null) {
                 ps.setString(paramIndex++, sports);
             }
-
             if (color != null) {
                 ps.setString(paramIndex++, color);
             }
-
             if (gender != null) {
                 ps.setString(paramIndex++, gender);
             }
 
-            
-
+            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Shoe shoe = new Shoe();
                 shoe.setId(rs.getInt("id"));
@@ -247,28 +272,24 @@ public class ShoeDAO {
                 shoe.setBrandId(rs.getInt("brand_id"));
                 shoe.setSportsId(rs.getInt("sports_id"));
                 shoe.setGenderId(rs.getInt("gender_id"));
-                shoe.setDescriptionm(rs.getString("description"));
+                shoe.setDescriptionm(rs.getString("description")); // Correct method call for description
                 shoe.setPrice(rs.getDouble("price"));
                 shoe.setDiscount(rs.getDouble("discount"));
                 shoe.setImage(rs.getString("img"));
                 shoe.setCreatedAt(rs.getString("created_at"));
                 shoe.setUpdatedAt(rs.getString("updated_at"));
+
                 shoes.add(shoe);
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (NumberFormatException e) {
+            e.printStackTrace(); // Handle number format exception for sizeRaw parsing
         }
 
         return shoes;
     }
 
-    public static void main(String[] args) throws SQLException {
-        ShoeDAO productDAO = new ShoeDAO();
-        List<Shoe> list = productDAO.getAllShoes();
-        if (list != null) {
-            System.out.println(list.get(0).getImage());
-        } else {
-            System.out.println("No shoes found within the specified price range.");
-        }
-    }
+    
+
 }

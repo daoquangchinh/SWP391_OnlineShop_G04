@@ -8,19 +8,21 @@ package modal;
  *
  * @author Dell
  */
-public class Shoe_Size {
+public class Product {
     private int id;
+    private int shoe_id;
+    private int shoe_size_id;
     private int shoe_color_id;
-    private int product_size_id;
     private int quantity;
 
-    public Shoe_Size() {
+    public Product() {
     }
 
-    public Shoe_Size(int id, int shoe_color_id, int product_size_id, int quantity) {
+    public Product(int id, int shoe_id, int shoe_size_id, int shoe_color_id, int quantity) {
         this.id = id;
+        this.shoe_id = shoe_id;
+        this.shoe_size_id = shoe_size_id;
         this.shoe_color_id = shoe_color_id;
-        this.product_size_id = product_size_id;
         this.quantity = quantity;
     }
 
@@ -32,20 +34,28 @@ public class Shoe_Size {
         this.id = id;
     }
 
+    public int getShoe_id() {
+        return shoe_id;
+    }
+
+    public void setShoe_id(int shoe_id) {
+        this.shoe_id = shoe_id;
+    }
+
+    public int getShoe_size_id() {
+        return shoe_size_id;
+    }
+
+    public void setShoe_size_id(int shoe_size_id) {
+        this.shoe_size_id = shoe_size_id;
+    }
+
     public int getShoe_color_id() {
         return shoe_color_id;
     }
 
     public void setShoe_color_id(int shoe_color_id) {
         this.shoe_color_id = shoe_color_id;
-    }
-
-    public int getProduct_size_id() {
-        return product_size_id;
-    }
-
-    public void setProduct_size_id(int product_size_id) {
-        this.product_size_id = product_size_id;
     }
 
     public int getQuantity() {
