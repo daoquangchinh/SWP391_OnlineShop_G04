@@ -50,7 +50,7 @@ public class LoginServlet extends HttpServlet {
         }
         pass = ma.toSHA1(pass);
         User u = dao.getlogin(name, pass);
-        if (u.getUsername() == null) {
+        if (u == null || u.getUsername() == null) {
             if (sCheck != null) { // Kiểm tra xem giá trị thuộc tính đã tồn tại trong session chưa
                 check = sCheck + 1;// Tăng giá trị lên 1
             } else {
