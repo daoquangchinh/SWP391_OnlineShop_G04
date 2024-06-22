@@ -4,6 +4,8 @@
  */
 package modal;
 
+import java.util.List;
+
 /**
  *
  * @author ViQuan
@@ -11,6 +13,23 @@ package modal;
 public class ShoeColor {
     private  int id ;
     private  String color;
+    private  List<ShoeSize> sizes;
+
+    public List<ShoeSize> getSizes() {
+        return sizes;
+    }
+
+    public void setSizes(List<ShoeSize> sizes) {
+        this.sizes = sizes;
+    }
+
+    public ShoeColor(int id, String color, List<ShoeSize> sizes) {
+        this.id = id;
+        this.color = color;
+        this.sizes = sizes;
+    }
+
+    
 
     public ShoeColor(int id, String color) {
         this.id = id;
@@ -38,8 +57,10 @@ public class ShoeColor {
 
     @Override
     public String toString() {
-        return "ShoeColor{" + "id=" + id + ", color=" + color + '}';
+        return "ShoeColor{" + "id=" + id + ", color=" + color + ", sizes=" + sizes + '}';
     }
+
+    
     
     
 }

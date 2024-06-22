@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package DAO;
+package dao;
 
 /**
  *
@@ -20,6 +20,97 @@ import modal.ShoeSize;
 import modal.User;
 
 public class DAO {
+ // 
+    public Cart_Item getCartItemByProductID(int productId,int cartItemId ) {
+        String query = "SELECT "
+                + "ci.id AS idCartItem, "
+                + "s.img AS img, "
+                + "s.shoe_name, "
+                + "ss.size, "
+                + "sc.color, "
+                + "s.price, "
+                + "ci.quantity AS quantityCart, "
+                + "p.quantity AS quantityProduct, "
+                + "s.id AS shoe_id "
+                + "FROM cart_item ci "
+                + "JOIN product p ON ci.product_id = p.id "
+                + "JOIN shoe s ON p.shoe_id = s.id "
+                + "JOIN shoe_size ss ON p.shoe_size_id = ss.id "
+                + "JOIN shoe_color sc ON p.shoe_color_id = sc.id "
+                + "WHERE ci.product_id = ? AND ci.id <> ? ";
+
+        Cart_Item cartItem = null;
+
+        try (Connection conn = new DBContext().getConnection(); PreparedStatement ps = conn.prepareStatement(query)) {
+
+            ps.setInt(1, productId);
+            ps.setInt(2, cartItemId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    int idCartItem = rs.getInt("idCartItem");
+                    String img = rs.getString("img");
+                    String shoeName = rs.getString("shoe_name");
+                    int size = rs.getInt("size");
+                    String color = rs.getString("color");
+                    double price = rs.getDouble("price");
+                    int quantityCart = rs.getInt("quantityCart");
+                    int quantityProduct = rs.getInt("quantityProduct");
+                    int shoeId = rs.getInt("shoe_id");
+
+                    List<ShoeColor> colors = getColorByShoeId(shoeId);
+                    cartItem = new Cart_Item(idCartItem, img, shoeName, size, color, price, quantityCart, quantityProduct, shoeId, colors);
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error getting cart item with ProductId " + productId + ": " + e);
+        }
+
+        return cartItem;
+    }
+    //update sô lượng sản phẩm 
+    public int findProduct(int shoeId, int colorId, int sizeId) {
+        String query = "SELECT id \n"
+                + "FROM product \n"
+                + "WHERE shoe_id = ? \n"
+                + "AND shoe_color_id = ? \n"
+                + "AND shoe_size_id = ?;";
+
+        try (Connection conn = new DBContext().getConnection(); PreparedStatement ps = conn.prepareStatement(query)) {
+
+            ps.setInt(1, shoeId);
+            ps.setInt(2, colorId);
+            ps.setInt(3, sizeId);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("id");
+                } else {
+                    return -1; // or throw an exception or handle it another way
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error finding product with shoeId " + shoeId + ", colorId " + colorId + ", sizeId " + sizeId + ": " + e);
+            return -1; // or throw an exception or handle it another way
+        }
+    }
+
+    //update ProductId sản phẩm cho giỏ hàng
+    public boolean updateProductId(int cartItemId, int productId) {
+        String query = "UPDATE cart_item SET product_id = ? WHERE id = ?";
+
+        try (Connection conn = new DBContext().getConnection(); PreparedStatement ps = conn.prepareStatement(query)) {
+
+            ps.setInt(1, productId);
+            ps.setInt(2, cartItemId);
+
+            int rowsUpdated = ps.executeUpdate();
+            return rowsUpdated > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Error updating product_id for cart item with ID " + cartItemId + ": " + e);
+            return false;
+        }
+    }
 
     //update sô lượng sản phẩm 
     public boolean updateQuantity(int cartItemId, int quantity) {
@@ -93,9 +184,7 @@ public class DAO {
                     int shoeId = rs.getInt("shoe_id");
 
                     List<ShoeColor> colors = getColorByShoeId(shoeId);
-                    List<ShoeSize> sizes = getSizeByShoeId(shoeId);
-
-                    cartItem = new Cart_Item(idCartItem, img, shoeName, size, color, price, quantityCart, quantityProduct, shoeId, colors, sizes);
+                    cartItem = new Cart_Item(idCartItem, img, shoeName, size, color, price, quantityCart, quantityProduct, shoeId, colors);
                 }
             }
         } catch (SQLException e) {
@@ -148,10 +237,9 @@ public class DAO {
                     // Assuming you have methods getColorByShoeId and getSizeByShoeId defined
                     // Fetch colors and sizes
                     List<ShoeColor> colors = getColorByShoeId(shoe_id);
-                    List<ShoeSize> sizes = getSizeByShoeId(shoe_id);
 
                     // Create a new Cart_Item object and add it to the list
-                    listC.add(new Cart_Item(idCartItem, img, shoe_name, size, color, price, quatityCart, quatityProduct, shoe_id, colors, sizes));
+                    listC.add(new Cart_Item(idCartItem, img, shoe_name, size, color, price, quatityCart, quatityProduct, shoe_id, colors));
                 }
             }
         } catch (SQLException e) {
@@ -162,18 +250,34 @@ public class DAO {
 
     // Hàm lấy danh sách màu sắc của giày theo shoe_id
     public List<ShoeColor> getColorByShoeId(int shoe_id) {
+        // Câu truy vấn SQL để lấy danh sách màu sắc của giày
         String query = "SELECT DISTINCT\n"
-                + "sc.id, sc.color\n"
-                + "FROM shoe s\n"
-                + "JOIN product p ON s.id = p.shoe_id\n"
-                + "JOIN shoe_color sc ON p.shoe_color_id = sc.id\n"
-                + "WHERE s.id = ?;";
+                + "    sc.id, \n"
+                + "    sc.color\n"
+                + "FROM \n"
+                + "    shoe s\n"
+                + "JOIN \n"
+                + "    product p ON s.id = p.shoe_id\n"
+                + "JOIN \n"
+                + "    shoe_color sc ON p.shoe_color_id = sc.id\n"
+                + "WHERE \n"
+                + "    s.id = ?\n"
+                + "    AND p.quantity > 0;";
+
         List<ShoeColor> listCl = new ArrayList<>();
+
+        // Kết nối cơ sở dữ liệu và thực hiện truy vấn
         try (Connection conn = new DBContext().getConnection(); PreparedStatement ps = conn.prepareStatement(query)) {
             ps.setInt(1, shoe_id); // Thiết lập tham số cho shoe_id
+
             try (ResultSet rs = ps.executeQuery()) {
+                // Duyệt qua kết quả truy vấn
                 while (rs.next()) {
-                    listCl.add(new ShoeColor(rs.getInt("id"), rs.getString("color")));
+                    // Lấy danh sách các kích cỡ theo màu sắc
+                    List<ShoeSize> sizes = getSizeByShoeId(shoe_id, rs.getInt("id"));
+
+                    // Thêm màu sắc và các kích cỡ vào danh sách
+                    listCl.add(new ShoeColor(rs.getInt("id"), rs.getString("color"), sizes));
                 }
             }
         } catch (SQLException e) {
@@ -182,19 +286,32 @@ public class DAO {
         return listCl;
     }
 
-    // Hàm lấy danh sách các size của giày theo shoe_id
-    public List<ShoeSize> getSizeByShoeId(int shoe_id) {
+    // Hàm lấy danh sách các size của giày theo shoe_id và colorId
+    public List<ShoeSize> getSizeByShoeId(int shoe_id, int colorId) {
+        // Câu truy vấn SQL để lấy danh sách các kích cỡ của giày
         String query = "SELECT DISTINCT\n"
-                + "ss.id, ss.size\n"
-                + "FROM shoe s\n"
-                + "JOIN product p ON s.id = p.shoe_id\n"
-                + "JOIN shoe_size ss ON p.shoe_size_id = ss.id\n"
-                + "WHERE s.id = ?;";
+                + "    ss.id,\n"
+                + "    ss.size\n"
+                + "FROM \n"
+                + "    product p\n"
+                + "JOIN \n"
+                + "    shoe_size ss ON p.shoe_size_id = ss.id\n"
+                + "WHERE \n"
+                + "    p.shoe_id = ?\n"
+                + "    AND p.shoe_color_id = ?\n"
+                + "    AND p.quantity > 0;";
+
         List<ShoeSize> listS = new ArrayList<>();
+
+        // Kết nối cơ sở dữ liệu và thực hiện truy vấn
         try (Connection conn = new DBContext().getConnection(); PreparedStatement ps = conn.prepareStatement(query)) {
             ps.setInt(1, shoe_id); // Thiết lập tham số cho shoe_id
+            ps.setInt(2, colorId); // Thiết lập tham số cho colorId
+
             try (ResultSet rs = ps.executeQuery()) {
+                // Duyệt qua kết quả truy vấn
                 while (rs.next()) {
+                    // Thêm kích cỡ vào danh sách
                     listS.add(new ShoeSize(rs.getInt("id"), rs.getInt("size")));
                 }
             }

@@ -97,10 +97,10 @@
                                 <div class="product">
                                     <input class="checkbox_input item-checkbox" type="checkbox">
                                     <a title="<%= item.getShoe_name() %>" href="#">
-                                        <img class="product_img" src="${pageContext.request.contextPath}<%= item.getImg() %>" alt="product image">
+                                        <img class="product_img" href="${pageContext.request.contextPath}/productdetail?shoeid=<%= item.getShoe_id()%>" alt="product image">
                                     </a>
                                     <div class="c54pg1 col-lg-4">
-                                        <a title="<%= item.getShoe_name() %>" href="#"><%= item.getShoe_name() %></a>
+                                        <a title="<%= item.getShoe_name() %>" href="${pageContext.request.contextPath}/productdetail?shoeid=<%= item.getShoe_id()%>"><%= item.getShoe_name() %></a>
                                         <div class="co-inspection"><span>Free exchange 15 days</span></div>
                                         <img class="ship_img" src="https://down-vn.img.susercontent.com/file/vn-50009109-adeb9f40700bf1e29996a6caf07746e2" alt="loading..">
                                         <div class="gvFc9h"></div>
@@ -109,20 +109,24 @@
                                         <div class="qNRZqG1 dropdown">
                                             <button class="mM4TZ8 dropdown-toggle btn" data-toggle="dropdown">
                                                 <div class="iIg1CN" data-shoe-id="<%= item.getShoe_id()%>">Product classification:</div>
-                                                <div class="iIg1CN"><%= item.getColor() %>, <%= item.getSize() %></div>
+                                                <div class="iIg1CN product-classification"><%= item.getColor() %>, <%= item.getSize() %></div>
                                             </button>
                                             <div class="bfr5fB dropdown-menu">
                                                 <div class="bfr5fB1">
-                                                    <label class="UTcc4z"id="mau">Color:</label>
-                                                    <%-- Hiển thị tất cả các màu có sẵn trong item --%>
-                                                    <% for (ShoeColor colorItem : item.getAvailableColors()) {%>
-                                                    <button class="dropdown-item" data-item-type="color"><%= colorItem.getColor() %></button>
+                                                    <label class="UTcc4z" id="mau">Color:</label>
+                                                    <% for (ShoeColor colorItem : item.getAvailableColors()) { %>
+                                                    <button class="dropdown-item color-option" data-item-type="color"
+                                                            data-color-id="<%= colorItem.getId() %>" data-cart-id="<%= item.getIdCartItem() %>"><%= colorItem.getColor() %></button>
                                                     <% } %>
                                                 </div>
+
                                                 <div class="bfr5fB1">
-                                                    <label class="UTcc4z" id="size ">Size:</label>
-                                                    <% for (ShoeSize sizeItem : item.getAvailableSizes()) {%>
-                                                    <button class="dropdown-item" data-item-type="size"><%= sizeItem.getSize() %></button>
+                                                    <label class="UTcc4z" id="size">Size:</label>
+                                                    <% for (ShoeColor colorItem : item.getAvailableColors()) { %>
+                                                    <% for (ShoeSize size : colorItem.getSizes()) { %>
+                                                    <button class="dropdown-item size-option" data-item-type="size"
+                                                            data-size-id="<%= size.getId() %>" data-group-color="<%= colorItem.getId() %>" type="button"   style="display: none"    ><%= size.getSize() %></button>
+                                                    <% } %>
                                                     <% } %>
                                                 </div>
                                                 <div class="ZQrI2V">
@@ -131,6 +135,7 @@
                                                 </div>
                                             </div>
                                         </div>
+
                                     </div>
 
                                 </div>
@@ -139,7 +144,7 @@
                                 <div class="row">
                                     <div class="nhom">
                                         <div class="col-lg-3 nhom1">
-                                            <div class="vjkBXu priceform" id="price<%= item.getIdCartItem()%>">₫<%= item.getPrice() %></div>
+                                            <div class="vjkBXu priceform" id="price<%= item.getIdCartItem()%>">₫<%= item.getPrice()%></div>
                                         </div>
                                         <div class="col-lg-3 nhom1">
                                             <div class="GpmJtT">
@@ -148,14 +153,14 @@
                                                     <span class="sapn01">-</span>
                                                 </button>
                                                 <!--thay đổi khi nhập dữ liệu-->
-                                                <input class="WNSVcC g2m9n4 quantity" id="" type="text" value="<%= item.getQuatityCart() %>" data-cart-id="<%= item.getIdCartItem() %>">
+                                                <input class="WNSVcC g2m9n4 quantity" id="quantity<%= item.getIdCartItem() %>" type="text" value="<%= item.getQuatityCart() %>" data-cart-id="<%= item.getIdCartItem() %>">
                                                 <button class="WNSVcC increment">
                                                     <span class="sapn01">+</span>
                                                 </button>
                                             </div>
                                         </div>
                                         <div class="col-lg-3 nhom1">
-                                            <div class="total-price priceform sapn02" id="cart<%= item.getIdCartItem() %>">₫<%= item.getQuatityCart() * item.getPrice() %></div>
+                                            <div class="total-price priceform sapn02" id="cart<%= item.getIdCartItem()%>">₫<%= item.getQuatityCart() * item.getPrice() %></div>
                                         </div>
                                         <div class="col-lg-3 nhom1">
                                             <button class="delete " onclick="deleteGroup(<%= item.getIdCartItem() %>)">Delete</button>
@@ -213,7 +218,7 @@
             <div class="modal-content">
                 <p id="error-mess" style="color: red">This is a feature not a bug1.</p>
                 <div class="modal-buttons">
-                    <button id="close-error-modal-btn">Cancel</button>
+                    <button id="close-error-modal-btn" >Ok</button>
                 </div>
             </div>
         </div>
@@ -230,7 +235,33 @@
 
         <jsp:include page="FooterTag.jsp"></jsp:include>
 
-            <!-- JavaScript to handle the checkbox functionality -->
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const colorButtons = document.querySelectorAll('.color-option');
+                    const sizeButtons = document.querySelectorAll('.size-option');
+
+                    colorButtons.forEach(button => {
+                        button.addEventListener('click', function () {
+                            const colorId = this.getAttribute('data-color-id');
+
+                            // Hide all size buttons
+                            sizeButtons.forEach(sizeButton => {
+                                sizeButton.style.display = 'none';
+                            });
+
+                            // Show size buttons that match the selected color
+                            sizeButtons.forEach(sizeButton => {
+                                if (sizeButton.getAttribute('data-group-color') === colorId) {
+                                    sizeButton.style.display = 'inline-block';
+                                }
+                            });
+                        });
+                    });
+                });
+            </script>
+
+
+
             <script>        // Lấy modal và các phần tử liên quan
                 var openModal = document.getElementById('open-error-modal-btn');
                 var errorModal = document.getElementById('error-modal');
@@ -275,6 +306,37 @@
             </script>
 
             <script>
+                function sendUpdateRequest(cartItemId, newQuantity) {
+                    $.ajax({
+                        url: "${pageContext.request.contextPath}/cart",
+                        method: "POST",
+                        data: {
+                            action: "updateQuantity",
+                            cartItemId: cartItemId,
+                            quantity: newQuantity
+                        },
+                        success: function (response) {
+                            var strErr = response.strErr;
+                            if (strErr !== null && strErr.trim() !== "") {
+                                showErrorModal(strErr);
+                            }
+//                            alert(cartItemId + " " + newQuantity);
+
+                            var totalPriceElement = document.getElementById("cart" + cartItemId);
+                            totalPriceElement.innerHTML = '₫' + (response.price * response.quantity).toLocaleString('en') + '.0';
+                            var quantityInput = document.getElementById('quantity' + cartItemId);
+                            quantityInput.value = response.quantity;
+                            var priceElement = document.getElementById("price" + cartItemId);
+                            priceElement.innerHTML = '₫' + (response.price.toLocaleString('en')) + '.0';
+                            selectedItems();
+                        },
+                        error: function () {
+                            showErrorModal('Failed to update quantity.');
+                        }
+                    });
+                }
+
+
                 $(document).ready(function () {
                     // Đóng dropdown-menu khi nhấp vào nút "Trở lại"
                     $('.cancel-btn').click(function () {
@@ -283,8 +345,56 @@
 
                     // Xử lý khi nhấn vào các nút xác nhận
                     $('.xacnhan').click(function () {
-                        // Viết mã xử lý xác nhận ở đây (nếu cần)
-                        // Sau khi xử lý xong, đóng dropdown-menu
+                        var selectedColor = getSelectedColor();
+                        var selectedSize = getSelectedSize();
+                        var shoeId = $(this).closest('.footer').find('.iIg1CN').data('shoe-id');
+                        var cartItemId = $(this).closest('.footer').attr('id').replace('cartItem', '');
+
+                        // Gửi dữ liệu đến servlet
+                        $.ajax({
+                            url: "${pageContext.request.contextPath}/cart",
+                            method: "POST",
+                            data: {
+                                action: "updatecart",
+                                cartItemId: cartItemId,
+                                shoeId: shoeId,
+                                colorId: selectedColor,
+                                sizeId: selectedSize
+                            },
+                            dataType: "json", // Ensure that jQuery parses the JSON response automatically
+                            success: function (response) {
+                                var cartId = response.cartId;
+                                var quantity = response.quantity;
+                                var message = response.message;
+                                if (cartId != cartItemId) {
+                                    // alert("Xin chào! Bấm OK để tiếp tục.");
+                                    deleteGroup(cartItemId)
+                                    sendUpdateRequest(cartId, quantity);
+                                } else {
+
+                                    //alert(cartId + " " + cartItemId + " " + quantity);
+                                    sendUpdateRequest(cartId, quantity);
+                                }
+
+//                                console.log("Cart ID: " + cartId);
+//                                console.log("Quantity: " + quantity);
+//                                 showErrorModal(message);
+
+                                var newColor = $('.dropdown-item[data-item-type="color"].selected').text();
+                                var newSize = $('.dropdown-item[data-item-type="size"].selected').text();
+                                $('#cartItem' + cartItemId + ' .product-classification').text(newColor + ', ' + newSize);
+                                // Cập nhật UI hoặc thực hiện các hành động khác sau khi cập nhật thành công
+                            },
+                            error: function (xhr, status, error) {
+                                // Hiển thị lỗi nếu có
+                                showErrorModal('An error occurred while updating the product classification. Please try again.\n\
+                                                    Please select both color and size before confirming your order.');
+                                console.error("Error: " + error);
+                            }
+                        });
+
+
+                        // Đóng dropdown-menu sau khi xử lý xong
                         $(this).closest('.dropdown-menu').removeClass('show');
                     });
 
@@ -317,78 +427,90 @@
                         event.stopPropagation(); // Ngăn dropdown đóng
                         $('.dropdown-item[data-item-type="color"]').removeClass('selected').css('background-color', '');
                         $(this).addClass('selected').css('background-color', 'yellow');
+
+                        // Reset size selection when color is selected
+                        $('.dropdown-item[data-item-type="size"]').removeClass('selected').css('background-color', '');
+                        $('.dropdown-item[data-item-type="size"]').hide();
+                        var selectedColorId = $(this).data('color-id');
+                        $('.dropdown-item[data-item-type="size"][data-group-color="' + selectedColorId + '"]').show();
                     });
 
                     $('.dropdown-item[data-item-type="size"]').click(function (event) {
                         event.stopPropagation(); // Ngăn dropdown đóng
+
+                        if ($('.dropdown-item[data-item-type="color"].selected').length == 0) {
+                            alert('Please select a color first.');
+                            return;
+                        }
+
                         $('.dropdown-item[data-item-type="size"]').removeClass('selected').css('background-color', '');
                         $(this).addClass('selected').css('background-color', 'yellow');
                     });
 
                     // Hàm để lấy màu đã chọn
                     function getSelectedColor() {
-                        return $('.dropdown-item[data-item-type="color"].selected').text() || "";
+                        return $('.dropdown-item[data-item-type="color"].selected').data('color-id') || "";
                     }
 
                     // Hàm để lấy kích thước đã chọn
                     function getSelectedSize() {
-                        return $('.dropdown-item[data-item-type="size"].selected').text() || "";
+                        return $('.dropdown-item[data-item-type="size"].selected').data('size-id') || "";
                     }
                 });
-            </script>
+        </script>
 
-            <script>
-                // JavaScript functions for handling deletion and updating UI
-                function deleteGroup(cartItemId) {
-                    // Function to delete a group via AJAX
-                    $.ajax({
-                        url: "${pageContext.request.contextPath}/cart",
-                        method: "POST",
-                        data: {
-                            action: "deleteCartItem",
-                            cartItemId: cartItemId
-                        },
-                        success: function (response) {
-                            // Update UI after successful deletion
-                            var deletedGroup = document.getElementById("cartItem" + cartItemId);
-                            deletedGroup.remove(); // Remove the group from UI
-                            selectedItems(); // Update selected items count and total price display
-                        },
-                        error: function () {
-                            showErrorModal('Failed to delete group from cart.');
-                        }
-                    });
-                }
+        <script>
+            // JavaScript functions for handling deletion and updating UI
+            function deleteGroup(cartItemId) {
+                // Function to delete a group via AJAX
+                $.ajax({
+                    url: "${pageContext.request.contextPath}/cart",
+                    method: "POST",
+                    data: {
+                        action: "deleteCartItem",
+                        cartItemId: cartItemId
+                    },
+                    success: function (response) {
+                        // Update UI after successful deletion
+                        var deletedGroup = document.getElementById("cartItem" + cartItemId);
+                        deletedGroup.remove(); // Remove the group from UI
+                        selectedItems(); // Update selected items count and total price display
+                    },
+                    error: function () {
+                        showErrorModal('Failed to delete group from cart.');
+                    }
+                });
+            }
 
-                function DeleteSelectedItems() {
-                    // Function to delete selected items
-                    var checkboxes = document.getElementById('cartItemfor').querySelectorAll('.item-checkbox:checked');
-                    // Loop through selected checkboxes and delete each item
-                    checkboxes.forEach(checkbox => {
-                        const cartItemId = checkbox.closest('.footer').id.replace('cartItem', ''); // Get cartItemId from parent element's id
-                        deleteGroup(cartItemId); // Call delete function with corresponding cartItemId
-                    });
-                }
+            function DeleteSelectedItems() {
+                // Function to delete selected items
+                var checkboxes = document.getElementById('cartItemfor').querySelectorAll('.item-checkbox:checked');
+                // Loop through selected checkboxes and delete each item
+                checkboxes.forEach(checkbox => {
+                    const cartItemId = checkbox.closest('.footer').id.replace('cartItem', ''); // Get cartItemId from parent element's id
+                    deleteGroup(cartItemId); // Call delete function with corresponding cartItemId
+                });
+            }
 
-                function selectedItems() {
-                    // Function to update selected items count and total price
-                    var checkboxes = document.querySelectorAll('.item-checkbox:checked');
-                    var check = checkboxes.length; // Number of selected checkboxes
-                    var total = 0;
-                    var quantityCartItem = document.querySelectorAll('.item-checkbox');
-                    checkboxes.forEach(checkbox => {
-                        var cartItemElement = checkbox.closest('.footer');
-                        var quantity = parseInt(cartItemElement.querySelector('.quantity').value);
-                        var price = parseFloat(cartItemElement.querySelector('.vjkBXu').textContent.replace('₫', '').replace(/,/g, ''));
-                        total += quantity * price;
-                    });
-                    var totalproduct = document.getElementById("totalproduct");
-                    totalproduct.innerHTML = "Total payment (" + check + " Product):";
-                    var totalprice = document.getElementById("totalprice");
-                    totalprice.innerHTML = "₫" + total.toLocaleString('en') + '.0';
-                    var totalCartItem = document.getElementById("select_all");
-                    totalCartItem.innerHTML = "Select All (" + quantityCartItem.length + ")";
-                }
+            function selectedItems() {
+                // Function to update selected items count and total price
+                var checkboxes = document.querySelectorAll('.item-checkbox:checked');
+                var check = checkboxes.length; // Number of selected checkboxes
+                var total = 0;
+                var quantityCartItem = document.querySelectorAll('.item-checkbox');
+                checkboxes.forEach(checkbox => {
+                    var cartItemElement = checkbox.closest('.footer');
+                    var quantity = parseInt(cartItemElement.querySelector('.quantity').value);
+                    var price = parseFloat(cartItemElement.querySelector('.vjkBXu').textContent.replace('₫', '').replace(/,/g, ''));
+                    total += quantity * price;
+                });
+                var totalproduct = document.getElementById("totalproduct");
+                totalproduct.innerHTML = "Total payment (" + check + " Product):";
+                var totalprice = document.getElementById("totalprice");
+                totalprice.innerHTML = "₫" + total.toLocaleString('en') + '.0';
+                var totalCartItem = document.getElementById("select_all");
+                totalCartItem.innerHTML = "Select All (" + quantityCartItem.length + ")";
+            }
         </script>
 
         <script>
@@ -441,7 +563,7 @@
                             // newQuantity = response.quantity;
 //                            updateQuantity()
                             var totalPriceElement = document.getElementById("cart" + cartItemId);
-                            totalPriceElement.innerHTML = '₫' + (response.price * newQuantity).toLocaleString('en') + '.0';
+                            totalPriceElement.innerHTML = '₫' + (response.price * response.quantity).toLocaleString('en') + '.0';
                             var PriceElement = document.getElementById("price" + cartItemId);
                             PriceElement.innerHTML = '₫' + (response.price.toLocaleString('en')) + '.0';
                             selectedItems(); // Update the selected items count and total price display

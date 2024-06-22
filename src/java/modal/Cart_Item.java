@@ -23,7 +23,6 @@ public class Cart_Item {
     private int quatityProduct;
     private int shoe_id;
     private List<ShoeColor> availableColors; // Danh sách các màu sắc có sẵn cho sản phẩm
-    private List<ShoeSize> availableSizes; // Danh sách các kích cỡ có sẵn cho sản phẩm
 
     @Override
     public String toString() {
@@ -38,7 +37,6 @@ public class Cart_Item {
                 ", quatityProduct=" + quatityProduct +
                 ", shoe_id=" + shoe_id +
                 ", availableColors=" + availableColors +
-                ", availableSizes=" + availableSizes +
                 '}';
     }
 
@@ -134,15 +132,7 @@ public class Cart_Item {
         this.availableColors = availableColors;
     }
 
-    public List<ShoeSize> getAvailableSizes() {
-        return availableSizes;
-    }
-
-    public void setAvailableSizes(List<ShoeSize> availableSizes) {
-        this.availableSizes = availableSizes;
-    }
-
-    public Cart_Item(int idCartItem, String img, String shoe_name, int size, String color, Double price, int quatityCart, int quatityProduct, int shoe_id, List<ShoeColor> availableColors, List<ShoeSize> availableSizes) {
+    public Cart_Item(int idCartItem, String img, String shoe_name, int size, String color, Double price, int quatityCart, int quatityProduct, int shoe_id, List<ShoeColor> availableColors) {
         this.idCartItem = idCartItem;
         this.img = img;
         this.shoe_name = shoe_name;
@@ -153,7 +143,6 @@ public class Cart_Item {
         this.quatityProduct = quatityProduct;
         this.shoe_id = shoe_id;
         this.availableColors = availableColors;
-        this.availableSizes = availableSizes;
     }
 
     public Cart_Item() {

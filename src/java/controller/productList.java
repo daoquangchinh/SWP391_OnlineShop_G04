@@ -4,7 +4,7 @@
  */
 package controller;
 
-import DAO.ShoeDAO;
+import dao.ShoeDAO;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;

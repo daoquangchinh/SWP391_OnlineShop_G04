@@ -4,23 +4,19 @@
  */
 package controller;
 
-import DAO.DetailDao;
-import DAO.ShoeDAO;
+import dao.ShoeDAO;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
-import modal.Brand;
 import modal.Shoe;
 
 /**
  *
  * @author DELL
  */
-@WebServlet(name = "HomeServlet", urlPatterns = {"/Home"})
 public class HomeServlet extends HttpServlet {
 
     @Override
