@@ -30,7 +30,7 @@ public class CartServlet extends HttpServlet {
             // If user is not logged in, you might want to redirect to a login page or handle it differently
             // For testing purposes, default to user ID 1
             //cartItems = (List<Cart_Item>) session.getAttribute("cart");
-            cartItems = dao.getCart(2);
+            cartItems = (List<Cart_Item>) session.getAttribute("listCart");
         }
 
         request.setAttribute("mess", "quan");
@@ -45,6 +45,19 @@ public class CartServlet extends HttpServlet {
         int cartItemId = Integer.parseInt(request.getParameter("cartItemId"));
         DAO dao = new DAO();
         Cart_Item ci = dao.getCartItem(cartItemId);
+        HttpSession session = request.getSession();
+        List<Cart_Item> cartItems = new ArrayList<>();
+        cartItems = (List<Cart_Item>) session.getAttribute("listCart");
+        User user = (User) session.getAttribute("acc");
+        boolean checklogin = true;
+        if (user == null) {
+            checklogin = false;
+            for (Cart_Item cartItem : cartItems) {
+                if (cartItemId == cartItem.getIdCartItem()) {
+                    ci = cartItem;
+                }
+            }
+        }
 
         if ("fetchQuantity".equals(action)) {
             String strquantity = request.getParameter("quantity");
@@ -63,7 +76,7 @@ public class CartServlet extends HttpServlet {
             String strErr = "";
             if (quantity > ci.getQuatityProduct()) {
                 ci.setQuatityCart(ci.getQuatityProduct());
-                strErr = "Unfortunately, you can only purchase a maximum of " + ci.getQuatityCart() + " products.";
+                strErr = "Unfortunately, you can only purchase a maximum of " + ci.getQuatityProduct()+ " products.";
             } else {
                 ci.setQuatityCart(quantity);
             }
@@ -78,63 +91,105 @@ public class CartServlet extends HttpServlet {
             String strErr = "";
             if (quantity > ci.getQuatityProduct()) {
                 quantity = ci.getQuatityProduct();
-                strErr = "Unfortunately, you can only purchase a maximum of " + ci.getQuatityCart() + " products.";
-            } 
-            dao.updateQuantity(cartItemId, quantity);
+                strErr = "Unfortunately, you can only purchase a maximum of " + ci.getQuatityProduct()+ " products.";
+            }
+            if (checklogin == true) {
+                dao.updateQuantity(cartItemId, quantity);
+            } else {
+                for (Cart_Item cartItem : cartItems) {
+                    if (cartItemId == cartItem.getIdCartItem()) {
+                        cartItem.setQuatityCart(quantity);
+                    }
+                }
+                session.setAttribute("listCart", cartItems);
+
+            }
 
             response.setContentType("application/json");
             PrintWriter out = response.getWriter();
-           out.print("{ \"price\": " + ci.getPrice() + ", ");
+            out.print("{ \"price\": " + ci.getPrice() + ", ");
             out.print("\"quantity\": " + quantity + ", ");
             out.print("\"strErr\": \"" + strErr + "\" }");
             out.close();
         } else if ("deleteCartItem".equals(action)) {
             // Update quantity in the database (replace userId with actual user ID)
-            dao.delete(cartItemId);
-        } else if ("updatecart".equals(action)) {
-            // Handle update color and size request
-            int shoeId = Integer.parseInt(request.getParameter("shoeId"));
-            int colorId = Integer.parseInt(request.getParameter("colorId"));
-            int sizeId = Integer.parseInt(request.getParameter("sizeId"));
-            int quantity;
-            int cartId;
-
-            // Update product classification in the cart item
-            int productId = dao.findProduct(shoeId, colorId, sizeId);
-
-            Cart_Item cart = dao.getCartItemByProductID(productId, cartItemId);
-            if (cart != null) {
-                cartId = cart.getIdCartItem();
-                quantity = cart.getQuatityCart() + ci.getQuatityCart();
-                // Uncomment and handle quantity update logic
-                // if (quantity > cart.getQuatityProduct()) {
-                //     quantity = cart.getQuatityProduct();
-                // }
-                // dao.updateQuantity(cart.getIdCartItem(), quantity);
-                // dao.delete(ci.getIdCartItem());
+            if (checklogin == true) {
+                dao.delete(cartItemId);
             } else {
-                quantity = ci.getQuatityCart();
-                cartId = cartItemId;
-                dao.updateProductId(cartItemId, productId);
-                // Uncomment and handle product update logic
-                // dao.updateProductId(cartItemId, productId);
-                // ci = dao.getCartItem(cartItemId);
-                // if (ci.getQuatityCart() > ci.getQuatityProduct()) {
-                //     dao.updateQuantity(ci.getIdCartItem(), ci.getQuatityProduct());
-                // }
+                cartItems.remove(ci);
+                session.setAttribute("listCart", cartItems);
+
             }
 
-            // Prepare JSON response
-            response.setContentType("application/json");
-            PrintWriter out = response.getWriter();
-            out.println("{");
-            out.println("\"cartId\": " + cartId + ",");
-            out.println("\"quantity\": " + quantity + ",");
-            out.println("\"message\": \"Product classification updated successfully!\"");
-            out.println("}");
-            out.close();
-        }
+        } else if ("updatecart".equals(action)) {
+    // Handle update color and size request
+    int shoeId = Integer.parseInt(request.getParameter("shoeId"));
+    int colorId = Integer.parseInt(request.getParameter("colorId"));
+    int sizeId = Integer.parseInt(request.getParameter("sizeId"));
+    int quantity;
+    int cartId;
+    Cart_Item cart = null; // Sửa Cart_Item từ new Cart_Item() thành null
 
+    // Update product classification in the cart item
+    int productId = dao.findProduct(shoeId, colorId, sizeId);
+    if (checklogin) {
+        cart = dao.getCartItemByProductID(productId, cartItemId);
+    } else {
+        //List<Cart_Item> cartItems = (List<Cart_Item>) session.getAttribute("listCart");
+        if (cartItems != null) {
+            for (Cart_Item cartItem : cartItems) {
+                if (productId == dao.findProductByStr(cartItem.getShoe_id(), cartItem.getColor(), cartItem.getSize())) {
+                    cart = cartItem;
+                    break;
+                }
+            }
+        }
     }
 
+    if (cart != null) {
+        cartId = cart.getIdCartItem();
+        quantity = cart.getQuatityCart() + ci.getQuatityCart();
+    } else {
+        quantity = ci.getQuatityCart();
+        cartId = cartItemId;
+        if (checklogin) {
+            dao.updateProductId(cartItemId, productId);
+        } else {
+           // List<Cart_Item> cartItems = (List<Cart_Item>) session.getAttribute("listCart");
+            if (cartItems == null) {
+                cartItems = new ArrayList<>();
+            }
+            boolean found = false;
+            for (int i = 0; i < cartItems.size(); i++) {
+                if (cartItems.get(i).getIdCartItem() == cartItemId) {
+                    cartItems.set(i, dao.setCartSession(productId, cartItemId, quantity));
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                cartItems.add(dao.setCartSession(productId, cartItemId, quantity));
+            }
+            session.setAttribute("listCart", cartItems);
+        }
+    }
+
+    // Prepare JSON response
+    response.setContentType("application/json");
+    PrintWriter out = response.getWriter();
+    out.println("{");
+    out.println("\"cartId\": " + cartId + ",");
+    out.println("\"quantity\": " + quantity + ",");
+    out.println("\"message\": \"Product classification updated successfully!\"");
+    out.println("}");
+    out.close();
+}
+
+
+    }
+     public static void main(String[] args) {
+         DAO dao = new DAO();
+         Cart_Item cartItem = dao.setCartSession(1, 10, 3);
+         System.out.println(cartItem.toString());
+    }
 }

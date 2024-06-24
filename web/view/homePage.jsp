@@ -302,7 +302,6 @@
 
         <!-- Contact Javascript File -->
         <script src="${pageContext.request.contextPath}/assets_h/mail/jqBootstrapValidation.min.js"></script>
-        <script src="mail/contact.js"></script>
 
         <!-- Template Javascript -->
     </body>

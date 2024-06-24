@@ -367,8 +367,8 @@
                                 var quantity = response.quantity;
                                 var message = response.message;
                                 if (cartId != cartItemId) {
-                                    // alert("Xin chào! Bấm OK để tiếp tục.");
-                                    deleteGroup(cartItemId)
+                                    // alert(message);
+                                    deleteGroup(cartItemId),
                                     sendUpdateRequest(cartId, quantity);
                                 } else {
 

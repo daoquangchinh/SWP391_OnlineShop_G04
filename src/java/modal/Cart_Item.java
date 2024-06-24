@@ -144,7 +144,7 @@ public class Cart_Item {
         this.shoe_id = shoe_id;
         this.availableColors = availableColors;
     }
-
+  
     public Cart_Item() {
     }
 }

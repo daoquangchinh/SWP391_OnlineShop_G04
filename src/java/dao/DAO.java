@@ -20,8 +20,76 @@ import modal.ShoeSize;
 import modal.User;
 
 public class DAO {
- // 
-    public Cart_Item getCartItemByProductID(int productId,int cartItemId ) {
+
+    //insert cart 
+    public boolean insertCartItem(int userId, int productId, int quantity) {
+        String query = "INSERT INTO cart_item (user_id, product_id, quantity, total) VALUES (?, ?, ?, 1)";
+
+        try (Connection conn = new DBContext().getConnection(); PreparedStatement ps = conn.prepareStatement(query)) {
+
+            ps.setInt(1, userId);
+            ps.setInt(2, productId);
+            ps.setInt(3, quantity);
+
+            int rowsInserted = ps.executeUpdate();
+            return rowsInserted > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Error inserting product into cart: " + e);
+            return false;
+        }
+    }
+//
+
+    public Cart_Item setCartSession(int productId, int cartItemId, int quantity) {
+        String query = "SELECT \n"
+                + "    s.img AS img,         \n"
+                + "    s.shoe_name AS shoe_name,\n"
+                + "    ss.size AS size,\n"
+                + "    sc.color AS color,\n"
+                + "    s.price AS price,\n"
+                + "    p.quantity AS quantityProduct,\n"
+                + "    p.shoe_id AS shoe_id\n"
+                + "FROM \n"
+                + "    product p\n"
+                + "JOIN \n"
+                + "    shoe s ON p.shoe_id = s.id\n"
+                + "JOIN \n"
+                + "    shoe_size ss ON p.shoe_size_id = ss.id\n"
+                + "JOIN \n"
+                + "    shoe_color sc ON p.shoe_color_id = sc.id\n"
+                + "WHERE \n"
+                + "    p.id = ?;";
+
+        Cart_Item cartItem = null;
+
+        try (Connection conn = new DBContext().getConnection(); PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setInt(1, productId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    List<ShoeColor> colors = getColorByShoeId(rs.getInt("shoe_id"));
+                    cartItem = new Cart_Item();
+                    cartItem.setIdCartItem(cartItemId);
+                    cartItem.setImg(rs.getString("img"));
+                    cartItem.setShoe_name(rs.getString("shoe_name"));
+                    cartItem.setSize(rs.getInt("size"));
+                    cartItem.setColor(rs.getString("color"));
+                    cartItem.setPrice(rs.getDouble("price"));
+                    cartItem.setQuatityProduct(rs.getInt("quantityProduct"));
+                    cartItem.setShoe_id(rs.getInt("shoe_id"));
+                    cartItem.setQuatityCart(quantity);
+                    cartItem.setAvailableColors(colors);
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error getting cart item with ProductId " + productId + ": " + e);
+        }
+
+        return cartItem;
+    }
+    // 
+
+    public Cart_Item getCartItemByProductID(int productId, int cartItemId) {
         String query = "SELECT "
                 + "ci.id AS idCartItem, "
                 + "s.img AS img, "
@@ -67,6 +135,87 @@ public class DAO {
 
         return cartItem;
     }
+
+    public Cart_Item CartItemByProductID(int productId, int useId) {
+        String query = "SELECT "
+                + "ci.id AS idCartItem, "
+                + "s.img AS img, "
+                + "s.shoe_name, "
+                + "ss.size, "
+                + "sc.color, "
+                + "s.price, "
+                + "ci.quantity AS quantityCart, "
+                + "p.quantity AS quantityProduct, "
+                + "s.id AS shoe_id "
+                + "FROM cart_item ci "
+                + "JOIN product p ON ci.product_id = p.id "
+                + "JOIN shoe s ON p.shoe_id = s.id "
+                + "JOIN shoe_size ss ON p.shoe_size_id = ss.id "
+                + "JOIN shoe_color sc ON p.shoe_color_id = sc.id "
+                + "WHERE ci.product_id = ? and ci.user_id=?";
+
+        Cart_Item cartItem = null;
+
+        try (Connection conn = new DBContext().getConnection(); PreparedStatement ps = conn.prepareStatement(query)) {
+
+            ps.setInt(1, productId);
+            ps.setInt(2, useId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    int idCartItem = rs.getInt("idCartItem");
+                    String img = rs.getString("img");
+                    String shoeName = rs.getString("shoe_name");
+                    int size = rs.getInt("size");
+                    String color = rs.getString("color");
+                    double price = rs.getDouble("price");
+                    int quantityCart = rs.getInt("quantityCart");
+                    int quantityProduct = rs.getInt("quantityProduct");
+                    int shoeId = rs.getInt("shoe_id");
+
+                    List<ShoeColor> colors = getColorByShoeId(shoeId);
+                    cartItem = new Cart_Item(idCartItem, img, shoeName, size, color, price, quantityCart, quantityProduct, shoeId, colors);
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error getting cart item with ProductId " + productId + ": " + e);
+        }
+
+        return cartItem;
+    }
+
+    public int findProductByStr(int shoeId, String color, int size) {
+        String query = "SELECT \n"
+                + "    p.id AS productId\n"
+                + "FROM \n"
+                + "    product p\n"
+                + "JOIN \n"
+                + "    shoe_size ss ON p.shoe_size_id = ss.id\n"
+                + "JOIN \n"
+                + "    shoe_color sc ON p.shoe_color_id = sc.id\n"
+                + "WHERE \n"
+                + "    p.shoe_id = ?\n"
+                + "    AND ss.size = ?\n"
+                + "    AND sc.color = ?;";
+
+        try (Connection conn = new DBContext().getConnection(); PreparedStatement ps = conn.prepareStatement(query)) {
+
+            ps.setInt(1, shoeId);
+            ps.setString(3, color);
+            ps.setInt(2, size);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("productId");
+                } else {
+                    return -1; // or throw an exception or handle it another way
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error finding product with shoeId " + shoeId + ", colorId " + color + ", sizeId " + size + ": " + e);
+            return -1; // or throw an exception or handle it another way
+        }
+    }
+
     //update sô lượng sản phẩm 
     public int findProduct(int shoeId, int colorId, int sizeId) {
         String query = "SELECT id \n"
