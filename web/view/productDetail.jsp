@@ -168,54 +168,25 @@
             <div class="recommended-section">
                 <h2>You Might Also Like</h2>
                 <div class="recommended-products">
+                    <c:forEach var="brand" items="${requestScope.shoeBrand}">
                     <div class="recommended-product">
-                        <img src="url-to-image-1" alt="Product 1">
+                        <a href="${pageContext.request.contextPath}/productdetail?shoeid=${brand.getId()}">
+                        <img src="${pageContext.request.contextPath}/${brand.getImage()}" alt="Product 1" style="width: 100px; height: 100px">
+                        </a>
                         <div class="product-info">
-                            <div class="product-name">Nike Air Force 1 '07</div>
+                            <div class="product-name">${brand.getName()} </div>
+                            <c:choose>
+                        <c:when test="${brand.getGenderId() == 1}">
                             <div class="product-category">Men's Shoes</div>
-                            <div class="product-price">2,591,199đ <span class="original-price">3,239,000đ</span></div>
-                        </div>
-                    </div>
-                    <div class="recommended-product">
-                        <img src="url-to-image-2" alt="Product 2">
-                        <div class="product-info">
-                            <div class="product-name">Nike Court Vision Low</div>
-                            <div class="product-category">Men's Shoes</div>
-                            <div class="product-price">2,069,000đ</div>
-                        </div>
-                    </div>
-                    <div class="recommended-product">
-                        <img src="url-to-image-3" alt="Product 3">
-                        <div class="product-info">
-                            <div class="product-name">Air Jordan 1 Mid</div>
+                        </c:when>
+                        <c:when test="${brand.getGenderId() == 2}">
                             <div class="product-category">Women's Shoes</div>
-                            <div class="product-price">2,201,399đ <span class="original-price">3,669,000đ</span></div>
+                        </c:when>
+                    </c:choose>
+                            <div class="product-price">${brand.getPrice()} </div>
                         </div>
                     </div>
-                    <div class="recommended-product">
-                        <img src="url-to-image-3" alt="Product 3">
-                        <div class="product-info">
-                            <div class="product-name">Air Jordan 1 Mid</div>
-                            <div class="product-category">Women's Shoes</div>
-                            <div class="product-price">2,201,399đ <span class="original-price">3,669,000đ</span></div>
-                        </div>
-                    </div>
-                    <div class="recommended-product">
-                        <img src="url-to-image-3" alt="Product 3">
-                        <div class="product-info">
-                            <div class="product-name">Air Jordan 1 Mid</div>
-                            <div class="product-category">Women's Shoes</div>
-                            <div class="product-price">2,201,399đ <span class="original-price">3,669,000đ</span></div>
-                        </div>
-                    </div>
-                    <div class="recommended-product">
-                        <img src="url-to-image-3" alt="Product 3">
-                        <div class="product-info">
-                            <div class="product-name">Air Jordan 1 Mid</div>
-                            <div class="product-category">Women's Shoes</div>
-                            <div class="product-price">2,201,399đ <span class="original-price">3,669,000đ</span></div>
-                        </div>
-                    </div>
+                    </c:forEach>
                 </div>
             </div>
 

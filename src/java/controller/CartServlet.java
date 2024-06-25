@@ -26,6 +26,7 @@ public class CartServlet extends HttpServlet {
         if (user != null) {
             int userId = user.getId();
             cartItems = dao.getCart(userId);
+
         } else {
             // If user is not logged in, you might want to redirect to a login page or handle it differently
             // For testing purposes, default to user ID 1

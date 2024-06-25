@@ -52,6 +52,45 @@ public class DetailDao {
         return shoe;
     }
 
+    public ArrayList<Shoe> getShoeByBrand(int brand_id) {
+    String sql = "SELECT * FROM shoe WHERE shoe.brand_id = ?";
+    ArrayList<Shoe> shoes = new ArrayList<>(); // Instantiate the ArrayList
+
+    try {
+        Connection conn = new DBContext().getConnection();
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setInt(1, brand_id);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            Shoe shoe = new Shoe();
+            shoe.setId(rs.getInt("id"));
+            shoe.setName(rs.getString("shoe_name"));
+            shoe.setBrandId(rs.getInt("brand_id"));
+            shoe.setSportsId(rs.getInt("sports_id"));
+            shoe.setGenderId(rs.getInt("gender_id"));
+            shoe.setDescriptionm(rs.getString("description")); // Fixed method name
+            shoe.setPrice(rs.getDouble("price"));
+            shoe.setDiscount(rs.getDouble("discount"));
+            shoe.setImage(rs.getString("img"));
+            shoe.setCreatedAt(rs.getString("created_at"));
+            shoe.setUpdatedAt(rs.getString("updated_at"));
+
+            shoes.add(shoe); // Add each shoe to the ArrayList
+        }
+
+        // Close resources properly
+        rs.close();
+        ps.close();
+        conn.close();
+
+    } catch (SQLException e) {
+        System.err.println(e);
+    }
+
+    return shoes;
+}
+
     public ArrayList<Img> getImgByShoeIdAndColor(int shoeId, int colorId) {
         String sql = "SELECT *\n"
                 + "FROM img  \n"
@@ -148,8 +187,6 @@ public class DetailDao {
                 + "WHERE img.shoe_id = ?\n"
                 + "And img.img Like '%main%'";
 
-
-
         try {
             Connection conn = new DBContext().getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -179,7 +216,6 @@ public class DetailDao {
                 + "And shoe_color_id = ?\n"
                 + "And img Like '%main%'";
 
-
         Img img = null;
         try {
             Connection conn = new DBContext().getConnection();
@@ -187,7 +223,7 @@ public class DetailDao {
             ps.setInt(1, shoeId);
             ps.setInt(2, color);
             ResultSet rs = ps.executeQuery();
-            
+
             if (rs.next()) {
                 img = new Img();
                 img.setId(rs.getInt("id"));
@@ -202,4 +238,14 @@ public class DetailDao {
         }
         return img;
     }
+
+//    public static void main(String[] args) throws SQLException {
+//        DetailDao dd = new DetailDao();
+//        ArrayList<Shoe> shoeBrand = dd.getShoeByBrand(1);
+//        System.out.println(shoeBrand.get(0).getPrice());
+////        LocalDate date = LocalDate.now();
+////        int id = 1;
+////        od.insertOrder(id, date);
+//
+//    }
 }

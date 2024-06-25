@@ -37,17 +37,19 @@ public class productDetail extends HttpServlet {
         ArrayList<ProductJoin> productJoin = null;
         ArrayList<Img> imgAll = null;
         ArrayList<Img> imgColor = null;
+        ArrayList<Shoe> shoeBrand = null;
         Img imgMain = null;
         if (imgChose == null && color == null) {
             try {
                 int shoeId = Integer.parseInt(shoeIdParam);
                 shoe = dd.getShoeById(shoeId);
-
+                shoeBrand = dd.getShoeByBrand(shoe.getBrandId());
                 imgColor = dd.getImgMain(shoeId);
                 imgMain = dd.getImgByImg(shoe.getImage());
                 productJoin = dd.getProductByShoeIdAndColor(shoeId, imgMain.getShoe_color_id());
                 imgAll = dd.getImgByShoeIdAndColor(shoeId, imgMain.getShoe_color_id());
                 request.setAttribute("shoe", shoe);
+                request.setAttribute("shoeBrand", shoeBrand);
                 request.setAttribute("imgMain", imgMain);
                 request.setAttribute("imgColor", imgColor);
                 request.setAttribute("productJoin", productJoin);
@@ -62,11 +64,13 @@ public class productDetail extends HttpServlet {
         if (imgChose != null) {
             int shoeId = Integer.parseInt(shoeIdParam);
             shoe = dd.getShoeById(shoeId);
+            shoeBrand = dd.getShoeByBrand(shoe.getBrandId());
             imgColor = dd.getImgMain(shoeId);
             imgMain = dd.getImgByImg(imgChose);
             productJoin = dd.getProductByShoeIdAndColor(shoeId, imgMain.getShoe_color_id());
             imgAll = dd.getImgByShoeIdAndColor(shoeId, imgMain.getShoe_color_id());
             request.setAttribute("shoe", shoe);
+            request.setAttribute("shoeBrand", shoeBrand);
             request.setAttribute("imgMain", imgMain);
             request.setAttribute("imgColor", imgColor);
             request.setAttribute("productJoin", productJoin);
@@ -77,11 +81,13 @@ public class productDetail extends HttpServlet {
             int shoeId = Integer.parseInt(shoeIdParam);
             int colorId = Integer.parseInt(color);
             shoe = dd.getShoeById(shoeId);
+            shoeBrand = dd.getShoeByBrand(shoe.getBrandId());
             imgColor = dd.getImgMain(shoeId);
             productJoin = dd.getProductByShoeIdAndColor(shoeId, colorId);
             imgAll = dd.getImgByShoeIdAndColor(shoeId, colorId);
             imgMain = dd.getImgMainByShoeIdAndColor(shoeId, colorId);
             request.setAttribute("shoe", shoe);
+            request.setAttribute("shoeBrand", shoeBrand);
             request.setAttribute("imgMain", imgMain);
             request.setAttribute("imgColor", imgColor);
             request.setAttribute("productJoin", productJoin);
@@ -121,7 +127,7 @@ public class productDetail extends HttpServlet {
                         int newQuantity = cartItem.getQuatityCart() + quantity;
                         if (newQuantity > cartItem.getQuatityProduct()) {
                             newQuantity = cartItem.getQuatityProduct();
-                            err = "Sản phẩm này trong giỏ hàng đã đạt tối đa"+cartItem.getIdCartItem();
+                            err = "Sản phẩm này trong giỏ hàng đã đạt tối đa" + cartItem.getIdCartItem();
                         } else {
                             err = "Sản phẩm này đã tồn tại và được thêm lại vào giỏ hàng.";
                         }
@@ -142,7 +148,7 @@ public class productDetail extends HttpServlet {
                 }
                 Cart_Item c = dao.setCartSession(productId, cartid, quantity);
                 cart.add(c);
-                err = "Sản phẩm đã được thêm vào giỏ hàng."+c.getIdCartItem();
+                err = "Sản phẩm đã được thêm vào giỏ hàng." + c.getIdCartItem();
             }
 
             session.setAttribute("listCart", cart);
@@ -177,7 +183,7 @@ public class productDetail extends HttpServlet {
             out.println("{\"strErr\": \"" + message + "\"}");
         }
     }
-    
+
     public static void main(String[] args) {
         DAO dao = new DAO();
         System.out.println(dao.findProductByStr(1, "White", 40));
