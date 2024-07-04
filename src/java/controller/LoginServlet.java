@@ -82,10 +82,4 @@ public class LoginServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    public static void main(String[] args) {
-        DAO dao = new DAO();
-        User u = dao.getlogin("quan@fpt.edu", "123");
-
-        System.out.println(u.toString());
-    }
 }

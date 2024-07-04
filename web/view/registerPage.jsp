@@ -29,6 +29,7 @@
         <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/assets_lg/css/bootstrap.min.css">
         <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/assets_lg/fonts/font-awesome/css/font-awesome.min.css">
         <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/assets_lg/fonts/flaticon/font/flaticon.css">
+        <link href="${pageContext.request.contextPath}/assets_h/css/style.css" rel="stylesheet">
 
         <!-- Favicon icon -->
         <link rel="shortcut icon" href="${pageContext.request.contextPath}/assets_lg/img/favicon.ico" type="image/x-icon" >
@@ -55,7 +56,16 @@
                           height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <!-- End Google Tag Manager (noscript) -->
         <div class="page_loader"></div>
-
+        <div class="col-lg-4">
+            <a href="${pageContext.request.contextPath}/Home" class="text-decoration-none"style="    position: fixed;
+               left: 0;
+               top: 0;
+               z-index: 1000;
+               box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);">
+                <span class="h1 text-uppercase text-primary bg-dark px-2">Multi</span>
+                <span  class="h1 text-uppercase text-dark bg-primary px-2 ml-n1">Shop</span>
+            </a>
+        </div>
         <!-- Login 11 start -->
         <div class="login-11">
             <div class="container-fluid">
@@ -69,7 +79,7 @@
                     <div class="col-lg-6 col-md-12 bg-color-13">
                         <div class="form-section">
                             <div class="logo clearfix">
-                                <a href="${pageContext.request.contextPath}/register">
+                                <a href="${pageContext.request.contextPath}/Home">
                                     <img src="${pageContext.request.contextPath}/assets_lg/img/nike.jpg" alt="logo">
                                 </a>
                             </div>

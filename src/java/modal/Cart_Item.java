@@ -23,7 +23,7 @@ public class Cart_Item {
     private int quatityProduct;
     private int shoe_id;
     private List<ShoeColor> availableColors; // Danh sách các màu sắc có sẵn cho sản phẩm
-
+    private int status_id ;
     @Override
     public String toString() {
         return "Cart_Item{" +
@@ -37,6 +37,7 @@ public class Cart_Item {
                 ", quatityProduct=" + quatityProduct +
                 ", shoe_id=" + shoe_id +
                 ", availableColors=" + availableColors +
+                 ", status_id=" + status_id +
                 '}';
     }
 
@@ -50,6 +51,14 @@ public class Cart_Item {
         this.quatityCart = quatityCart;
         this.quatityProduct = quatityProduct;
         this.shoe_id = shoe_id;
+    }
+
+    public int getStatus_id() {
+        return status_id;
+    }
+
+    public void setStatus_id(int status_id) {
+        this.status_id = status_id;
     }
 
     public int getIdCartItem() {
@@ -132,7 +141,7 @@ public class Cart_Item {
         this.availableColors = availableColors;
     }
 
-    public Cart_Item(int idCartItem, String img, String shoe_name, int size, String color, Double price, int quatityCart, int quatityProduct, int shoe_id, List<ShoeColor> availableColors) {
+    public Cart_Item(int idCartItem, String img, String shoe_name, int size, String color, Double price, int quatityCart, int quatityProduct, int shoe_id, List<ShoeColor> availableColors,int status_id) {
         this.idCartItem = idCartItem;
         this.img = img;
         this.shoe_name = shoe_name;
@@ -143,6 +152,7 @@ public class Cart_Item {
         this.quatityProduct = quatityProduct;
         this.shoe_id = shoe_id;
         this.availableColors = availableColors;
+        this.status_id = status_id;
     }
   
     public Cart_Item() {

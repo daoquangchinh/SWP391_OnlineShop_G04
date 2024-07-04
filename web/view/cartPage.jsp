@@ -39,8 +39,13 @@
         <link href="${pageContext.request.contextPath}/assets_cart/styles.css" rel="stylesheet">
     </head>
 
-    <body>
-        <jsp:include page="homeTag.jsp"></jsp:include>
+    <body> 
+
+
+        <div id="includedContent">
+            <jsp:include page="homeTag.jsp"></jsp:include>
+            </div>
+
             <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Shop Cart</span></h2>
 
             <div> 
@@ -97,7 +102,7 @@
                                 <div class="product">
                                     <input class="checkbox_input item-checkbox" type="checkbox">
                                     <a title="<%= item.getShoe_name() %>" href="#">
-                                        <img class="product_img" href="${pageContext.request.contextPath}/productdetail?shoeid=<%= item.getShoe_id()%>" alt="product image">
+                                        <img class="product_img" src="${pageContext.request.contextPath}/<%= item.getImg()%>" href="${pageContext.request.contextPath}/productdetail?shoeid=<%= item.getShoe_id()%>" alt="product image">
                                     </a>
                                     <div class="c54pg1 col-lg-4">
                                         <a title="<%= item.getShoe_name() %>" href="${pageContext.request.contextPath}/productdetail?shoeid=<%= item.getShoe_id()%>"><%= item.getShoe_name() %></a>
@@ -170,6 +175,14 @@
                             </div>
                         </div>
                     </div>
+                    <%
+                        if(item.getStatus_id()== 2){
+                    %>
+                    <div class="overlay">Sản phẩm này đã bị xóa</div>
+                    <%
+                        }
+                    %>
+
                 </div>
                 <% } %>
             </div>
@@ -188,7 +201,8 @@
                         </label>
                     </div>
                     <button class="select_all btn" type="checkbox" id="select_all">Select All (<%= listC.size() %>)</button>
-                    <button class="btn" style="color: red" onclick="DeleteSelectedItems()">Delete</button>
+                    <button class="btn"  onclick="DeleteSelectedItems()">Delete</button>
+                    <button id="deleteAllStatus2" style="display: none;color: red"class="btn" onclick="deleteAllByStatus()">Delete inactive products..</button>
                     <div>
                         <!--                            <button class="btn"><p class="btn" style="color: red">Bỏ sản phẩm không hoạt động</p></button>-->
                     </div>
@@ -369,7 +383,7 @@
                                 if (cartId != cartItemId) {
                                     // alert(message);
                                     deleteGroup(cartItemId),
-                                    sendUpdateRequest(cartId, quantity);
+                                            sendUpdateRequest(cartId, quantity);
                                 } else {
 
                                     //alert(cartId + " " + cartItemId + " " + quantity);
@@ -460,6 +474,25 @@
         </script>
 
         <script>
+            function checkAndShowDeleteButton() {
+                // Kiểm tra nếu có sản phẩm với status_id = 2
+                const hasStatus2Items = document.querySelector('.footer .overlay') !== null;
+                if (hasStatus2Items) {
+                    document.getElementById('deleteAllStatus2').style.display = 'block';
+                } else {
+                    document.getElementById('deleteAllStatus2').style.display = 'none';
+                }
+            }
+            function deleteAllByStatus() {
+                // Function to delete all items with status_id = 2
+                document.querySelectorAll('.footer').forEach(item => {
+                    if (item.querySelector('.overlay')) {
+                        const cartItemId = item.id.replace('cartItem', '');
+                        deleteGroup(cartItemId);
+                    }
+                });
+                document.getElementById('deleteAllStatus2').style.display = 'none';
+            }
             // JavaScript functions for handling deletion and updating UI
             function deleteGroup(cartItemId) {
                 // Function to delete a group via AJAX
@@ -471,7 +504,7 @@
                         cartItemId: cartItemId
                     },
                     success: function (response) {
-                        // Update UI after successful deletion
+                        $("#includedContent").load("view/homeTag.jsp");
                         var deletedGroup = document.getElementById("cartItem" + cartItemId);
                         deletedGroup.remove(); // Remove the group from UI
                         selectedItems(); // Update selected items count and total price display
@@ -515,6 +548,10 @@
 
         <script>
             document.addEventListener('DOMContentLoaded', function () {
+                checkAndShowDeleteButton();
+                document.querySelectorAll('.quantity').forEach(input => {
+                    fetchQuantityAndUpdate(input, false);
+                });
                 // Script for handling checkbox toggles
                 const selectAllHeader = document.getElementById('select_all_header');
                 const selectAllFooter = document.getElementById('select_all_footer');
@@ -530,7 +567,9 @@
                 // Function to toggle all checkboxes based on header/footer checkbox state
                 function toggleAllCheckboxes(isChecked) {
                     itemCheckboxes.forEach(checkbox => {
-                        checkbox.checked = isChecked;
+                        if (!checkbox.closest('.footer').querySelector('.overlay')) {
+                            checkbox.checked = isChecked;
+                        }
                     });
                     selectAllHeader.checked = isChecked;
                     selectAllFooter.checked = isChecked;
@@ -598,6 +637,7 @@
                     input.value = quantity;
                     sendUpdateRequest(cartItemId, quantity);
                 }
+
 // Event listeners for increment buttons
                 document.querySelectorAll('.increment').forEach(button => {
                     button.addEventListener('click', function () {

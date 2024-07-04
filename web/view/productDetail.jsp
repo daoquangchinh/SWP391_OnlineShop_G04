@@ -60,10 +60,10 @@
             }
             .notification {
                 position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
+                top: 150px;
+                left: 150px;
+                right: 150px;
+                bottom: 150px;
                 background-color: rgba(0, 0, 0, 0.5); /* Màu nền mờ */
                 display: none; /* Ban đầu ẩn */
                 z-index: 1000;
@@ -89,7 +89,7 @@
     </head>
     <body>
         <div class ="all">
-            <div class="header">
+            <div class="header" id="includedContent">
                 <jsp:include page="homeTag.jsp"></jsp:include>
                 </div>
                 <div class="container">
@@ -340,6 +340,8 @@
                             },
                             success: function (response) {
                                 showNotification(response.strErr, 'success');
+                                $("#includedContent").load("view/homeTag.jsp");
+
                             },
                             error: function () {
                                 showNotification('Không thể thêm sản phẩm vào giỏ hàng!', 'error');

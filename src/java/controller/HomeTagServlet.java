@@ -6,18 +6,23 @@ package controller;
 
 import dao.DAO;
 import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.List;
+import modal.Cart_Item;
 import modal.User;
 
 /**
  *
  * @author ViQuan
  */
-public class EdProfileServlet extends HttpServlet {
+@WebServlet(name = "HomeTagServlet", urlPatterns = {"/homeTag"})
+public class HomeTagServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -28,46 +33,21 @@ public class EdProfileServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        DAO dao = new DAO();
-        HttpSession session = request.getSession();
-        User u = (User) session.getAttribute("acc");
-        int id = u.getId();
-        String fullname = request.getParameter("fullname").trim();
-        String email = u.getEmail();
-        String phone = request.getParameter("phone").trim();
-        String img = request.getParameter("img");
-        if (img == null || img.isEmpty()){
-            img= u.getImg();
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet HomeTagServlet</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet HomeTagServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
-        String password = u.getPassword().trim();
-        String gender = request.getParameter("gender");
-        boolean check = false;
-        if(fullname.isEmpty()){
-            request.setAttribute("messname", "Full name cannot be empty");
-            check = true;
-        }
-        if (dao.checkPhone(phone, email)) {
-            request.setAttribute("messPhone", "Phone number already exists!!");
-            check = true;
-        }
-        if (!dao.isValidPhoneNumber(phone)) {
-            request.setAttribute("messPhone", "Invalid phone number format.");
-            check = true;
-        }
-        if (check) {
-            request.setAttribute("phone", phone);
-            request.setAttribute("fullname", fullname);
-            request.getRequestDispatcher("view/editProfile.jsp").forward(request, response);
-            return;
-        }
-
-        u = new User(id, email, password, fullname, gender, phone, email, img, 2, 1);
-        dao.updateUser(u);
-        session.setAttribute("acc", u);
-        response.sendRedirect("view/profilePage.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -82,7 +62,20 @@ public class EdProfileServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-                request.getRequestDispatcher("view/editProfile.jsp").forward(request, response);
+        int quantityCartItem = 0;
+        DAO dao = new DAO();
+        HttpSession session = request.getSession();
+        User u = (User) session.getAttribute("acc");
+        List<Cart_Item> cartItems = (List<Cart_Item>) session.getAttribute("listCart");
+
+        if (u != null) {
+            cartItems = (List<Cart_Item>) dao.getCart(u.getId());
+        }
+
+        quantityCartItem = (cartItems != null) ? cartItems.size() : 0;
+
+        request.setAttribute("quantityCartItem", quantityCartItem);
+        request.getRequestDispatcher("view/homeTag.jsp").forward(request, response);
 
     }
 
@@ -97,7 +90,7 @@ public class EdProfileServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
     }
 
     /**
