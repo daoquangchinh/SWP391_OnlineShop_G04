@@ -121,7 +121,7 @@ public class productDetail extends HttpServlet {
                         int newQuantity = cartItem.getQuatityCart() + quantity;
                         if (newQuantity > cartItem.getQuatityProduct()) {
                             newQuantity = cartItem.getQuatityProduct();
-                            err = "Sản phẩm này trong giỏ hàng đã đạt tối đa"+cartItem.getIdCartItem();
+                            err = "Sản phẩm này trong giỏ hàng đã đạt tối đa" + cartItem.getIdCartItem();
                         } else {
                             err = "Sản phẩm này đã tồn tại và được thêm lại vào giỏ hàng.";
                         }
@@ -142,16 +142,16 @@ public class productDetail extends HttpServlet {
                 }
                 Cart_Item c = dao.setCartSession(productId, cartid, quantity);
                 cart.add(c);
-                err = "Sản phẩm đã được thêm vào giỏ hàng."+c.getIdCartItem();
+                err = "Sản phẩm đã được thêm vào giỏ hàng." + c.getIdCartItem();
             }
 
             session.setAttribute("listCart", cart);
+            session.setAttribute("quantityCartItem", cart.size());
             sendJsonResponse(response, err);
 
         } else {
             // Logged-in user
             cartitem = dao.CartItemByProductID(productId, user.getId());
-
             if (cartitem != null) {
                 quantity = quantity + cartitem.getQuatityCart();
                 if (quantity > cartitem.getQuatityProduct()) {
@@ -161,11 +161,11 @@ public class productDetail extends HttpServlet {
                     err = "Sản phẩm đã được thêm vào giỏ hàng.";
                 }
                 dao.updateQuantity(cartitem.getIdCartItem(), quantity);
-            } else {
+            } else {            
                 err = "Sản phẩm mới đã được thêm vào giỏ hàng.";
                 dao.insertCartItem(user.getId(), productId, quantity);
             }
-
+            session.setAttribute("quantityCartItem", dao.getCart(user.getId()).size());
             sendJsonResponse(response, err);
         }
     }
@@ -177,7 +177,7 @@ public class productDetail extends HttpServlet {
             out.println("{\"strErr\": \"" + message + "\"}");
         }
     }
-    
+
     public static void main(String[] args) {
         DAO dao = new DAO();
         System.out.println(dao.findProductByStr(1, "White", 40));

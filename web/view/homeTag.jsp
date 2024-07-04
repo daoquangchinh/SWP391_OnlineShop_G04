@@ -24,10 +24,10 @@
 <!-- Topbar Start -->
 <div class="container-fluid">
     <div class="row bg-secondary py-1 px-xl-5">
-        <div class="col-lg-6 d-none d-lg-block">
+        <div class="col-lg-6 d-none d-lg-block">5
             <div class="d-inline-flex align-items-center h-100">
                 <a class="text-body mr-3" href="">About</a>
-                <a class="text-body mr-3" href="">Contact</a>
+                <a class="text-body mr-3" href="">Contact</a>`
                 <a class="text-body mr-3" href="">Help</a>
                 <a class="text-body mr-3" href="">FAQs</a>
             </div>
@@ -149,10 +149,13 @@
                             <i class="fas fa-heart text-primary"></i>
                             <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;"></span>
                         </a>
+                        <% 
+     int quantityCartItem = (session.getAttribute("quantityCartItem") != null) ? (int) session.getAttribute("quantityCartItem") : 0;
+        %>
                         <a href="${pageContext.request.contextPath}/cart" class="btn px-0 ml-3">
                             <i class="fas fa-shopping-cart text-primary"></i>
-                            <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;"></span>
-                        </a>
+                            <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;"><%=quantityCartItem%></span>
+                        </a>    
                     </div>
                 </div>
             </nav>

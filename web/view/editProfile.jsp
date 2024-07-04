@@ -78,7 +78,7 @@
       String messname = (String) request.getAttribute("messname");
       // Kiểm tra xem người dùng có đăng nhập không
       if (u != null) {
-      String displayedFullName = (fullname != null && !fullname.isEmpty()) ? fullname : u.getFullname();
+      String displayedFullName = (fullname != null ) ? fullname : u.getFullname();
       String imgSrc = u.getImg();
    if (imgSrc == null || imgSrc.isEmpty()) {
        imgSrc = "https://cellphones.com.vn/sforum/wp-content/uploads/2023/10/avatar-trang-4.jpg";
@@ -91,11 +91,31 @@
             <div class="col-lg-4">
                 <div class="card mb-4">
                     <div class="card-body text-center">
-                        <img src="<%= imgSrc %>" alt="avatar"
+                        <img src="<%= imgSrc %>"  alt="avatar"
                              class="rounded-circle img-fluid">
+                        <button style="
+                                position: sticky;
+                                border: solid;
+                                color: #434ff5;
+                                top: 150px;
+                                left: 180px;
+                                border-radius: 50%;
+                                width: 30px;
+                                height: 30px;
+                                font-size: 30px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                outline: none;
+                                " id="uploadBtn" >+</button>
                         <h5 class="my-3"><%= u.getUsername() %></h5>
                     </div>
 
+                    <script>
+                        document.getElementById('uploadBtn').addEventListener('click', function () {
+                            document.getElementById('fileInput').click();
+                        });
+                    </script>
                 </div>
                 <div class="card mb-4 mb-lg-0">
                     <div class="card-body p-0">
@@ -132,15 +152,16 @@
                 <div class="card mb-4">
                     <div class="card-body">
                         <form action="${pageContext.request.contextPath}/edProfile" method="POST">
+                            <input id="fileInput" style="display: none;" type="file" name="img" class="input-file">
                             <div class="row">
                                 <div class="col-sm-3">
                                     <p class="mb-0" style="margin-top: 15px;" style="margin-top: 15px;">Full Name</p>
                                 </div>
                                 <div class="col-sm-9 ">
                                     <div class="form-group  ">
-                                        <input type="text" name="fullname"  class="input-text form-box" required="" placeholder="Full Name" required="" value="<%= displayedFullName %>">
+                                        <input type="text" name="fullname"  class="input-text form-box" placeholder="Full Name"  value="<%= displayedFullName %>">
                                         <i class="flaticon-user"></i>
-                                         <br> <br> 
+                                        <br> <br> 
                                         <% if (messname != null) { %>
                                         <div class="error-message"><%= messname %></div>
                                         <% } %>
@@ -167,12 +188,12 @@
                                 </div>
                                 <div class="col-sm-9">
                                     <div class="form-group">
-                                        <input type="number" name="phone"  class="input-text form-box" required="" placeholder="Number Phone" value="<%= phone != null ?  phone : u.getPhone() %>">
+                                        <input type="number" name="phone"  class="input-text form-box" placeholder="Number Phone" value="<%= phone != null ?  phone : u.getPhone() %>">
                                         <i class="flaticon-phone"></i>
                                     </div>       <br> <br> 
-                                        <% if (messPhone != null) { %>
-                                        <div class="error-message"><%= messPhone %></div>
-                                        <% } %>
+                                    <% if (messPhone != null) { %>
+                                    <div class="error-message"><%= messPhone %></div>
+                                    <% } %>
                                 </div>
                             </div>
                             <hr>

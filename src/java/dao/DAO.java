@@ -23,7 +23,7 @@ public class DAO {
 
     //insert cart 
     public boolean insertCartItem(int userId, int productId, int quantity) {
-        String query = "INSERT INTO cart_item (user_id, product_id, quantity, total) VALUES (?, ?, ?, 1)";
+        String query = "INSERT INTO cart_item (user_id, product_id, quantity) VALUES (?, ?, ?)";
 
         try (Connection conn = new DBContext().getConnection(); PreparedStatement ps = conn.prepareStatement(query)) {
 
@@ -49,7 +49,8 @@ public class DAO {
                 + "    sc.color AS color,\n"
                 + "    s.price AS price,\n"
                 + "    p.quantity AS quantityProduct,\n"
-                + "    p.shoe_id AS shoe_id\n"
+                + "    p.shoe_id AS shoe_id,\n"
+                + "    p.status_id\n"
                 + "FROM \n"
                 + "    product p\n"
                 + "JOIN \n"
@@ -79,6 +80,7 @@ public class DAO {
                     cartItem.setShoe_id(rs.getInt("shoe_id"));
                     cartItem.setQuatityCart(quantity);
                     cartItem.setAvailableColors(colors);
+                    cartItem.setStatus_id(rs.getInt("status_id"));
                 }
             }
         } catch (SQLException e) {
@@ -99,7 +101,8 @@ public class DAO {
                 + "s.price, "
                 + "ci.quantity AS quantityCart, "
                 + "p.quantity AS quantityProduct, "
-                + "s.id AS shoe_id "
+                + "s.id AS shoe_id, "
+                + "p.status_id "
                 + "FROM cart_item ci "
                 + "JOIN product p ON ci.product_id = p.id "
                 + "JOIN shoe s ON p.shoe_id = s.id "
@@ -124,9 +127,9 @@ public class DAO {
                     int quantityCart = rs.getInt("quantityCart");
                     int quantityProduct = rs.getInt("quantityProduct");
                     int shoeId = rs.getInt("shoe_id");
-
+                    int status_id = rs.getInt("status_id");
                     List<ShoeColor> colors = getColorByShoeId(shoeId);
-                    cartItem = new Cart_Item(idCartItem, img, shoeName, size, color, price, quantityCart, quantityProduct, shoeId, colors);
+                    cartItem = new Cart_Item(idCartItem, img, shoeName, size, color, price, quantityCart, quantityProduct, shoeId, colors, status_id);
                 }
             }
         } catch (SQLException e) {
@@ -138,21 +141,29 @@ public class DAO {
 
     public Cart_Item CartItemByProductID(int productId, int useId) {
         String query = "SELECT "
-                + "ci.id AS idCartItem, "
-                + "s.img AS img, "
-                + "s.shoe_name, "
-                + "ss.size, "
-                + "sc.color, "
-                + "s.price, "
-                + "ci.quantity AS quantityCart, "
-                + "p.quantity AS quantityProduct, "
-                + "s.id AS shoe_id "
-                + "FROM cart_item ci "
-                + "JOIN product p ON ci.product_id = p.id "
-                + "JOIN shoe s ON p.shoe_id = s.id "
-                + "JOIN shoe_size ss ON p.shoe_size_id = ss.id "
-                + "JOIN shoe_color sc ON p.shoe_color_id = sc.id "
-                + "WHERE ci.product_id = ? and ci.user_id=?";
+                + "    ci.id AS idCartItem, "
+                + "    s.img AS img, "
+                + "    s.shoe_name, "
+                + "    ss.size, "
+                + "    sc.color, "
+                + "    s.price, "
+                + "    ci.quantity AS quantityCart, "
+                + "    p.quantity AS quantityProduct, "
+                + "    s.id AS shoe_id, "
+                + "    p.status_id "
+                + "FROM "
+                + "    cart_item ci "
+                + "JOIN "
+                + "    product p ON ci.product_id = p.id "
+                + "JOIN "
+                + "    shoe s ON p.shoe_id = s.id "
+                + "JOIN "
+                + "    shoe_size ss ON p.shoe_size_id = ss.id "
+                + "JOIN "
+                + "    shoe_color sc ON p.shoe_color_id = sc.id "
+                + "WHERE "
+                + "    ci.product_id = ? "
+                + "    AND ci.user_id = ?";
 
         Cart_Item cartItem = null;
 
@@ -171,9 +182,9 @@ public class DAO {
                     int quantityCart = rs.getInt("quantityCart");
                     int quantityProduct = rs.getInt("quantityProduct");
                     int shoeId = rs.getInt("shoe_id");
-
+                    int status_id = rs.getInt("status_id");
                     List<ShoeColor> colors = getColorByShoeId(shoeId);
-                    cartItem = new Cart_Item(idCartItem, img, shoeName, size, color, price, quantityCart, quantityProduct, shoeId, colors);
+                    cartItem = new Cart_Item(idCartItem, img, shoeName, size, color, price, quantityCart, quantityProduct, shoeId, colors, status_id);
                 }
             }
         } catch (SQLException e) {
@@ -307,7 +318,8 @@ public class DAO {
                 + "s.price, "
                 + "ci.quantity AS quantityCart, "
                 + "p.quantity AS quantityProduct, "
-                + "s.id AS shoe_id "
+                + "s.id AS shoe_id, "
+                + "p.status_id "
                 + "FROM cart_item ci "
                 + "JOIN product p ON ci.product_id = p.id "
                 + "JOIN shoe s ON p.shoe_id = s.id "
@@ -331,9 +343,9 @@ public class DAO {
                     int quantityCart = rs.getInt("quantityCart");
                     int quantityProduct = rs.getInt("quantityProduct");
                     int shoeId = rs.getInt("shoe_id");
-
+                    int status_id = rs.getInt("status_id");
                     List<ShoeColor> colors = getColorByShoeId(shoeId);
-                    cartItem = new Cart_Item(idCartItem, img, shoeName, size, color, price, quantityCart, quantityProduct, shoeId, colors);
+                    cartItem = new Cart_Item(idCartItem, img, shoeName, size, color, price, quantityCart, quantityProduct, shoeId, colors, status_id);
                 }
             }
         } catch (SQLException e) {
@@ -354,7 +366,8 @@ public class DAO {
                 + "    s.price,\n"
                 + "    ci.quantity AS quatityCart,\n"
                 + "    p.quantity AS quatityProduct,\n"
-                + "    s.id AS shoe_id\n"
+                + "    s.id AS shoe_id,\n"
+                + "    p.status_id "
                 + "FROM \n"
                 + "    cart_item ci\n"
                 + "JOIN \n"
@@ -382,13 +395,13 @@ public class DAO {
                     int quatityCart = rs.getInt("quatityCart");
                     int quatityProduct = rs.getInt("quatityProduct");
                     int shoe_id = rs.getInt("shoe_id");
-
+                    int status_id = rs.getInt("status_id");
                     // Assuming you have methods getColorByShoeId and getSizeByShoeId defined
                     // Fetch colors and sizes
                     List<ShoeColor> colors = getColorByShoeId(shoe_id);
 
                     // Create a new Cart_Item object and add it to the list
-                    listC.add(new Cart_Item(idCartItem, img, shoe_name, size, color, price, quatityCart, quatityProduct, shoe_id, colors));
+                    listC.add(new Cart_Item(idCartItem, img, shoe_name, size, color, price, quatityCart, quatityProduct, shoe_id, colors, status_id));
                 }
             }
         } catch (SQLException e) {
@@ -489,7 +502,35 @@ public class DAO {
                             rs.getString("email"),
                             rs.getString("img"),
                             rs.getInt("role_id"),
-                            rs.getInt("Status")
+                            rs.getInt("status_id")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println(e);
+        }
+        return user;
+    }
+
+    // Lấy thông tin user theo email và password
+    public User getloginByGoogle(String email) {
+        String query = "SELECT * FROM users WHERE email= ? ";
+        User user = null;
+        try (Connection conn = new DBContext().getConnection(); PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setString(1, email); // Thiết lập tham số cho email
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    user = new User(
+                            rs.getInt("id"),
+                            rs.getString("username"),
+                            rs.getString("password"),
+                            rs.getString("fullname"),
+                            rs.getString("gender"),
+                            rs.getString("phone"),
+                            rs.getString("email"),
+                            rs.getString("img"),
+                            rs.getInt("role_id"),
+                            rs.getInt("status_id")
                     );
                 }
             }
@@ -515,7 +556,7 @@ public class DAO {
                         rs.getString("email"),
                         rs.getString("img"),
                         rs.getInt("role_id"),
-                        rs.getInt("Status")
+                        rs.getInt("status_id")
                 ));
             }
         } catch (SQLException e) {
@@ -569,7 +610,7 @@ public class DAO {
 
     // Insert thông tin vào bảng users
     public boolean setUser(User u) {
-        String query = "INSERT INTO users (username, [password], fullname, gender, phone, email, img, role_id, Status) "
+        String query = "INSERT INTO users (username, [password], fullname, gender, phone, email, img, role_id, status_id) "
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = new DBContext().getConnection(); PreparedStatement ps = conn.prepareStatement(query)) {
             ps.setString(1, u.getUsername());
@@ -590,7 +631,7 @@ public class DAO {
 
     // Update thông tin user
     public void updateUser(User u) {
-        String query = "UPDATE users SET username=?, password=?, fullname=?, gender=?, phone=?, email=?, img=?, role_id=?, Status=? WHERE id = ?;";
+        String query = "UPDATE users SET username=?, password=?, fullname=?, gender=?, phone=?, email=?, img=?, role_id=?, status_id=? WHERE id = ?;";
         try (Connection conn = new DBContext().getConnection(); PreparedStatement ps = conn.prepareStatement(query)) {
             ps.setString(1, u.getUsername());
             ps.setString(2, u.getPassword());
@@ -610,7 +651,7 @@ public class DAO {
 
     // Cập nhật trạng thái cho user
     public void updateStatus(int status, int id) {
-        String query = "UPDATE users SET Status = ? WHERE id = ?";
+        String query = "UPDATE users SET status_id = ? WHERE id = ?";
         try (Connection conn = new DBContext().getConnection(); PreparedStatement ps = conn.prepareStatement(query)) {
             ps.setInt(1, status);
             ps.setInt(2, id);
@@ -638,7 +679,7 @@ public class DAO {
                             rs.getString("email"),
                             rs.getString("img"),
                             rs.getInt("role_id"),
-                            rs.getInt("Status")
+                            rs.getInt("status_id")
                     );
                 }
             }
@@ -651,7 +692,7 @@ public class DAO {
     // Method to validate phone number
     public boolean isValidPhoneNumber(String phone) {
         // Regular expression for a valid phone number
-        String regex = "^\\+(?:[0-9] ?){6,14}[0-9]$";
+        String regex = "^(\\+?84|0)([3|5|7|8|9])+([0-9]{8})\\b";
 
         // Validate the phone number against the regex
         if (phone.matches(regex)) {
