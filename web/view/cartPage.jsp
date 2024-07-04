@@ -101,8 +101,10 @@
                             <div class="col-lg-6">
                                 <div class="product">
                                     <input class="checkbox_input item-checkbox" type="checkbox">
-                                    <a title="<%= item.getShoe_name() %>" href="#">
-                                        <img class="product_img" src="${pageContext.request.contextPath}/<%= item.getImg()%>" href="${pageContext.request.contextPath}/productdetail?shoeid=<%= item.getShoe_id()%>" alt="product image">
+
+                                    <a title="<%= item.getShoe_name() %>"  href="${pageContext.request.contextPath}/productdetail?shoeid=<%= item.getShoe_id()%>">
+                                        <img class="product_img" src="${pageContext.request.contextPath}/<%= item.getImg()%>" alt="product image">
+
                                     </a>
                                     <div class="c54pg1 col-lg-4">
                                         <a title="<%= item.getShoe_name() %>" href="${pageContext.request.contextPath}/productdetail?shoeid=<%= item.getShoe_id()%>"><%= item.getShoe_name() %></a>
