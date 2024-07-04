@@ -37,17 +37,19 @@ public class productDetail extends HttpServlet {
         ArrayList<ProductJoin> productJoin = null;
         ArrayList<Img> imgAll = null;
         ArrayList<Img> imgColor = null;
+        ArrayList<Shoe> shoeBrand = null;
         Img imgMain = null;
         if (imgChose == null && color == null) {
             try {
                 int shoeId = Integer.parseInt(shoeIdParam);
                 shoe = dd.getShoeById(shoeId);
-
+                shoeBrand = dd.getShoeByBrand(shoe.getBrandId());
                 imgColor = dd.getImgMain(shoeId);
                 imgMain = dd.getImgByImg(shoe.getImage());
                 productJoin = dd.getProductByShoeIdAndColor(shoeId, imgMain.getShoe_color_id());
                 imgAll = dd.getImgByShoeIdAndColor(shoeId, imgMain.getShoe_color_id());
                 request.setAttribute("shoe", shoe);
+                request.setAttribute("shoeBrand", shoeBrand);
                 request.setAttribute("imgMain", imgMain);
                 request.setAttribute("imgColor", imgColor);
                 request.setAttribute("productJoin", productJoin);
@@ -62,11 +64,13 @@ public class productDetail extends HttpServlet {
         if (imgChose != null) {
             int shoeId = Integer.parseInt(shoeIdParam);
             shoe = dd.getShoeById(shoeId);
+            shoeBrand = dd.getShoeByBrand(shoe.getBrandId());
             imgColor = dd.getImgMain(shoeId);
             imgMain = dd.getImgByImg(imgChose);
             productJoin = dd.getProductByShoeIdAndColor(shoeId, imgMain.getShoe_color_id());
             imgAll = dd.getImgByShoeIdAndColor(shoeId, imgMain.getShoe_color_id());
             request.setAttribute("shoe", shoe);
+            request.setAttribute("shoeBrand", shoeBrand);
             request.setAttribute("imgMain", imgMain);
             request.setAttribute("imgColor", imgColor);
             request.setAttribute("productJoin", productJoin);
@@ -77,11 +81,13 @@ public class productDetail extends HttpServlet {
             int shoeId = Integer.parseInt(shoeIdParam);
             int colorId = Integer.parseInt(color);
             shoe = dd.getShoeById(shoeId);
+            shoeBrand = dd.getShoeByBrand(shoe.getBrandId());
             imgColor = dd.getImgMain(shoeId);
             productJoin = dd.getProductByShoeIdAndColor(shoeId, colorId);
             imgAll = dd.getImgByShoeIdAndColor(shoeId, colorId);
             imgMain = dd.getImgMainByShoeIdAndColor(shoeId, colorId);
             request.setAttribute("shoe", shoe);
+            request.setAttribute("shoeBrand", shoeBrand);
             request.setAttribute("imgMain", imgMain);
             request.setAttribute("imgColor", imgColor);
             request.setAttribute("productJoin", productJoin);
