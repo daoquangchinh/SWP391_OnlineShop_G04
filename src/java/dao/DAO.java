@@ -21,6 +21,27 @@ import modal.User;
 
 public class DAO {
 
+    public boolean updateProduct(int cartitemId, int quantity) {
+    String query = "UPDATE p\n" +
+"SET p.quantity = p.quantity - ?\n" +
+"FROM product p\n" +
+"JOIN cart_item ci ON p.id = ci.product_id\n" +
+"WHERE ci.id = ?;";
+    try (
+        Connection conn = new DBContext().getConnection();
+        PreparedStatement ps = conn.prepareStatement(query)
+    ) {
+        ps.setInt(1, quantity);
+        ps.setInt(2, cartitemId);
+
+        int rowsUpdated = ps.executeUpdate();
+        return rowsUpdated > 0;
+    } catch (SQLException e) {
+        System.err.println("Error updating product quantity: " + e.getMessage());
+        return false;
+    }
+}
+
     //insert cart 
     public boolean insertCartItem(int userId, int productId, int quantity) {
         String query = "INSERT INTO cart_item (user_id, product_id, quantity) VALUES (?, ?, ?)";
@@ -92,23 +113,31 @@ public class DAO {
     // 
 
     public Cart_Item getCartItemByProductID(int productId, int cartItemId) {
-        String query = "SELECT "
-                + "ci.id AS idCartItem, "
-                + "s.img AS img, "
-                + "s.shoe_name, "
-                + "ss.size, "
-                + "sc.color, "
-                + "s.price, "
-                + "ci.quantity AS quantityCart, "
-                + "p.quantity AS quantityProduct, "
-                + "s.id AS shoe_id, "
-                + "p.status_id "
-                + "FROM cart_item ci "
-                + "JOIN product p ON ci.product_id = p.id "
-                + "JOIN shoe s ON p.shoe_id = s.id "
-                + "JOIN shoe_size ss ON p.shoe_size_id = ss.id "
-                + "JOIN shoe_color sc ON p.shoe_color_id = sc.id "
-                + "WHERE ci.product_id = ? AND ci.id <> ? ";
+        String query = "SELECT \n"
+                + "    ci.id AS idCartItem, \n"
+                + "    s.img AS img, \n"
+                + "    s.shoe_name, \n"
+                + "    ss.size, \n"
+                + "    sc.color, \n"
+                + "    s.price, \n"
+                + "    ci.quantity AS quantityCart, \n"
+                + "    p.quantity AS quantityProduct, \n"
+                + "    s.id AS shoe_id, \n"
+                + "    p.status_id \n"
+                + "FROM \n"
+                + "    cart_item ci \n"
+                + "JOIN \n"
+                + "    product p ON ci.product_id = p.id \n"
+                + "JOIN \n"
+                + "    shoe s ON p.shoe_id = s.id \n"
+                + "JOIN \n"
+                + "    shoe_size ss ON p.shoe_size_id = ss.id \n"
+                + "JOIN \n"
+                + "    shoe_color sc ON p.shoe_color_id = sc.id \n"
+                + "WHERE \n"
+                + "    ci.product_id = ?\n"
+                + "    AND ci.user_id = (SELECT user_id FROM cart_item WHERE id = ?)\n"
+                + "    AND ci.id <> ?;";
 
         Cart_Item cartItem = null;
 
@@ -116,6 +145,8 @@ public class DAO {
 
             ps.setInt(1, productId);
             ps.setInt(2, cartItemId);
+            ps.setInt(3, cartItemId);
+
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     int idCartItem = rs.getInt("idCartItem");

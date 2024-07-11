@@ -2,6 +2,13 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/D:/HK5/New%20folder%20(2)/SWP391_OnlineShop_G04%20-%20Copy%20(4)/web/view/checkOutPage.jsp</file>
+            <file>file:/D:/HK5/New%20folder%20(2)/SWP391_OnlineShop_G04%20-%20Copy%20(4)/src/java/controller/LoginServlet.java</file>
+            <file>file:/D:/HK5/New%20folder%20(2)/SWP391_OnlineShop_G04%20-%20Copy%20(4)/src/java/controller/LogoutServlet.java</file>
+            <file>file:/D:/HK5/New%20folder%20(2)/SWP391_OnlineShop_G04%20-%20Copy%20(4)/src/java/controller/CartServlet.java</file>
+            <file>file:/D:/HK5/New%20folder%20(2)/SWP391_OnlineShop_G04%20-%20Copy%20(4)/web/view/cartPage.jsp</file>
+            <file>file:/D:/HK5/New%20folder%20(2)/SWP391_OnlineShop_G04%20-%20Copy%20(4)/web/view/vnpay_return.jsp</file>
+        </group>
     </open-files>
 </project-private>

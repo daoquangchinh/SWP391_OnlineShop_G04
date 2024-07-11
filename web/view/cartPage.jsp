@@ -100,7 +100,7 @@
                         <div class="nhom col-lg-12">
                             <div class="col-lg-6">
                                 <div class="product">
-                                    <input class="checkbox_input item-checkbox" type="checkbox">
+                                    <input class="checkbox_input item-checkbox"  data-cart-id="<%= item.getIdCartItem()%>" type="checkbox">
 
                                     <a title="<%= item.getShoe_name() %>"  href="${pageContext.request.contextPath}/productdetail?shoeid=<%= item.getShoe_id()%>">
                                         <img class="product_img" src="${pageContext.request.contextPath}/<%= item.getImg()%>" alt="product image">
@@ -162,7 +162,7 @@
                                                 <!--thay đổi khi nhập dữ liệu-->
                                                 <input class="WNSVcC g2m9n4 quantity" id="quantity<%= item.getIdCartItem() %>" type="text" value="<%= item.getQuatityCart() %>" data-cart-id="<%= item.getIdCartItem() %>">
                                                 <button class="WNSVcC increment">
-                                                    <span class="sapn01">+</span>
+                                                    <span class="sapn01">+</span>   
                                                 </button>
                                             </div>
                                         </div>
@@ -178,13 +178,17 @@
                         </div>
                     </div>
                     <%
-                        if(item.getStatus_id()== 2){
+      if (item.getStatus_id() == 2) {
                     %>
-                    <div class="overlay">Sản phẩm này đã bị xóa</div>
+                    <div class="overlay">Sản phẩm này đã xóa</div>
                     <%
-                        }
+      } else if (item.getQuatityProduct() <= 0) {
                     %>
+                    <div class="overlay">Sản phẩm này đã hết</div>
 
+                    <%
+      }
+                    %>
                 </div>
                 <% } %>
             </div>
@@ -219,8 +223,8 @@
                         </div>
                         <div></div>
                     </div>
-                    <button class="pay">
-                        <span class="" >Purchase</span>
+                    <button id="purchaseBtn" class="pay">
+                        <span  >Purchase</span>
                     </button>
                 </div>
             </section>
@@ -250,229 +254,281 @@
         <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Shop by Sport</span></h2>
 
         <jsp:include page="FooterTag.jsp"></jsp:include>
+            <!-- Modal -->
+            <div id="checkoutModal" class="modal" style="overflow: auto;">
+                <div style="background-color: #fefefe; margin: 20px auto; padding: 20px; border: 1px solid #888; max-width: 600px; overflow: auto;">
+                    <span class="close">&times;</span>
+                    <div id="checkoutDiv" style="max-width: 100%">
+                    <jsp:include page="checkOutPage.jsp"></jsp:include>
+                    </div>
+                </div>
+            </div>
 
             <script>
-                document.addEventListener('DOMContentLoaded', function () {
-                    const colorButtons = document.querySelectorAll('.color-option');
-                    const sizeButtons = document.querySelectorAll('.size-option');
+                $(document).ready(function () {
+                    $("#purchaseBtn").click(function () {
+                        // Thu thập các giá trị của checkbox đã chọn
+                        let selectedItems = [];
+                        $(".item-checkbox:checked").each(function () {
+                            selectedItems.push($(this).data("cart-id"));
+                        });
 
-                    colorButtons.forEach(button => {
-                        button.addEventListener('click', function () {
-                            const colorId = this.getAttribute('data-color-id');
+                        if (selectedItems.length > 0) {
+                            // Gửi dữ liệu đến servlet của checkOut
+                            $.ajax({
+                                url: "${pageContext.request.contextPath}/checkOut",
+                                type: "POST",
+                                data: {selectedItems: JSON.stringify(selectedItems)},
+                                success: function (response) {
+                                    $("#checkoutDiv").load("view/checkOutPage.jsp", function () {
+                                        $("#checkoutModal").css("display", "block");
 
-                            // Hide all size buttons
-                            sizeButtons.forEach(sizeButton => {
-                                sizeButton.style.display = 'none';
-                            });
+                                        handleCheckoutPageLoad();
 
-                            // Show size buttons that match the selected color
-                            sizeButtons.forEach(sizeButton => {
-                                if (sizeButton.getAttribute('data-group-color') === colorId) {
-                                    sizeButton.style.display = 'inline-block';
+                                        $(".close").click(function () {
+                                            $("#checkoutModal").css("display", "none");
+                                        });
+
+                                        $(window).click(function (event) {
+                                            if (event.target.id == "checkoutModal") {
+                                                $("#checkoutModal").css("display", "none");
+                                            }
+                                        });
+                                    });
+                                },
+                                error: function (xhr, status, error) {
+                                    console.log("Error: " + error);
                                 }
                             });
+                        } else {
+                            showErrorModal("Please select at least one item.");
+                        }
+                    });
+                });
+
+        </script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const colorButtons = document.querySelectorAll('.color-option');
+                const sizeButtons = document.querySelectorAll('.size-option');
+
+                colorButtons.forEach(button => {
+                    button.addEventListener('click', function () {
+                        const colorId = this.getAttribute('data-color-id');
+
+                        // Hide all size buttons
+                        sizeButtons.forEach(sizeButton => {
+                            sizeButton.style.display = 'none';
+                        });
+
+                        // Show size buttons that match the selected color
+                        sizeButtons.forEach(sizeButton => {
+                            if (sizeButton.getAttribute('data-group-color') === colorId) {
+                                sizeButton.style.display = 'inline-block';
+                            }
                         });
                     });
                 });
-            </script>
+            });
+        </script>
 
 
 
-            <script>        // Lấy modal và các phần tử liên quan
-                var openModal = document.getElementById('open-error-modal-btn');
-                var errorModal = document.getElementById('error-modal');
-                var closeErrorButton = document.getElementById('close-error-modal-btn');
-                var modalMessage = document.getElementById('error-mess');
-                var confirmModal = document.getElementById('confirm-modal');
-                var confirmMessage = document.getElementById('confirm-message');
-                var confirmButton = document.getElementById('confirm-btn');
-                var cancelButton = document.getElementById('cancel-btn');
+        <script>        // Lấy modal và các phần tử liên quan
+            var openModal = document.getElementById('open-error-modal-btn');
+            var errorModal = document.getElementById('error-modal');
+            var closeErrorButton = document.getElementById('close-error-modal-btn');
+            var modalMessage = document.getElementById('error-mess');
+            var confirmModal = document.getElementById('confirm-modal');
+            var confirmMessage = document.getElementById('confirm-message');
+            var confirmButton = document.getElementById('confirm-btn');
+            var cancelButton = document.getElementById('cancel-btn');
 
-                function closeConfirmModal() {
-                    confirmModal.style.display = 'none';
-                }
-                function showConfirmModal(message) {
-                    confirmMessage.textContent = message; // Thiết lập nội dung thông báo
-                    confirmModal.style.display = 'block'; // Hiển thị modal
-                }
-                cancelButton.onclick = function () {
-                    confirmResult = false;
-                    closeConfirmModal();
-                };
-                // Hàm hiển thị modal lỗi khi xóa không thành công và thiết lập nội dung
-                function showErrorModal(message) {
-                    modalMessage.textContent = message; // Thiết lập nội dung thông báo
-                    errorModal.style.display = 'block'; // Hiển thị modal
-                }
-                // Mở để test
-                openModal.onclick = function () {
-                    errorModal.style.display = 'block';
-                };
-                // Đóng modal khi nhấn nút Close
-                closeErrorButton.onclick = function () {
+            function closeConfirmModal() {
+                confirmModal.style.display = 'none';
+            }
+            function showConfirmModal(message) {
+                confirmMessage.textContent = message; // Thiết lập nội dung thông báo
+                confirmModal.style.display = 'block'; // Hiển thị modal
+            }
+            cancelButton.onclick = function () {
+                confirmResult = false;
+                closeConfirmModal();
+            };
+            // Hàm hiển thị modal lỗi khi xóa không thành công và thiết lập nội dung
+            function showErrorModal(message) {
+                modalMessage.textContent = message; // Thiết lập nội dung thông báo
+                errorModal.style.display = 'block'; // Hiển thị modal
+            }
+            // Mở để test
+            openModal.onclick = function () {
+                errorModal.style.display = 'block';
+            };
+            // Đóng modal khi nhấn nút Close
+            closeErrorButton.onclick = function () {
+                errorModal.style.display = 'none';
+            };
+
+            // Đóng modal khi nhấn phím ESC
+            window.onkeydown = function (event) {
+                if (event.key === 'Escape') {
                     errorModal.style.display = 'none';
-                };
+                }
+            };
+        </script>
 
-                // Đóng modal khi nhấn phím ESC
-                window.onkeydown = function (event) {
-                    if (event.key === 'Escape') {
-                        errorModal.style.display = 'none';
+        <script>
+            function sendUpdateRequest(cartItemId, newQuantity) {
+                $.ajax({
+                    url: "${pageContext.request.contextPath}/cart",
+                    method: "POST",
+                    data: {
+                        action: "updateQuantity",
+                        cartItemId: cartItemId,
+                        quantity: newQuantity
+                    },
+                    success: function (response) {
+                        var strErr = response.strErr;
+                        if (strErr !== null && strErr.trim() !== "") {
+                            showErrorModal(strErr);
+                        }
+                        //                            alert(cartItemId + " " + newQuantity);
+
+                        var totalPriceElement = document.getElementById("cart" + cartItemId);
+                        totalPriceElement.innerHTML = '₫' + (response.price * response.quantity).toLocaleString('en') + '.0';
+                        var quantityInput = document.getElementById('quantity' + cartItemId);
+                        quantityInput.value = response.quantity;
+                        var priceElement = document.getElementById("price" + cartItemId);
+                        priceElement.innerHTML = '₫' + (response.price.toLocaleString('en')) + '.0';
+                        selectedItems();
+                    },
+                    error: function () {
+                        showErrorModal('Failed to update quantity.');
                     }
-                };
-            </script>
+                });
+            }
 
-            <script>
-                function sendUpdateRequest(cartItemId, newQuantity) {
+
+            $(document).ready(function () {
+                // Đóng dropdown-menu khi nhấp vào nút "Trở lại"
+                $('.cancel-btn').click(function () {
+                    $(this).closest('.dropdown-menu').removeClass('show');
+                });
+
+                // Xử lý khi nhấn vào các nút xác nhận
+                $('.xacnhan').click(function () {
+                    var selectedColor = getSelectedColor();
+                    var selectedSize = getSelectedSize();
+                    var shoeId = $(this).closest('.footer').find('.iIg1CN').data('shoe-id');
+                    var cartItemId = $(this).closest('.footer').attr('id').replace('cartItem', '');
+
+                    // Gửi dữ liệu đến servlet
                     $.ajax({
                         url: "${pageContext.request.contextPath}/cart",
                         method: "POST",
                         data: {
-                            action: "updateQuantity",
+                            action: "updatecart",
                             cartItemId: cartItemId,
-                            quantity: newQuantity
+                            shoeId: shoeId,
+                            colorId: selectedColor,
+                            sizeId: selectedSize
                         },
+                        dataType: "json", // Ensure that jQuery parses the JSON response automatically
                         success: function (response) {
-                            var strErr = response.strErr;
-                            if (strErr !== null && strErr.trim() !== "") {
-                                showErrorModal(strErr);
-                            }
-//                            alert(cartItemId + " " + newQuantity);
+                            var cartId = response.cartId;
+                            var quantity = response.quantity;
+                            var message = response.message;
+                            if (cartId != cartItemId) {
+                                // alert(message);
+                                deleteGroup(cartItemId),
+                                        sendUpdateRequest(cartId, quantity);
+                            } else {
 
-                            var totalPriceElement = document.getElementById("cart" + cartItemId);
-                            totalPriceElement.innerHTML = '₫' + (response.price * response.quantity).toLocaleString('en') + '.0';
-                            var quantityInput = document.getElementById('quantity' + cartItemId);
-                            quantityInput.value = response.quantity;
-                            var priceElement = document.getElementById("price" + cartItemId);
-                            priceElement.innerHTML = '₫' + (response.price.toLocaleString('en')) + '.0';
-                            selectedItems();
+                                //alert(cartId + " " + cartItemId + " " + quantity);
+                                sendUpdateRequest(cartId, quantity);
+                            }
+
+                            //                                console.log("Cart ID: " + cartId);
+                            //                                console.log("Quantity: " + quantity);
+                            //                                 showErrorModal(message);
+
+                            var newColor = $('.dropdown-item[data-item-type="color"].selected').text();
+                            var newSize = $('.dropdown-item[data-item-type="size"].selected').text();
+                            $('#cartItem' + cartItemId + ' .product-classification').text(newColor + ', ' + newSize);
+                            // Cập nhật UI hoặc thực hiện các hành động khác sau khi cập nhật thành công
                         },
-                        error: function () {
-                            showErrorModal('Failed to update quantity.');
-                        }
-                    });
-                }
-
-
-                $(document).ready(function () {
-                    // Đóng dropdown-menu khi nhấp vào nút "Trở lại"
-                    $('.cancel-btn').click(function () {
-                        $(this).closest('.dropdown-menu').removeClass('show');
-                    });
-
-                    // Xử lý khi nhấn vào các nút xác nhận
-                    $('.xacnhan').click(function () {
-                        var selectedColor = getSelectedColor();
-                        var selectedSize = getSelectedSize();
-                        var shoeId = $(this).closest('.footer').find('.iIg1CN').data('shoe-id');
-                        var cartItemId = $(this).closest('.footer').attr('id').replace('cartItem', '');
-
-                        // Gửi dữ liệu đến servlet
-                        $.ajax({
-                            url: "${pageContext.request.contextPath}/cart",
-                            method: "POST",
-                            data: {
-                                action: "updatecart",
-                                cartItemId: cartItemId,
-                                shoeId: shoeId,
-                                colorId: selectedColor,
-                                sizeId: selectedSize
-                            },
-                            dataType: "json", // Ensure that jQuery parses the JSON response automatically
-                            success: function (response) {
-                                var cartId = response.cartId;
-                                var quantity = response.quantity;
-                                var message = response.message;
-                                if (cartId != cartItemId) {
-                                    // alert(message);
-                                    deleteGroup(cartItemId),
-                                            sendUpdateRequest(cartId, quantity);
-                                } else {
-
-                                    //alert(cartId + " " + cartItemId + " " + quantity);
-                                    sendUpdateRequest(cartId, quantity);
-                                }
-
-//                                console.log("Cart ID: " + cartId);
-//                                console.log("Quantity: " + quantity);
-//                                 showErrorModal(message);
-
-                                var newColor = $('.dropdown-item[data-item-type="color"].selected').text();
-                                var newSize = $('.dropdown-item[data-item-type="size"].selected').text();
-                                $('#cartItem' + cartItemId + ' .product-classification').text(newColor + ', ' + newSize);
-                                // Cập nhật UI hoặc thực hiện các hành động khác sau khi cập nhật thành công
-                            },
-                            error: function (xhr, status, error) {
-                                // Hiển thị lỗi nếu có
-                                showErrorModal('An error occurred while updating the product classification. Please try again.\n\
-                                                    Please select both color and size before confirming your order.');
-                                console.error("Error: " + error);
-                            }
-                        });
-
-
-                        // Đóng dropdown-menu sau khi xử lý xong
-                        $(this).closest('.dropdown-menu').removeClass('show');
-                    });
-
-                    // Đóng dropdown-menu khi nhấp ra ngoài, nhưng không đóng khi nhấn vào dropdown-item
-                    $(document).click(function (event) {
-                        var dropdownMenus = $('.dropdown-menu');
-                        var target = $(event.target);
-
-                        if (!target.hasClass('dropdown-menu') && !target.parents().hasClass('dropdown-menu') &&
-                                !target.hasClass('dropdown-toggle') && !target.parents().hasClass('dropdown-toggle') &&
-                                !target.hasClass('dropdown-item') && !target.parents().hasClass('dropdown-item')) {
-                            dropdownMenus.removeClass('show');
+                        error: function (xhr, status, error) {
+                            // Hiển thị lỗi nếu có
+                            showErrorModal('An error occurred while updating the product classification. Please try again.\n\
+                                                Please select both color and size before confirming your order.');
+                            console.error("Error: " + error);
                         }
                     });
 
-                    // Để ngăn dropdown đóng khi nhấn vào dropdown-toggle
-                    $('.dropdown-toggle').click(function (event) {
-                        var dropdownMenu = $(this).next('.dropdown-menu');
-                        if (dropdownMenu.hasClass('show')) {
-                            dropdownMenu.removeClass('show');
-                        } else {
-                            $('.dropdown-menu').removeClass('show'); // Đóng tất cả các dropdown khác
-                            dropdownMenu.addClass('show');
-                        }
-                        event.stopPropagation(); // Ngăn sự kiện click lan tới document
-                    });
 
-                    // Đánh dấu các lựa chọn khi click vào dropdown-item và cập nhật hiển thị
-                    $('.dropdown-item[data-item-type="color"]').click(function (event) {
-                        event.stopPropagation(); // Ngăn dropdown đóng
-                        $('.dropdown-item[data-item-type="color"]').removeClass('selected').css('background-color', '');
-                        $(this).addClass('selected').css('background-color', 'yellow');
+                    // Đóng dropdown-menu sau khi xử lý xong
+                    $(this).closest('.dropdown-menu').removeClass('show');
+                });
 
-                        // Reset size selection when color is selected
-                        $('.dropdown-item[data-item-type="size"]').removeClass('selected').css('background-color', '');
-                        $('.dropdown-item[data-item-type="size"]').hide();
-                        var selectedColorId = $(this).data('color-id');
-                        $('.dropdown-item[data-item-type="size"][data-group-color="' + selectedColorId + '"]').show();
-                    });
+                // Đóng dropdown-menu khi nhấp ra ngoài, nhưng không đóng khi nhấn vào dropdown-item
+                $(document).click(function (event) {
+                    var dropdownMenus = $('.dropdown-menu');
+                    var target = $(event.target);
 
-                    $('.dropdown-item[data-item-type="size"]').click(function (event) {
-                        event.stopPropagation(); // Ngăn dropdown đóng
-
-                        if ($('.dropdown-item[data-item-type="color"].selected').length == 0) {
-                            alert('Please select a color first.');
-                            return;
-                        }
-
-                        $('.dropdown-item[data-item-type="size"]').removeClass('selected').css('background-color', '');
-                        $(this).addClass('selected').css('background-color', 'yellow');
-                    });
-
-                    // Hàm để lấy màu đã chọn
-                    function getSelectedColor() {
-                        return $('.dropdown-item[data-item-type="color"].selected').data('color-id') || "";
-                    }
-
-                    // Hàm để lấy kích thước đã chọn
-                    function getSelectedSize() {
-                        return $('.dropdown-item[data-item-type="size"].selected').data('size-id') || "";
+                    if (!target.hasClass('dropdown-menu') && !target.parents().hasClass('dropdown-menu') &&
+                            !target.hasClass('dropdown-toggle') && !target.parents().hasClass('dropdown-toggle') &&
+                            !target.hasClass('dropdown-item') && !target.parents().hasClass('dropdown-item')) {
+                        dropdownMenus.removeClass('show');
                     }
                 });
+
+                // Để ngăn dropdown đóng khi nhấn vào dropdown-toggle
+                $('.dropdown-toggle').click(function (event) {
+                    var dropdownMenu = $(this).next('.dropdown-menu');
+                    if (dropdownMenu.hasClass('show')) {
+                        dropdownMenu.removeClass('show');
+                    } else {
+                        $('.dropdown-menu').removeClass('show'); // Đóng tất cả các dropdown khác
+                        dropdownMenu.addClass('show');
+                    }
+                    event.stopPropagation(); // Ngăn sự kiện click lan tới document
+                });
+
+                // Đánh dấu các lựa chọn khi click vào dropdown-item và cập nhật hiển thị
+                $('.dropdown-item[data-item-type="color"]').click(function (event) {
+                    event.stopPropagation(); // Ngăn dropdown đóng
+                    $('.dropdown-item[data-item-type="color"]').removeClass('selected').css('background-color', '');
+                    $(this).addClass('selected').css('background-color', 'yellow');
+
+                    // Reset size selection when color is selected
+                    $('.dropdown-item[data-item-type="size"]').removeClass('selected').css('background-color', '');
+                    $('.dropdown-item[data-item-type="size"]').hide();
+                    var selectedColorId = $(this).data('color-id');
+                    $('.dropdown-item[data-item-type="size"][data-group-color="' + selectedColorId + '"]').show();
+                });
+
+                $('.dropdown-item[data-item-type="size"]').click(function (event) {
+                    event.stopPropagation(); // Ngăn dropdown đóng
+
+                    if ($('.dropdown-item[data-item-type="color"].selected').length == 0) {
+                        alert('Please select a color first.');
+                        return;
+                    }
+
+                    $('.dropdown-item[data-item-type="size"]').removeClass('selected').css('background-color', '');
+                    $(this).addClass('selected').css('background-color', 'yellow');
+                });
+
+                // Hàm để lấy màu đã chọn
+                function getSelectedColor() {
+                    return $('.dropdown-item[data-item-type="color"].selected').data('color-id') || "";
+                }
+
+                // Hàm để lấy kích thước đã chọn
+                function getSelectedSize() {
+                    return $('.dropdown-item[data-item-type="size"].selected').data('size-id') || "";
+                }
+            });
         </script>
 
         <script>
@@ -552,7 +608,9 @@
             document.addEventListener('DOMContentLoaded', function () {
                 checkAndShowDeleteButton();
                 document.querySelectorAll('.quantity').forEach(input => {
+                   if (!input.closest('.footer').querySelector('.overlay')) {
                     fetchQuantityAndUpdate(input, false);
+                }
                 });
                 // Script for handling checkbox toggles
                 const selectAllHeader = document.getElementById('select_all_header');
