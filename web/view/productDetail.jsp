@@ -60,11 +60,10 @@
             }
             .notification {
                 position: fixed;
-                top: 150px;
-                left: 150px;
-                right: 150px;
-                bottom: 150px;
-                background-color: rgba(0, 0, 0, 0.5); /* Màu nền mờ */
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
                 display: none; /* Ban đầu ẩn */
                 z-index: 1000;
             }
@@ -75,7 +74,7 @@
                 left: 50%;
                 transform: translate(-50%, -50%);
                 padding: 20px;
-                background-color: #dee2e6a8;
+                background-color: #dee2e6c7;
                 color: red;
                 border-radius: 10px; /* Bo tròn góc */
                 width: 300px; /* Độ rộng thông báo */
@@ -190,7 +189,7 @@
                 </div>
             </div>
 
-            <div id="notification" class="notification"></div>
+                    <div id="notification" class="notification"></div>
             <script>
 //                document.addEventListener('DOMContentLoaded', function () {
 //                    // Handle click on color options
