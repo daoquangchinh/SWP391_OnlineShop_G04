@@ -766,4 +766,26 @@ public class DAO {
 
         return matcher.matches();
     }
+
+   public int checkStatusProduct(int productId) {
+    int statusId = -1; // giá trị mặc định nếu không tìm thấy sản phẩm
+    String query = "SELECT status_id FROM product WHERE id = ?";
+
+    try (
+        Connection conn = new DBContext().getConnection();
+        PreparedStatement ps = conn.prepareStatement(query)
+    ) {
+        ps.setInt(1, productId);
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            statusId = rs.getInt("status_id");
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return statusId;
+}
+
 }

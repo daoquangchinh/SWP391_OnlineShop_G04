@@ -49,9 +49,10 @@ public class CheckOutServlet extends HttpServlet {
 
         for (Cart_Item cartItem : cartItems) {
             //  Cart_Item checkCartItem = dao.getCartItem(cartItem.getIdCartItem());
-            int availableQuantity = dao.getAvailableQuantity(dao.findProductByStr(cartItem.getShoe_id(), cartItem.getColor(), cartItem.getSize()));
+            int productId = dao.findProductByStr(cartItem.getShoe_id(), cartItem.getColor(), cartItem.getSize());
+            int availableQuantity = dao.getAvailableQuantity(productId);
 
-            if (cartItem.getQuatityCart() > availableQuantity ) {//|| checkCartItem.getStatus_id() == 2
+            if (cartItem.getQuatityCart() > availableQuantity || dao.checkStatusProduct(productId)==2) {//|| checkCartItem.getStatus_id() == 2
                 return false; // Product quantity not available
             }
         }
