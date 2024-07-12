@@ -20,7 +20,27 @@ import modal.ShoeSize;
 import modal.User;
 
 public class DAO {
+   // Phương thức để lấy số lượng sản phẩm còn lại
+    public int getAvailableQuantity(int productId) {
+        int availableQuantity = 0;
+        String query = "SELECT quantity FROM product WHERE id = ? AND status_id = 1";
 
+        try (
+            Connection conn = new DBContext().getConnection();
+            PreparedStatement ps = conn.prepareStatement(query)
+        ) {
+            ps.setInt(1, productId);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                availableQuantity = rs.getInt("quantity");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return availableQuantity;
+    }
     public boolean updateProduct(int cartitemId, int quantity) {
     String query = "UPDATE p\n" +
 "SET p.quantity = p.quantity - ?\n" +

@@ -104,54 +104,56 @@ public class productDetail extends HttpServlet {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("acc");
         int productId = dao.findProduct(shoeId, colorId, sizeId);
-        Cart_Item cartitem = null;
+
+        // Kiểm tra xem sản phẩm còn hàng hay không
+        int availableQuantity = dao.getAvailableQuantity(productId);
+        if (availableQuantity <= 0) {
+            err = "Sản phẩm này đã hết hàng.";
+            sendJsonResponse(response, err);
+            return;
+        }
 
         if (user == null) {
-            // Guest user
+            // Xử lý giỏ hàng cho người dùng không đăng nhập
             List<Cart_Item> cart = (List<Cart_Item>) session.getAttribute("listCart");
             boolean isNewProduct = true;
 
-            if (cart == null || cart.isEmpty()) {
+            if (cart == null) {
                 cart = new ArrayList<>();
-                // Gắn giá trị cartid = 1 khi giỏ hàng rỗng
-                int cartid = 1;
-            } else {
-                for (Cart_Item cartItem : cart) {
-                    if (dao.findProductByStr(cartItem.getShoe_id(), cartItem.getColor(), cartItem.getSize()) == productId) {
-                        int newQuantity = cartItem.getQuatityCart() + quantity;
-                        if (newQuantity > cartItem.getQuatityProduct()) {
-                            newQuantity = cartItem.getQuatityProduct();
-                            err = "Sản phẩm này trong giỏ hàng đã đạt tối đa" + cartItem.getIdCartItem();
-                        } else {
-                            err = "Sản phẩm này đã tồn tại và được thêm lại vào giỏ hàng.";
-                        }
-                        cartItem.setQuatityCart(newQuantity);
-                        isNewProduct = false;
-                        break;
+            }
+
+            // Kiểm tra xem sản phẩm đã có trong giỏ hàng chưa
+            for (Cart_Item cartItem : cart) {
+                if (dao.findProductByStr(cartItem.getShoe_id(), cartItem.getColor(), cartItem.getSize()) == productId) {
+                    int newQuantity = cartItem.getQuatityCart() + quantity;
+                    if (newQuantity > cartItem.getQuatityProduct()) {
+                        newQuantity = cartItem.getQuatityProduct();
+                        err = "Sản phẩm này trong giỏ hàng đã đạt tối đa";
+                    } else {
+                        err = "Sản phẩm này đã tồn tại và được thêm lại vào giỏ hàng.";
                     }
+                    cartItem.setQuatityCart(newQuantity);
+                    isNewProduct = false;
+                    break;
                 }
             }
 
+            // Nếu sản phẩm chưa có trong giỏ hàng, thêm mới vào giỏ hàng
             if (isNewProduct) {
-                int cartid;
-                if (cart.isEmpty()) {
-                    cartid = 1;
-                } else {
-                    // Lấy cartid của phần tử cuối cùng và +1
-                    cartid = cart.get(cart.size() - 1).getIdCartItem() + 1;
-                }
-                Cart_Item c = dao.setCartSession(productId, cartid, quantity);
-                cart.add(c);
-                err = "Sản phẩm đã được thêm vào giỏ hàng." + c.getIdCartItem();
+                int cartid = cart.isEmpty() ? 1 : cart.get(cart.size() - 1).getIdCartItem() + 1;
+                Cart_Item newCartItem = dao.setCartSession(productId, cartid, quantity);
+                cart.add(newCartItem);
+                err = "Sản phẩm đã được thêm vào giỏ hàng. ID: " + newCartItem.getIdCartItem();
             }
 
+            // Cập nhật lại giỏ hàng trong session
             session.setAttribute("listCart", cart);
             session.setAttribute("quantityCartItem", cart.size());
             sendJsonResponse(response, err);
-
         } else {
-            // Logged-in user
-            cartitem = dao.CartItemByProductID(productId, user.getId());
+            // Xử lý giỏ hàng cho người dùng đã đăng nhập
+            Cart_Item cartitem = dao.CartItemByProductID(productId, user.getId());
+
             if (cartitem != null) {
                 quantity = quantity + cartitem.getQuatityCart();
                 if (quantity > cartitem.getQuatityProduct()) {
@@ -161,10 +163,12 @@ public class productDetail extends HttpServlet {
                     err = "Sản phẩm đã được thêm vào giỏ hàng.";
                 }
                 dao.updateQuantity(cartitem.getIdCartItem(), quantity);
-            } else {            
+            } else {
                 err = "Sản phẩm mới đã được thêm vào giỏ hàng.";
                 dao.insertCartItem(user.getId(), productId, quantity);
             }
+
+            // Cập nhật số lượng sản phẩm trong giỏ hàng của người dùng
             session.setAttribute("quantityCartItem", dao.getCart(user.getId()).size());
             sendJsonResponse(response, err);
         }

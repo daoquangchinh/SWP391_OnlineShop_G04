@@ -40,7 +40,7 @@ public class CheckOutServlet extends HttpServlet {
         HttpSession session = request.getSession();
         DAO dao = new DAO();
 
-        List<Cart_Item> cartItems = (List<Cart_Item>) session.getAttribute("selectedItems");   
+        List<Cart_Item> cartItems = (List<Cart_Item>) session.getAttribute("selectedItems");
         System.out.println(cartItems.toString());
 
         if (cartItems == null || cartItems.isEmpty()) {
@@ -48,9 +48,10 @@ public class CheckOutServlet extends HttpServlet {
         }
 
         for (Cart_Item cartItem : cartItems) {
-            Cart_Item checkCartItem = dao.getCartItem(cartItem.getIdCartItem());
+            //  Cart_Item checkCartItem = dao.getCartItem(cartItem.getIdCartItem());
+            int availableQuantity = dao.getAvailableQuantity(dao.findProductByStr(cartItem.getShoe_id(), cartItem.getColor(), cartItem.getSize()));
 
-            if (checkCartItem.getQuatityCart() > checkCartItem.getQuatityProduct() || checkCartItem.getStatus_id() == 2) {
+            if (cartItem.getQuatityCart() > availableQuantity ) {//|| checkCartItem.getStatus_id() == 2
                 return false; // Product quantity not available
             }
         }
