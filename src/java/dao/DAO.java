@@ -41,18 +41,17 @@ public class DAO {
 
         return availableQuantity;
     }
-    public boolean updateProduct(int cartitemId, int quantity) {
+    public boolean updateProduct(int productid, int quantity) {
     String query = "UPDATE p\n" +
 "SET p.quantity = p.quantity - ?\n" +
 "FROM product p\n" +
-"JOIN cart_item ci ON p.id = ci.product_id\n" +
-"WHERE ci.id = ?;";
+"WHERE p.id = ?;";
     try (
         Connection conn = new DBContext().getConnection();
         PreparedStatement ps = conn.prepareStatement(query)
     ) {
         ps.setInt(1, quantity);
-        ps.setInt(2, cartitemId);
+        ps.setInt(2, productid);
 
         int rowsUpdated = ps.executeUpdate();
         return rowsUpdated > 0;
@@ -475,7 +474,7 @@ public class DAO {
                 + "    shoe_color sc ON p.shoe_color_id = sc.id\n"
                 + "WHERE \n"
                 + "    s.id = ?\n"
-                + "    AND p.quantity > 0;";
+                + "    AND p.quantity > 0 and p.status_id <> 2;";
 
         List<ShoeColor> listCl = new ArrayList<>();
 
@@ -512,7 +511,7 @@ public class DAO {
                 + "WHERE \n"
                 + "    p.shoe_id = ?\n"
                 + "    AND p.shoe_color_id = ?\n"
-                + "    AND p.quantity > 0;";
+                + "    AND p.quantity > 0 and p.status_id<> 2;";
 
         List<ShoeSize> listS = new ArrayList<>();
 

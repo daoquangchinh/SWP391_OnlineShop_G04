@@ -119,6 +119,9 @@
                         <script>
                             $.ajax({
                                 url: '<%=request.getContextPath()%>/payServlet',
+                                data: {
+                                    action: "Success"
+                                },
                                 type: 'GET',
                                 success: function (response) {
                                     // Handle the response from the servlet if needed

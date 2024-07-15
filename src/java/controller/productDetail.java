@@ -116,6 +116,19 @@ public class productDetail extends HttpServlet {
         if (user == null) {
             // Xử lý giỏ hàng cho người dùng không đăng nhập
             List<Cart_Item> cart = (List<Cart_Item>) session.getAttribute("listCart");
+            if (cart != null) {
+                List<Cart_Item> updatedCart = new ArrayList<>();
+                for (Cart_Item cartItem : cart) {
+                    Cart_Item updatedCartItem = dao.setCartSession(dao.findProductByStr(cartItem.getShoe_id(), cartItem.getColor(), cartItem.getSize()), cartItem.getIdCartItem(), cartItem.getQuatityCart());
+                    updatedCart.add(updatedCartItem);
+                    System.out.println(cartItem.toString());
+                    System.out.println(updatedCartItem.toString());
+                }          
+                System.out.println("cart        :"+cart.size()+cart.toString());
+                System.out.println("updatedCart :"+updatedCart.size()+updatedCart.toString());
+                cart = updatedCart;
+                //session.setAttribute("listCart", cart);
+            }
             boolean isNewProduct = true;
 
             if (cart == null) {

@@ -9,17 +9,17 @@ $(document).ready(function () {
         placeOrder(); // Kiểm tra hàng tồn kho trước khi submit form
     });
 });
-
 function placeOrder() {
+    const selectedBankCode = document.querySelector('input[name="bankCode"]:checked').value;
+
     $.ajax({
         url: 'checkOut', // URL để kiểm tra hàng tồn kho
         type: 'GET',
+        data: {bankCode: selectedBankCode},
         dataType: 'json',
         success: function (response) {
             if (response.available) {
-                alert('Đặt hàng thành công!');
-
-                // Sau khi kiểm tra thành công, tiến hành submit form
+                // Nếu sản phẩm có sẵn, tiến hành submit form thanh toán
                 var postData = $("#payServlet").serialize();
                 var submitUrl = $("#payServlet").attr("action");
                 $.ajax({
@@ -62,7 +62,7 @@ function handleCheckoutPageLoad() {
     });
 
     document.getElementById("product-total").innerHTML = productTotal.toLocaleString("en") + "đ";
-    const voucherDiscount = 2000;
+    const voucherDiscount = 0;
     const overallTotal = productTotal - voucherDiscount;
     document.getElementById("overall-total").innerHTML = overallTotal.toLocaleString('en') + "đ";
     document.getElementById('amount').value = overallTotal;

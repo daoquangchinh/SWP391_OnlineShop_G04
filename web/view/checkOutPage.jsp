@@ -69,7 +69,7 @@
             <hr>
             <div class="summary-row">
                 <div class="voucher-details">Nội dung Voucher</div>
-                <h4 class="item-total item-price">-1000</h4>
+                <h4 class="item-total item-price">-0</h4>
             </div>
             <div class="summary-row">
                 <h4 class="summary-label">Total</h4>
@@ -84,16 +84,12 @@
             <h4 class="payment-header">Chọn phương thức thanh toán</h4>
             <div class="payment-options">
                 <label>
-                    <input type="radio" name="payment" value="credit-card" checked>
-                    Thẻ tín dụng
+                    <input type="radio" name="bankCode" value="COD" checked>
+                    Thanh toán sau khi nhận hàng.
                 </label>
                 <label>
-                    <input type="radio" name="payment" value="paypal">
-                    PayPal
-                </label>
-                <label>
-                    <input type="radio" name="bankCode" value="">
-                    Cổng thanh toán VNPAYQR
+                    <input type="radio" name="bankCode" value="vnp_BankCode">
+                    Cổng thanh toán VNPAY
                 </label>
             </div>
         </div>

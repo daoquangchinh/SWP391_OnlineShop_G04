@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import dao.DAO;
+import dao.OrderDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.Type;
@@ -15,6 +16,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import modal.Cart_Item;
+import modal.OrderDetails;
 import modal.User;
 
 /**
@@ -40,8 +42,13 @@ public class CheckOutServlet extends HttpServlet {
         HttpSession session = request.getSession();
         DAO dao = new DAO();
 
+        String bankCode = request.getParameter("bankCode");
+        int PaymentId = 2; // Giả sử mặc định là PaymentId = 2 (VNPAY)
+        if (bankCode != null && bankCode.equalsIgnoreCase("COD")) {
+            PaymentId = 3; // Đặt PaymentId là 1 nếu bankCode là COD
+        }
         List<Cart_Item> cartItems = (List<Cart_Item>) session.getAttribute("selectedItems");
-        System.out.println(cartItems.toString());
+//        System.out.println(cartItems.toString());
 
         if (cartItems == null || cartItems.isEmpty()) {
             return false; // Handle empty or null cartItems case
@@ -52,14 +59,23 @@ public class CheckOutServlet extends HttpServlet {
             int productId = dao.findProductByStr(cartItem.getShoe_id(), cartItem.getColor(), cartItem.getSize());
             int availableQuantity = dao.getAvailableQuantity(productId);
 
-            if (cartItem.getQuatityCart() > availableQuantity || dao.checkStatusProduct(productId)==2) {//|| checkCartItem.getStatus_id() == 2
+            if (cartItem.getQuatityCart() > availableQuantity || dao.checkStatusProduct(productId) == 2) {//|| checkCartItem.getStatus_id() == 2
                 return false; // Product quantity not available
             }
         }
+        OrderDAO odao = new OrderDAO();
+        User u = (User) session.getAttribute("acc");
+        int orderId = odao.insertOrder(u != null ? u.getId() : 0);
+        session.setAttribute("orderId", orderId);
 
         for (Cart_Item cartItem : cartItems) {
-            boolean CHECK = dao.updateProduct(cartItem.getIdCartItem(), cartItem.getQuatityCart());
-            System.out.println(CHECK);
+            int productId = dao.findProductByStr(cartItem.getShoe_id(), cartItem.getColor(), cartItem.getSize());
+            Double total = cartItem.getQuatityCart() * cartItem.getPrice();
+            OrderDetails od = new OrderDetails(0, orderId, cartItem.getShoe_id(), productId, cartItem.getPrice(), cartItem.getQuatityCart(), total, 4, PaymentId);
+            boolean CHECK = dao.updateProduct(productId, cartItem.getQuatityCart());
+            odao.insertOrderDetail(od);
+//            boolean CHECK = dao.updateProduct(cartItem.getIdCartItem(), cartItem.getQuatityCart());
+//            System.out.println(CHECK);
         }
 
         return true; // All products are available
@@ -89,6 +105,15 @@ public class CheckOutServlet extends HttpServlet {
             cartItems = dao.getCart(user.getId());
         } else {
             cartItems = (List<Cart_Item>) session.getAttribute("listCart");
+            if (cartItems != null) {
+                List<Cart_Item> updatedCart = new ArrayList<>();
+                for (Cart_Item cartItem : cartItems) {
+                    Cart_Item updatedCartItem = dao.setCartSession(dao.findProductByStr(cartItem.getIdCartItem(), cartItem.getColor(), cartItem.getSize()), cartItem.getIdCartItem(), cartItem.getQuatityCart());
+                    updatedCart.add(updatedCartItem);
+                }
+                cartItems = updatedCart;
+                session.setAttribute("listCart", cartItems);
+            }
         }
 
         // Lọc các mục đã chọn
@@ -123,5 +148,10 @@ public class CheckOutServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }
-
+//
+//    public static void main(String[] args) {
+//        DAO dao = new DAO();
+//        User u = new User();
+////        dao.updateProduct(cartItem.getIdCartItem(), cartItem.getQuatityCart());
+//    }
 }

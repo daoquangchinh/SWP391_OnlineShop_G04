@@ -4,13 +4,20 @@
  */
 package controller;
 
+import com.google.gson.Gson;
 import dao.DAO;
+import dao.OrderDAO;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+import modal.Order;
+import modal.OrderView;
 import modal.User;
 
 /**
@@ -34,7 +41,7 @@ public class ProfileServlet extends HttpServlet {
         DAO dao = new DAO();
         User u = new User();
         HttpSession session = request.getSession();
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -63,7 +70,19 @@ public class ProfileServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         processRequest(request, response);
+        response.setContentType("application/json");
+        OrderDAO odao = new OrderDAO();
+        // Simulate data fetching (replace with your actual data retrieval logic)
+       List<OrderView> orders = odao.getOrderViewByUserId(3);
+        
+        Gson gson = new Gson();
+        String jsonData = gson.toJson(orders);
+
+        PrintWriter out = response.getWriter();
+        out.print(jsonData);
+        out.flush();
     }
 
     /**
@@ -76,4 +95,9 @@ public class ProfileServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+    public static void main(String[] args) {
+        OrderDAO odao = new OrderDAO();
+        List<OrderView> orders = odao.getOrderViewByUserId(3);
+        System.out.println(orders.toString());
+    }
 }

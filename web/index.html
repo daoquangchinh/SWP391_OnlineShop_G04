@@ -1,15 +1,159 @@
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
--->
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Đơn Hàng</title>
+
+    <!-- CSS DataTables -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.css">
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- DataTables JS -->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
+
+    <style>
+        /* Global styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #f58220;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* DataTables specific styles */
+        table.dataTable {
+            width: 100%;
+            margin: 0 auto;
+            clear: both;
+            border-collapse: collapse;
+            border-spacing: 0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        table.dataTable thead th,
+        table.dataTable tbody td {
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        table.dataTable thead th {
+            background-color: #f58220;
+            color: #fff;
+            border-bottom: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        table.dataTable tbody td {
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        table.dataTable tbody tr:hover {
+            background-color: #f0f0f0;
+        }
+
+        .status-paid {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .status-pending {
+            color: #ffc107;
+            font-weight: bold;
+        }
+
+        .status-cancelled {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .action-button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .action-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <table id="example" class="display">
+            <thead>
+                <tr>
+                    <th>Ngày mua</th>
+                    <th>Phương thức giao dịch</th>
+                    <th>Tổng đơn</th>
+                    <th>Trạng thái</th>
+                    <th>Đơn hàng thanh toán</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Dữ liệu sẽ được thêm vào đây từ JavaScript -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+    $(document).ready(function() {
+        var data = [
+            { ngayMua: '2024-07-14', phuongThucGiaoDich: 'Thanh toán qua thẻ', tongDon: '1,000,000 VNĐ', trangThai: 'Đã thanh toán', thanhToan: 'Đã thanh toán', hanhDong: '<button class="action-button">Xem chi tiết</button>' },
+            { ngayMua: '2024-07-13', phuongThucGiaoDich: 'Chuyển khoản ngân hàng', tongDon: '500,000 VNĐ', trangThai: 'Chưa thanh toán', thanhToan: 'Chưa thanh toán', hanhDong: '<button class="action-button">Xem chi tiết</button>' },
+            // Thêm các dòng dữ liệu khác tương tự
+        ];
+
+        $('#example').DataTable({
+            columns: [
+                { data: 'ngayMua' },
+                { data: 'phuongThucGiaoDich' },
+                { data: 'tongDon' },
+                { 
+                    data: 'trangThai',
+                    render: function(data) {
+                        if (data === 'Đã thanh toán') {
+                            return '<span class="status-paid">' + data + '</span>';
+                        } else if (data === 'Chưa thanh toán') {
+                            return '<span class="status-pending">' + data + '</span>';
+                        } else {
+                            return '<span class="status-cancelled">' + data + '</span>';
+                        }
+                    }
+                },
+                { data: 'thanhToan' },
+                { data: 'hanhDong' }
+            ]
+        }).clear().rows.add(data).draw();
+    });
+    </script>
+
+</body>
 </html>

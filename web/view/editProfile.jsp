@@ -94,7 +94,7 @@
                         <img src="<%= imgSrc %>"  alt="avatar"
                              class="rounded-circle img-fluid">
                         <button style="
-                                position: sticky;
+                                position: static;
                                 border: solid;
                                 color: #434ff5;
                                 top: 150px;
@@ -117,7 +117,7 @@
                         });
                     </script>
                 </div>
-                <div class="card mb-4 mb-lg-0">
+                    <div class="card mb-4 mb-lg-0" style="display: none">
                     <div class="card-body p-0">
                         <ul class="list-group list-group-flush rounded-3">
                             <li class="list-group-item d-flex justify-content-between align-items-center p-3">
@@ -233,13 +233,13 @@
                 <div class="col-sm-12">
                     <div class="d-flex justify-content-center mb-2">
                         <button type="submit"class="btn btn-primary ms-1">Save Profile</button>
-                        <a href="${pageContext.request.contextPath}/logout"><button type="button" class="btn  btn-outline-primary ms-1 ">Logout</button></a>
+                        <a href="${pageContext.request.contextPath}/Home"><button type="button" class="btn  btn-outline-primary ms-1 ">Cancel</button></a>
                     </div>
                 </div>
                 </form>
 
 
-                <div class="row">
+                    <div class="row" style="display: none">
                     <div class="col-md-6">
                         <div class="card mb-4 mb-md-0">
                             <div class="card-body">

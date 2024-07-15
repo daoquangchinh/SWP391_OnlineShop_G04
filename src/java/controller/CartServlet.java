@@ -29,8 +29,16 @@ public class CartServlet extends HttpServlet {
         } else {
             // If user is not logged in, you might want to redirect to a login page or handle it differently
             // For testing purposes, default to user ID 1
-            //cartItems = (List<Cart_Item>) session.getAttribute("cart");
             cartItems = (List<Cart_Item>) session.getAttribute("listCart");
+            if (cartItems != null) {
+                List<Cart_Item> updatedCart = new ArrayList<>();
+                for (Cart_Item cartItem : cartItems) {
+                    Cart_Item updatedCartItem = dao.setCartSession(dao.findProductByStr(cartItem.getShoe_id(), cartItem.getColor(), cartItem.getSize()), cartItem.getIdCartItem(), cartItem.getQuatityCart());
+                    updatedCart.add(updatedCartItem);
+                }
+                cartItems = updatedCart;
+                session.setAttribute("listCart", cartItems);
+            }
             int quantityCartItem = (cartItems != null) ? cartItems.size() : 0;
             session.setAttribute("quantityCartItem", quantityCartItem);
         }
@@ -40,6 +48,7 @@ public class CartServlet extends HttpServlet {
         System.out.println(session.getAttribute("quantityCartItem"));
         request.getRequestDispatcher("view/cartPage.jsp").forward(request, response);
     }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -52,12 +61,14 @@ public class CartServlet extends HttpServlet {
         HttpSession session = request.getSession();
         List<Cart_Item> cartItems = (List<Cart_Item>) session.getAttribute("listCart");
         if (cartItems != null) {
+            List<Cart_Item> updatedCart = new ArrayList<>();
             for (Cart_Item cartItem : cartItems) {
-                cartItem = dao.setCartSession(dao.findProductByStr(cartItem.getIdCartItem(), cartItem.getColor(), cartItem.getSize()), cartItem.getIdCartItem(), cartItem.getQuatityCart());
-
+                Cart_Item updatedCartItem = dao.setCartSession(dao.findProductByStr(cartItem.getShoe_id(), cartItem.getColor(), cartItem.getSize()), cartItem.getIdCartItem(), cartItem.getQuatityCart());
+                updatedCart.add(updatedCartItem);
             }
+            cartItems = updatedCart;
+            session.setAttribute("listCart", cartItems);
         }
-
         session.setAttribute("listCart", cartItems);
         User user = (User) session.getAttribute("acc");
 
@@ -129,6 +140,15 @@ public class CartServlet extends HttpServlet {
                     break;
                 }
             }
+            if (cartItems != null) {
+                List<Cart_Item> updatedCart = new ArrayList<>();
+                for (Cart_Item cartItem : cartItems) {
+                    Cart_Item updatedCartItem = dao.setCartSession(dao.findProductByStr(cartItem.getShoe_id(), cartItem.getColor(), cartItem.getSize()), cartItem.getIdCartItem(), cartItem.getQuatityCart());
+                    updatedCart.add(updatedCartItem);
+                }
+                cartItems = updatedCart;
+                session.setAttribute("listCart", cartItems);
+            }
             session.setAttribute("listCart", cartItems);
         }
 
@@ -147,6 +167,15 @@ public class CartServlet extends HttpServlet {
             session.setAttribute("quantityCartItem", dao.getCart(user.getId()).size());
         } else {
             cartItems.removeIf(cartItem -> cartItem.getIdCartItem() == cartItemId);
+            if (cartItems != null) {
+                List<Cart_Item> updatedCart = new ArrayList<>();
+                for (Cart_Item cartItem : cartItems) {
+                    Cart_Item updatedCartItem = dao.setCartSession(dao.findProductByStr(cartItem.getShoe_id(), cartItem.getColor(), cartItem.getSize()), cartItem.getIdCartItem(), cartItem.getQuatityCart());
+                    updatedCart.add(updatedCartItem);
+                }
+                cartItems = updatedCart;
+                session.setAttribute("listCart", cartItems);
+            }
             session.setAttribute("listCart", cartItems);
             session.setAttribute("quantityCartItem", cartItems.size());
         }
@@ -205,6 +234,15 @@ public class CartServlet extends HttpServlet {
         }
         if (!found) {
             cartItems.add(dao.setCartSession(productId, cartItemId, quantity));
+        }
+        if (cartItems != null) {
+            List<Cart_Item> updatedCart = new ArrayList<>();
+            for (Cart_Item cartItem : cartItems) {
+                Cart_Item updatedCartItem = dao.setCartSession(dao.findProductByStr(cartItem.getShoe_id(), cartItem.getColor(), cartItem.getSize()), cartItem.getIdCartItem(), cartItem.getQuatityCart());
+                updatedCart.add(updatedCartItem);
+            }
+            cartItems = updatedCart;
+            session.setAttribute("listCart", cartItems);
         }
         session.setAttribute("listCart", cartItems);
     }
