@@ -120,12 +120,8 @@ public class productDetail extends HttpServlet {
                 List<Cart_Item> updatedCart = new ArrayList<>();
                 for (Cart_Item cartItem : cart) {
                     Cart_Item updatedCartItem = dao.setCartSession(dao.findProductByStr(cartItem.getShoe_id(), cartItem.getColor(), cartItem.getSize()), cartItem.getIdCartItem(), cartItem.getQuatityCart());
-                    updatedCart.add(updatedCartItem);
-                    System.out.println(cartItem.toString());
-                    System.out.println(updatedCartItem.toString());
-                }          
-                System.out.println("cart        :"+cart.size()+cart.toString());
-                System.out.println("updatedCart :"+updatedCart.size()+updatedCart.toString());
+                    updatedCart.add(updatedCartItem);               
+                }                
                 cart = updatedCart;
                 //session.setAttribute("listCart", cart);
             }

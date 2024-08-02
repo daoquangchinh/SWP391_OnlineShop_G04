@@ -158,7 +158,7 @@
                         <strong>Reviews (32)</strong>
                         <div>★★★★☆</div>
                     </div>
-                    <div class="add-to-bag" onclick="addToBag()">Add to Bag</div>
+                    <div class="add-to-bag" onclick="addToBag()">Add to Cart</div>
                 </div>
             </div>
 

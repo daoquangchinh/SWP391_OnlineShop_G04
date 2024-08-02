@@ -101,19 +101,24 @@ public class payServlet extends HttpServlet {
                     session.removeAttribute("selectedItems");
                     session.setAttribute("listCart", cartItems);
                 }
-                odao.updatePaymentIdByOrderId(orderId, 1);
+                odao.updatePaymentIdByOrderId(orderId, 1,4);
                 // Return a response to the AJAX call
                 response.setContentType("application/json");
                 response.setCharacterEncoding("UTF-8");
                 response.getWriter().write("{\"status\":\"success\"}");
                 break;
-            default:
+            case "Failed":
                 List<OrderDetails> listOrderByOrderId = odao.getOrderDetailsByOrderId(orderId);
+               
                 for (OrderDetails orderDetails : listOrderByOrderId) {
+                    odao.updatePaymentIdByOrderId(orderDetails.getId(), orderDetails.getPaymentId(), 7);
                     int quantity = 0 - orderDetails.getQuantity();
-                    dao.updateProduct(orderId, quantity);
+                    dao.updateProduct(orderDetails.getProductId(), quantity);
                 }
-                odao.deleteOrderById(orderId);
+                break;
+            default:
+                
+                break;
 
         }
 
@@ -133,35 +138,33 @@ public class payServlet extends HttpServlet {
         String vnp_Version = "2.1.0";
         String vnp_Command = "pay";
         String orderType = "other";
-        String amountStr = req.getParameter("amount");
-        long amount1 = Long.parseLong(amountStr) * 100;
-        long amount = Long.parseLong(amountStr);
+        long amount = Integer.parseInt(req.getParameter("amount")) * 100;
         String bankCode = req.getParameter("bankCode");
-        if (bankCode.equalsIgnoreCase("vnp_BankCode")) {
-            String vnp_TxnRef = Config.getRandomNumber(8);
-            String vnp_IpAddr = Config.getIpAddress(req);
 
-            String vnp_TmnCode = Config.vnp_TmnCode;
+        String vnp_TxnRef = Config.getRandomNumber(8);
+        String vnp_IpAddr = Config.getIpAddress(req);
 
+        String vnp_TmnCode = Config.vnp_TmnCode;
+        if (!bankCode.equalsIgnoreCase("COD")) {
             Map<String, String> vnp_Params = new HashMap<>();
             vnp_Params.put("vnp_Version", vnp_Version);
             vnp_Params.put("vnp_Command", vnp_Command);
             vnp_Params.put("vnp_TmnCode", vnp_TmnCode);
-            vnp_Params.put("vnp_Amount", String.valueOf(amount1));
+            vnp_Params.put("vnp_Amount", String.valueOf(amount));
             vnp_Params.put("vnp_CurrCode", "VND");
 
             if (bankCode != null && !bankCode.isEmpty()) {
                 vnp_Params.put("vnp_BankCode", bankCode);
             }
             vnp_Params.put("vnp_TxnRef", vnp_TxnRef);
-            vnp_Params.put("vnp_OrderInfo", vnp_TxnRef);
+            vnp_Params.put("vnp_OrderInfo", "Thanh toan don hang:" + vnp_TxnRef);
             vnp_Params.put("vnp_OrderType", orderType);
 
             String locate = req.getParameter("language");
             if (locate != null && !locate.isEmpty()) {
                 vnp_Params.put("vnp_Locale", locate);
             } else {
-                vnp_Params.put("vnp_Locale", "en");
+                vnp_Params.put("vnp_Locale", "vn");
             }
             vnp_Params.put("vnp_ReturnUrl", Config.vnp_ReturnUrl);
             vnp_Params.put("vnp_IpAddr", vnp_IpAddr);
@@ -204,13 +207,11 @@ public class payServlet extends HttpServlet {
             String paymentUrl = Config.vnp_PayUrl + "?" + queryUrl;
             com.google.gson.JsonObject job = new JsonObject();
             job.addProperty("code", "00");
-            job.addProperty("vnp_Amount", amount);
             job.addProperty("message", "success");
             job.addProperty("data", paymentUrl);
             Gson gson = new Gson();
             resp.getWriter().write(gson.toJson(job));
-        }
-        if (bankCode.equalsIgnoreCase("COD")) {
+        } else {
             HttpSession session = req.getSession();
             User user = (User) session.getAttribute("acc");
             List<Cart_Item> selectedItems = (List<Cart_Item>) session.getAttribute("selectedItems");

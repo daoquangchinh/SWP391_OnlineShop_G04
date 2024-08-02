@@ -4,9 +4,8 @@
  */
 package controller;
 
+import com.google.gson.Gson;
 import dao.DAO;
-import dao.UserDAO;
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,8 +13,11 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Properties;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
+import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -23,7 +25,7 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import modal.MaHoa;
+import modal.SessionManager;
 
 /**
  *
@@ -39,67 +41,54 @@ public class ForgotPasswordServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String email = request.getParameter("email");
-        RequestDispatcher dispatcher = null;
-        HttpSession mySession = request.getSession();
-        UserDAO userDAO = new UserDAO();
-        DAO dao = new DAO();
-        MaHoa ma = new MaHoa();
-        if (email != null || !email.equals("")) {
-            if (!dao.checkUserbyEmail(email)) {
-                request.setAttribute("error", "email không tồn tại");
-                request.getRequestDispatcher("view/forgotPassword.jsp").forward(request, response);
-            }
-            // sending new password
-            String passGen = generateRandomPassword(8);
-            String to = email;// change accordingly
-            // Get the session object
-            Properties props = new Properties();
-            props.put("mail.smtp.host", "smtp.gmail.com");
-            props.put("mail.smtp.socketFactory.port", "465");
-            props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-            props.put("mail.smtp.auth", "true");
-            props.put("mail.smtp.port", "465");
-            Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
-                @Override
-                protected PasswordAuthentication getPasswordAuthentication() {
-                    return new PasswordAuthentication("quannvhe172350@fpt.edu.vn", "b e l w l e h a j y v f k t r z");// Put your email
-                    // id and
-                    // password here
-                }
-            });
-            // compose message
-            try {
-                // Create MimeMessage within try-with-resources to ensure it's closed properly
-                try (Transport transport = session.getTransport("smtp")) {
-                    MimeMessage message = new MimeMessage(session);
-                    message.setFrom(new InternetAddress(email)); // Set the sender's email address
-                    message.addRecipient(Message.RecipientType.TO, new InternetAddress(to)); // Set the recipient's email address
-                    message.setSubject("Hello!"); // Set the email subject
-                    message.setText("Your new password is: " + passGen); // Set the email content
+        String mess= "Success" ;
+            HttpSession otp = request.getSession(); 
+            otp.removeAttribute("otp");
+            otp.setMaxInactiveInterval(120);
+            DAO dao = new DAO();
+            if (email != null && !email.equals("")) {
+                if (!dao.checkUserbyEmail(email)) {
+                    mess = "Account does not exist";
+                } else {
+                    mess = "Success";
+                    // Gửi email
+                    String passGen = generateRandomPassword(6);
+                    String subject = "Hello!";
+                    String body = "Your OTP is: " + passGen + "\nNote: The OTP is valid for only  1 minute and 30 seconds.";
 
-                    // Send the message
-                    transport.connect(); // Connect to the mail server
-                    transport.sendMessage(message, message.getAllRecipients()); // Send the email
-                    // No need to print success message as it's already sent
+                    try {
+                        sendEmail(email, subject, body);
+                        otp.setAttribute("otp", passGen);
+                        otp.setAttribute("email", email);
+                        SessionManager.scheduleSessionExpiry(otp, 1, TimeUnit.MINUTES);
+
+                    } catch (MessagingException e) {
+                        mess = "Failed to send email";
+                    }
                 }
-            } catch (MessagingException e) {
-                // Handle any messaging related exceptions
-                throw new RuntimeException("Failed to send email", e);
+
             }
-            // update password generate random
-            passGen = ma.toSHA1(passGen);
-            userDAO.updatePassword(email, passGen);
-            dispatcher = request.getRequestDispatcher("view/EnterNewPassword.jsp");
-            request.setAttribute("message", "The key has been sent to you, please check your email");
-            mySession.setAttribute("passGen", passGen);
-            mySession.setMaxInactiveInterval(300);
-            mySession.setAttribute("email", email);
-            dispatcher.forward(request, response);
-        }
+
+            // Thiết lập loại nội dung và mã hóa
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+
+            // Tạo đối tượng PrintWriter sau khi thiết lập loại nội dung và mã hóa
+            PrintWriter out = response.getWriter();
+
+            // Viết phản hồi JSON cho client
+            String jsonResponse = String.format("{\"mess\":\"%s\"}", mess);
+            out.write(jsonResponse);
+
+            // Đảm bảo đóng PrintWriter
+            out.flush();
+            out.close();
+//        request.getRequestDispatcher("view/OTP.jsp").forward(request, response);
+        
     }
 
     private String generateRandomPassword(int length) {
-        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        String characters = "0123456789";
         Random rand = new Random();
         StringBuilder password = new StringBuilder(length);
         for (int i = 0; i < length; i++) {
@@ -108,4 +97,37 @@ public class ForgotPasswordServlet extends HttpServlet {
         return password.toString();
     }
 
+    public static void sendEmail(String to, String subject, String body) throws MessagingException {
+        final String from = "quannvhe172350@fpt.edu.vn"; // Địa chỉ email người gửi
+        final String password = "b e l w l e h a j y v f k t r z"; // Mật khẩu email người gửi
+
+        // Cấu hình các thuộc tính của mail server
+        Properties props = new Properties();
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.socketFactory.port", "465");
+        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.port", "465");
+
+        // Tạo phiên làm việc với thông tin xác thực
+        Session session = Session.getDefaultInstance(props, new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(from, password);
+            }
+        });
+
+        // Tạo đối tượng MimeMessage để gửi email
+        MimeMessage message = new MimeMessage(session);
+        message.setFrom(new InternetAddress(from));
+        message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+        message.setSubject(subject);
+        message.setText(body);
+
+        // Gửi email
+        try (Transport transport = session.getTransport("smtp")) {
+            transport.connect();
+            transport.sendMessage(message, message.getAllRecipients());
+        }
+    }
 }

@@ -6,21 +6,22 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="modal.*" %>
 <link href="${pageContext.request.contextPath}/assets_h/img/favicon.ico" rel="icon">
 
-        <!-- Google Web Fonts -->
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">  
+<!-- Google Web Fonts -->
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">  
 
-        <!-- Font Awesome -->
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+<!-- Font Awesome -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
-        <!-- Libraries Stylesheet -->
-        <link href="${pageContext.request.contextPath}/assets_h/lib/animate/animate.min.css" rel="stylesheet">
-        <link href="${pageContext.request.contextPath}/assets_h/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+<!-- Libraries Stylesheet -->
+<link href="${pageContext.request.contextPath}/assets_h/lib/animate/animate.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/assets_h/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
-        <!-- Customized Bootstrap Stylesheet -->
-        <link href="${pageContext.request.contextPath}/assets_h/css/style.css" rel="stylesheet">
+<!-- Customized Bootstrap Stylesheet -->
+<link href="${pageContext.request.contextPath}/assets_h/css/style.css" rel="stylesheet">
 <!-- Topbar Start -->
 <div class="container-fluid">
     <div class="row bg-secondary py-1 px-xl-5">
@@ -36,12 +37,36 @@
                     <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">My Account</button>
                     <div class="dropdown-menu dropdown-menu-right">
                         <% if (session.getAttribute("acc") == null) { %>
-                        <a href="${pageContext.request.contextPath}/login"><button class="dropdown-item" type="button">Sign in</button></a>
-                        <a href="${pageContext.request.contextPath}/register"><button class="dropdown-item" type="button">Sign up</button></a>
-                        <% } else { %> <button class="dropdown-item" type="button">
-                            <a href="${pageContext.request.contextPath}/logout"><button class="dropdown-item" type="button">Logout</button></a>
-                            <a href="${pageContext.request.contextPath}/profile"><button class="dropdown-item" type="button">My Profile</button></a>
-                            <% } %>
+                        <a href="${pageContext.request.contextPath}/login">
+                            <button class="dropdown-item" type="button">Sign in</button>
+                        </a>
+                        <a href="${pageContext.request.contextPath}/register">
+                            <button class="dropdown-item" type="button">Sign up</button>
+                        </a>
+                        <% } else { %>
+                        <% User u = (User) session.getAttribute("acc"); %>
+                        <% if (u.getRole_id() == 1) { %>
+                        <a href="${pageContext.request.contextPath}/AccManagementServlet">
+                            <button class="dropdown-item" type="button">Admin</button>
+                        </a>
+                        <% } %>
+                        <% if (u.getRole_id() == 3) { %>
+                        <a href="${pageContext.request.contextPath}/ShoeManagementServlet">
+                            <button class="dropdown-item" type="button">Staff</button>
+                        </a>
+                        <% } %>
+                        <% if (u.getRole_id() == 4) { %>
+                        <a href="#">
+                            <button class="dropdown-item" type="button">Shipper</button>
+                        </a>
+                        <% } %>
+                        <a href="${pageContext.request.contextPath}/logout">
+                            <button class="dropdown-item" type="button">Logout</button>
+                        </a>
+                        <a href="${pageContext.request.contextPath}/profile">
+                            <button class="dropdown-item" type="button">My Profile</button>
+                        </a>
+                        <% } %>
                     </div>
                 </div>
                 <div class="btn-group mx-2">
@@ -93,7 +118,7 @@
                 </div>
             </form>
         </div>
-        
+
         <div class="col-lg-4 col-6 text-right">
             <p class="m-0">Customer Service</p>
             <h5 class="m-0">+012 345 6789</h5>
@@ -132,7 +157,11 @@
                     <div class="navbar-nav mr-auto py-0">
                         <a href="${pageContext.request.contextPath}/Home" class="nav-item nav-link active">Home</a>
                         <a href="${pageContext.request.contextPath}/productlist" class="nav-item nav-link">Shop</a>
-                        <a href="#" class="nav-item nav-link">Shop Detail</a>
+                        <% 
+                            if (session.getAttribute("acc") != null){
+                        %>
+                        <a href="${pageContext.request.contextPath}/OrderItemServlet" class="nav-item nav-link">Order Detail</a>
+                        <%}%>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages <i class="fa fa-angle-down mt-1"></i></a>
                             <div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
@@ -149,7 +178,7 @@
                         </a>
                         <% 
      int quantityCartItem = (session.getAttribute("quantityCartItem") != null) ? (int) session.getAttribute("quantityCartItem") : 0;
-        %>
+                        %>
                         <a href="${pageContext.request.contextPath}/cart" class="btn px-0 ml-3">
                             <i class="fas fa-shopping-cart text-primary"></i>
                             <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;"><%=quantityCartItem%></span>
@@ -161,26 +190,24 @@
     </div>
 </div>
 <!-- Navbar End -->
-   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-            <script src="${pageContext.request.contextPath}/assets_h/lib/easing/easing.min.js"></script>
-        <script src="${pageContext.request.contextPath}/assets_h/lib/owlcarousel/owl.carousel.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets_h/lib/easing/easing.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets_h/lib/owlcarousel/owl.carousel.min.js"></script>
 
-        <!-- Contact Javascript File -->
-        <script src="${pageContext.request.contextPath}/assets_h/mail/jqBootstrapValidation.min.js"></script>
-        <script src="mail/contact.js"></script>
+<!-- Contact Javascript File -->
+<script src="${pageContext.request.contextPath}/assets_h/mail/jqBootstrapValidation.min.js"></script>
 
-        <!-- Template Javascript -->
-        <script src="${pageContext.request.contextPath}/assets_h/js/main.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-        <script src="${pageContext.request.contextPath}/assets_h/lib/easing/easing.min.js"></script>
-        <script src="${pageContext.request.contextPath}/assets_h/lib/owlcarousel/owl.carousel.min.js"></script>
+<!-- Template Javascript -->
+<script src="${pageContext.request.contextPath}/assets_h/js/main.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets_h/lib/easing/easing.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets_h/lib/owlcarousel/owl.carousel.min.js"></script>
 
-        <!-- Contact Javascript File -->
-        <script src="${pageContext.request.contextPath}/assets_h/mail/jqBootstrapValidation.min.js"></script>
-        <script src="mail/contact.js"></script>
+<!-- Contact Javascript File -->
+<script src="${pageContext.request.contextPath}/assets_h/mail/jqBootstrapValidation.min.js"></script>
 
-        <!-- Template Javascript -->
-        <script src="${pageContext.request.contextPath}/assets_h/js/main.js"></script>
+<!-- Template Javascript -->
+<script src="${pageContext.request.contextPath}/assets_h/js/main.js"></script>

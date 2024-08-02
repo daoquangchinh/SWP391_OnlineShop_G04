@@ -147,7 +147,7 @@
                                     </div> 
                                     <div class="checkbox clearfix">
                                         <!-- Checkbox -->
-                                        <div class="form-check">
+                                        <div class="form-check checkbox-theme">
                                             <input class="form-check-input" type="checkbox" id="showPassword" value="" onclick="togglePasswordVisibility()" >
                                             <label class="form-check-label" for="showPassword">Show pass</label>
                                         </div>

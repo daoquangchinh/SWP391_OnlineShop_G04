@@ -46,7 +46,7 @@
     </head>
     <body>
         <jsp:include page="homeTag.jsp"></jsp:include>
-            <h1 class="">User Profile</h1>
+            <h1 style="margin-left: 50px">User Profile</h1>
             <div class="container mt-5">
             <c:if test="${empty sessionScope.acc}">
                 <p>Bạn chưa đăng nhập. Vui lòng <a href="${pageContext.request.contextPath}/login">đăng nhập</a>.</p>
@@ -162,23 +162,29 @@
                                     {
                                         data: 'statusId',
                                         render: function (data) {
-                                            if (data === 'Active') {
-                                                return '<span class="badge badge-success">' + data + '</span>';
-                                            } else if (data === 'Inactive' || data === 'Pending') {
-                                                return '<span class="badge badge-warning">' + data + '</span>';
-                                            } else {
-                                                return '<span class="badge badge-danger">' + data + '</span>';
+                                            switch (data) {
+                                                case 'Order':
+                                                    return '<span class="badge badge-info">' + data + '</span>';
+                                                case 'Delivery':
+                                                    return '<span class="badge badge-primary">' + data + '</span>';
+                                                case 'Receive':
+                                                    return '<span class="badge badge-success">' + data + '</span>';
+                                                case 'Cancel order':
+                                                    return '<span class="badge badge-danger">' + data + '</span>';
+                                                default:
+                                                    return '<span class="badge badge-secondary">' + data + '</span>';
                                             }
                                         }
                                     },
                                     {data: 'paymentStatus',
                                         render: function (data) {
-                                            if (data === 'Đã thanh toán') {
-                                                return '<span class="badge badge-success">' + data + '</span>';
-                                            } else if (data === 'Chưa thanh toán') {
-                                                return '<span class="badge badge-warning">' + data + '</span>';
-                                            } else {
-                                                return '<span class="badge badge-danger">' + data + '</span>';
+                                            switch (data) {
+                                                case 'Đã thanh toán':
+                                                    return '<span class="badge badge-success">' + data + '</span>';
+                                                case 'Chưa thanh toán':
+                                                    return '<span class="badge badge-warning">' + data + '</span>';
+                                                default:
+                                                    return '<span class="badge badge-danger">' + data + '</span>';
                                             }
                                         }
                                     },
@@ -188,7 +194,9 @@
                                             return '<a href="/viewOrderDetails?id=' + data.id + '" class="btn btn-primary btn-sm">View Detail</a>';
                                         }
                                     }
-                                ]
+                                ],
+                                order: [[0, 'desc']] // Sắp xếp cột đầu tiên (orderDate) theo thứ tự tăng dần
+
                             });
                         },
                         error: function (xhr, status, error) {

@@ -17,8 +17,6 @@ public class NewServlet extends HttpServlet {
         // Simulate getting quantityCartItem from session (replace with your logic)
         Integer quantityCartItem = 9;
 
-        System.out.println(quantityCartItem);
-        // Create JSON response
         PrintWriter out = response.getWriter();
         out.println("{ \"quantityCartItem\": " + quantityCartItem + " }");
     }

@@ -27,7 +27,7 @@ public class Config {
     public static String vnp_PayUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
     public static String vnp_ReturnUrl = "http://localhost:9999/SWP391_OnlineShop_G4/view/vnpay_return.jsp";
     public static String vnp_TmnCode = "6F2RDZVN";
-    public static String secretKey = "GJTNHHA07Y2U7CPJBB9X9EI9I0OUFA7S";
+    public static String secretKey = "P9D6K30DHY8I3N14TBFLY8NJL7XWH5Y4";
     public static String vnp_ApiUrl = "https://sandbox.vnpayment.vn/merchant_webapi/api/transaction";
 
     public static String md5(String message) {
@@ -84,9 +84,9 @@ public class Config {
                 sb.append("&");
             }
         }
-        return hmacSHA512(secretKey, sb.toString());
+        return hmacSHA512(secretKey,sb.toString());
     }
-
+    
     public static String hmacSHA512(final String key, final String data) {
         try {
 
@@ -109,7 +109,7 @@ public class Config {
             return "";
         }
     }
-
+    
     public static String getIpAddress(HttpServletRequest request) {
         String ipAdress;
         try {

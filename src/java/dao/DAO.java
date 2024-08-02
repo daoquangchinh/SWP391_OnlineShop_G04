@@ -20,15 +20,14 @@ import modal.ShoeSize;
 import modal.User;
 
 public class DAO {
-   // Phương thức để lấy số lượng sản phẩm còn lại
+    // Phương thức để lấy số lượng sản phẩm còn lại
+
     public int getAvailableQuantity(int productId) {
         int availableQuantity = 0;
         String query = "SELECT quantity FROM product WHERE id = ? AND status_id = 1";
 
         try (
-            Connection conn = new DBContext().getConnection();
-            PreparedStatement ps = conn.prepareStatement(query)
-        ) {
+                Connection conn = new DBContext().getConnection(); PreparedStatement ps = conn.prepareStatement(query)) {
             ps.setInt(1, productId);
             ResultSet rs = ps.executeQuery();
 
@@ -41,25 +40,24 @@ public class DAO {
 
         return availableQuantity;
     }
-    public boolean updateProduct(int productid, int quantity) {
-    String query = "UPDATE p\n" +
-"SET p.quantity = p.quantity - ?\n" +
-"FROM product p\n" +
-"WHERE p.id = ?;";
-    try (
-        Connection conn = new DBContext().getConnection();
-        PreparedStatement ps = conn.prepareStatement(query)
-    ) {
-        ps.setInt(1, quantity);
-        ps.setInt(2, productid);
 
-        int rowsUpdated = ps.executeUpdate();
-        return rowsUpdated > 0;
-    } catch (SQLException e) {
-        System.err.println("Error updating product quantity: " + e.getMessage());
-        return false;
+    public boolean updateProduct(int productid, int quantity) {
+        String query = "UPDATE p\n"
+                + "SET p.quantity = p.quantity - ?\n"
+                + "FROM product p\n"
+                + "WHERE p.id = ?;";
+        try (
+                Connection conn = new DBContext().getConnection(); PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setInt(1, quantity);
+            ps.setInt(2, productid);
+
+            int rowsUpdated = ps.executeUpdate();
+            return rowsUpdated > 0;
+        } catch (SQLException e) {
+            System.err.println("Error updating product quantity: " + e.getMessage());
+            return false;
+        }
     }
-}
 
     //insert cart 
     public boolean insertCartItem(int userId, int productId, int quantity) {
@@ -710,6 +708,17 @@ public class DAO {
             System.err.println(e);
         }
     }
+     // Cập nhật trạng thái cho user
+    public void updateRole_id(int role_id, int id) {
+        String query = "UPDATE users SET role_id = ? WHERE id = ?";
+        try (Connection conn = new DBContext().getConnection(); PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setInt(1, role_id);
+            ps.setInt(2, id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println(e);
+        }
+    }
 
     // Lấy user theo id
     public User getUserByID(int id) {
@@ -766,25 +775,23 @@ public class DAO {
         return matcher.matches();
     }
 
-   public int checkStatusProduct(int productId) {
-    int statusId = -1; // giá trị mặc định nếu không tìm thấy sản phẩm
-    String query = "SELECT status_id FROM product WHERE id = ?";
+    public int checkStatusProduct(int productId) {
+        int statusId = -1; // giá trị mặc định nếu không tìm thấy sản phẩm
+        String query = "SELECT status_id FROM product WHERE id = ?";
 
-    try (
-        Connection conn = new DBContext().getConnection();
-        PreparedStatement ps = conn.prepareStatement(query)
-    ) {
-        ps.setInt(1, productId);
-        ResultSet rs = ps.executeQuery();
+        try (
+                Connection conn = new DBContext().getConnection(); PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setInt(1, productId);
+            ResultSet rs = ps.executeQuery();
 
-        if (rs.next()) {
-            statusId = rs.getInt("status_id");
+            if (rs.next()) {
+                statusId = rs.getInt("status_id");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
-    }
 
-    return statusId;
-}
+        return statusId;
+    }
 
 }

@@ -44,6 +44,34 @@ public class UserDAO extends DBContext {
         }
         return null;  // Return null if no record is found or an exception occurs
     }
+   public User getUserByEmail(String email) {
+    String sql = "SELECT * FROM [dbo].[Users] WHERE email = ?";
+    try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
+        // Set the parameters for the prepared statement
+        ps.setString(1, email);
+        try (ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                // Create and return a User object if a record is found
+                User user = new User();
+                user.setId(rs.getInt("id"));
+                user.setUsername(rs.getString("username"));
+                user.setPassword(rs.getString("password"));
+                user.setFullname(rs.getString("fullname"));
+                user.setGender(rs.getString("gender"));
+                user.setPhone(rs.getString("phone"));
+                user.setEmail(rs.getString("email"));
+                user.setImg(rs.getString("img"));
+                user.setRole_id(rs.getInt("role_id"));
+                user.setStatus(rs.getInt("status_id"));  // Updated to match field name in ResultSet
+                return user;
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return null;  // Return null if no record is found or an exception occurs
+}
+
 
     public boolean updatePassword(String email, String newPassword) {
         try {
@@ -59,5 +87,6 @@ public class UserDAO extends DBContext {
             return false;
         }
     }
+    
 
 }

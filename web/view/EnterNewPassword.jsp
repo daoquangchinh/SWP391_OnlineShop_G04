@@ -19,6 +19,16 @@
     <body>
         <div class="form-gap"></div>
         <div class="container">
+            <div class="col-lg-4">
+                <a href="${pageContext.request.contextPath}/Home" class="text-decoration-none"style="    position: fixed;
+                   left: 0;
+                   top: 0;
+                   z-index: 1000;
+                   box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);">
+                    <span class="h1 text-uppercase text-primary bg-dark px-2">Multi</span>
+                    <span  class="h1 text-uppercase text-dark bg-primary px-2 ml-n1">Shop</span>
+                </a>
+            </div>
             <div class="row">
                 <div class="col-md-4 col-md-offset-4">
                     <div class="panel panel-default">
@@ -32,25 +42,25 @@
                                     out.print("<p class='text-danger ml-1'>" + request.getAttribute("message") + "</p>"); 
                                 } %>
                                 <!-- quan merge -->
-                                    <form id="register-form" action="${pageContext.request.contextPath}/validatePassword" role="form" autocomplete="off" class="form" method="post">
-                                        <div class="form-group">
-                                            <div class="input-group">
-                                                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope color-blue"></i></span>
-                                                <input id="otp" name="passValue" placeholder="Nhập mật khẩu" class="form-control" type="text" required="required">
-                                            </div>
+                                <form id="register-form" action="${pageContext.request.contextPath}/validatePassword" role="form" autocomplete="off" class="form" method="post">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-envelope color-blue"></i></span>
+                                            <input id="otp" name="passValue" placeholder="Nhập mật khẩu" class="form-control" type="text" required="required">
                                         </div>
-                                        <div class="form-group">
-                                            <input id="submitBtn" name="recover-submit" class="btn btn-lg btn-primary btn-block" value="Đổi mật khẩu" type="submit">
-                                        </div>
-                                        <input type="hidden" class="hide" name="token" id="token" value="">
-                                    </form>
-                                    <p id="countdown" class="text-danger"></p>
-                                </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <input id="submitBtn" name="recover-submit" class="btn btn-lg btn-primary btn-block" value="Đổi mật khẩu" type="submit">
+                                    </div>
+                                    <input type="hidden" class="hide" name="token" id="token" value="">
+                                </form>
+                                <p id="countdown" class="text-danger"></p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </body>
+    </div>
+</body>
 </html>

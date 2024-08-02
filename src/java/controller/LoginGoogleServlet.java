@@ -49,22 +49,20 @@ public class LoginGoogleServlet extends HttpServlet {
         MaHoa ma = new MaHoa();
         User u = dao.getloginByGoogle(user.getEmail());
         HttpSession session = request.getSession();
-        //System.out.println(u.toString());
         if (u != null) {
             session.removeAttribute("check");
             session.setAttribute("acc", u);
             session.setMaxInactiveInterval(1000);
             response.sendRedirect("Home");
         } else {
-            ForgotPasswordServlet forgot ;
             u = new User(0, user.getEmail(), ma.toSHA1(generateRandomPassword(8)), user.getName(), user.getGender(), user.getPhone(), user.getEmail(), user.getPicture(), 2, 1);
             dao.setUser(u);
+             session.removeAttribute("check");
+            session.setAttribute("acc", u);
+            session.setMaxInactiveInterval(1000);
             response.sendRedirect("Home");
 
         }
-
-        System.out.println(user);
-
     }
 
     public static String getToken(String code) throws ClientProtocolException, IOException {

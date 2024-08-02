@@ -43,12 +43,18 @@ public class CheckOutServlet extends HttpServlet {
         DAO dao = new DAO();
 
         String bankCode = request.getParameter("bankCode");
-        int PaymentId = 2; // Giả sử mặc định là PaymentId = 2 (VNPAY)
-        if (bankCode != null && bankCode.equalsIgnoreCase("COD")) {
-            PaymentId = 3; // Đặt PaymentId là 1 nếu bankCode là COD
+        int PaymentId ; // Giả sử mặc định là PaymentId = 2 (VNPAY) và chưa thanh toán
+        switch (bankCode) {
+            case "COD": PaymentId=4;
+                
+                break;
+                case "": PaymentId=2;
+                
+                break;
+            default:
+                throw new AssertionError();
         }
         List<Cart_Item> cartItems = (List<Cart_Item>) session.getAttribute("selectedItems");
-//        System.out.println(cartItems.toString());
 
         if (cartItems == null || cartItems.isEmpty()) {
             return false; // Handle empty or null cartItems case
@@ -74,8 +80,6 @@ public class CheckOutServlet extends HttpServlet {
             OrderDetails od = new OrderDetails(0, orderId, cartItem.getShoe_id(), productId, cartItem.getPrice(), cartItem.getQuatityCart(), total, 4, PaymentId);
             boolean CHECK = dao.updateProduct(productId, cartItem.getQuatityCart());
             odao.insertOrderDetail(od);
-//            boolean CHECK = dao.updateProduct(cartItem.getIdCartItem(), cartItem.getQuatityCart());
-//            System.out.println(CHECK);
         }
 
         return true; // All products are available
@@ -122,12 +126,10 @@ public class CheckOutServlet extends HttpServlet {
                 for (Cart_Item item : cartItems) {
                     if (item.getIdCartItem() == id) {
                         selectedItems.add(item);
-                        System.out.println(item.toString());
                     }
                 }
             }
         }
-        System.out.println(selectedItems.size());
 
         // Lưu danh sách các mục đã chọn vào session hoặc xử lý thêm tùy theo yêu cầu của bạn
         session.setAttribute("selectedItems", selectedItems);

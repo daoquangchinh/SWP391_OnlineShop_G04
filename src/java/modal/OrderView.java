@@ -4,6 +4,8 @@
  */
 package modal;
 
+import java.util.List;
+
 /**
  *
  * @author ViQuan
@@ -16,7 +18,26 @@ public class OrderView {
     private String statusId;
     private String paymentStatus;
     private int  orderId;
+    private List<OrderDetails> listOrderItem;
 
+    public OrderView(String orderDate, String paymentMethodId, String total, String statusId, String paymentStatus, int orderId, List<OrderDetails> listOrderItem) {
+        this.orderDate = orderDate;
+        this.paymentMethodId = paymentMethodId;
+        this.total = total;
+        this.statusId = statusId;
+        this.paymentStatus = paymentStatus;
+        this.orderId = orderId;
+        this.listOrderItem = listOrderItem;
+    }
+
+    public List<OrderDetails> getListOrderItem() {
+        return listOrderItem;
+    }
+
+    public void setListOrderItem(List<OrderDetails> listOrderItem) {
+        this.listOrderItem = listOrderItem;
+    }
+    
     public OrderView() {
     }
 
@@ -76,16 +97,10 @@ public class OrderView {
     public void setOrderId(int orderId) {
         this.orderId = orderId;
     }
-//@Override
+
+    @Override
     public String toString() {
-        return "OrderView{" +
-                "orderDate='" + orderDate + '\'' +
-                ", orderId='" + orderId + '\'' +
-                ", status='" + statusId + '\'' +
-                ", paymentMethodId='" + paymentMethodId + '\'' +
-                ", paymentStatus='" + paymentStatus + '\'' +
-                ", total='" + total + '\'' +
-                '}';
+        return "OrderView{" + "orderDate=" + orderDate + ", paymentMethodId=" + paymentMethodId + ", total=" + total + ", statusId=" + statusId + ", paymentStatus=" + paymentStatus + ", orderId=" + orderId + ", listOrderItem=" + listOrderItem + '}';
     }
-  
+
 }

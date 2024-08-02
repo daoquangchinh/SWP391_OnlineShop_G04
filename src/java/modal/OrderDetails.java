@@ -18,6 +18,52 @@ public class OrderDetails {
     private double totalMoney;
     private int statusId;
     private int paymentId;
+    private String shoeName;
+    private String shoeColor;
+    private int size;
+    private String img;
+
+    public OrderDetails(int productId, double price, int quantity, String shoeName, String shoeColor, int size,String img) {
+        this.productId = productId;
+        this.price = price;
+        this.quantity = quantity;
+        this.shoeName = shoeName;
+        this.shoeColor = shoeColor;
+        this.size = size;
+        this.img =img;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public String getShoeName() {
+        return shoeName;
+    }
+
+    public void setShoeName(String shoeName) {
+        this.shoeName = shoeName;
+    }
+
+    public String getShoeColor() {
+        return shoeColor;
+    }
+
+    public void setShoeColor(String shoeColor) {
+        this.shoeColor = shoeColor;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
 
     public OrderDetails(int id, int orderId, int shoeId, int productId, double price, int quantity, double totalMoney, int statusId, int paymentId) {
         this.id = id;   

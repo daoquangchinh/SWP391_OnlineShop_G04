@@ -134,7 +134,24 @@
                         </script>
                         <%
 
-                                } else {
+                                } else {%>
+<script>
+                            $.ajax({
+                                url: '<%=request.getContextPath()%>/payServlet',
+                                data: {
+                                    action: "Failed"
+                                },
+                                type: 'GET',
+                                success: function (response) {
+                                    // Handle the response from the servlet if needed
+                                    console.log('Servlet response:', response);
+                                },
+                                error: function (xhr, status, error) {
+                                    console.error('AJAX error:', status, error);
+                                }
+                            });
+                        </script>
+                        <%
                                     out.print("Failed");
                                 }
                             } else {

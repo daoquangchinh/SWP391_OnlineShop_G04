@@ -37,6 +37,7 @@ public class LoginServlet extends HttpServlet {
         Integer sCheck = (Integer) session.getAttribute("check");
         String name = request.getParameter("name").trim();
         String pass = request.getParameter("pass").trim();
+        System.out.println(name+ pass);
         request.setAttribute("name", name);
 
         DAO dao = new DAO();

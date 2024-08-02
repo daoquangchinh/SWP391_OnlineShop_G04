@@ -21,7 +21,7 @@
 
         <!-- Google Web Fonts -->
         <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">  
+        <link href="ht        <link rel="preconnect" href="https://fonts.gstatic.com">
 
         <!-- Font Awesome -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
@@ -236,7 +236,7 @@
                                 <div class="product-item bg-light mb-4">
                                     <div class="product-img position-relative overflow-hidden">
                                         
-                                        <img class="img-fluid w-100" src="${pageContext.request.contextPath}${item.getImage()}" alt="">
+                                        <img class="img-fluid w-100" src="${item.getImage()}" alt="">
                                         <!--                                <div class="product-action">
                                                                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
                                                                             <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>

@@ -74,9 +74,13 @@ public class ProfileServlet extends HttpServlet {
         processRequest(request, response);
         response.setContentType("application/json");
         OrderDAO odao = new OrderDAO();
-        // Simulate data fetching (replace with your actual data retrieval logic)
-       List<OrderView> orders = odao.getOrderViewByUserId(3);
         
+        HttpSession session = request.getSession();
+        User u = (User)session.getAttribute("acc");
+        // Simulate data fetching (replace with your actual data retrieval logic)
+        
+        List<OrderView> orders = odao.getOrderViewByUserId(u.getId(),0);
+
         Gson gson = new Gson();
         String jsonData = gson.toJson(orders);
 
@@ -97,7 +101,7 @@ public class ProfileServlet extends HttpServlet {
 
     public static void main(String[] args) {
         OrderDAO odao = new OrderDAO();
-        List<OrderView> orders = odao.getOrderViewByUserId(3);
+        List<OrderView> orders = odao.getOrderViewByUserId(3,0);
         System.out.println(orders.toString());
     }
 }

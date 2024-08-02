@@ -41,7 +41,7 @@
         <!-- Custom Stylesheet -->
         <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/assets_lg/css/style.css">
         <link rel="stylesheet" type="text/css" id="style_sheet" href="${pageContext.request.contextPath}/assets_lg/css/skins/default.css">
-         <!-- Font Awesome -->
+        <!-- Font Awesome -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
         <!-- Libraries Stylesheet -->
@@ -52,9 +52,8 @@
         <link href="${pageContext.request.contextPath}/assets_h/css/style.css" rel="stylesheet">
     </head>
     <body id="top">
-        <jsp:include page="homeTag.jsp"></jsp:include>
-       <% User u = (User) session.getAttribute("acc");
-          if (u != null) {
+        <% User u = (User) session.getAttribute("acc");
+           if (u != null) {
         %>
         <!-- Google Tag Manager (noscript) -->
         <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TAGCODE"
@@ -65,11 +64,21 @@
         <!-- Login 11 start -->
         <div class="login-11">
             <div class="container-fluid">
+                <div class="col-lg-4">
+                    <a href="${pageContext.request.contextPath}/Home" class="text-decoration-none"style="    position: fixed;
+                       left: 0;
+                       top: 0;
+                       z-index: 1000;
+                       box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);">
+                        <span class="h1 text-uppercase text-primary bg-dark px-2">Multi</span>
+                        <span  class="h1 text-uppercase text-dark bg-primary px-2 ml-n1">Shop</span>
+                    </a>
+                </div>
                 <div class="row">
                     <div class="col-lg-6 col-md-12 bg-img none-992">
                         <div class="info">
-                            <h1>Welcome to Change Pass</h1>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the.</p>
+                            <h1>Welcome to Shop</h1>
+                            <p>Your destination for stylish and high-quality shoes. From athletic to office shoes, we have the perfect options for you. Visit Shop today!</p>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-12 bg-color-13">
@@ -98,7 +107,7 @@
                                         <div class="form-group">
                                             <!-- Checkbox -->
                                             <div class="form-check checkbox-theme">
-                                                <input class="form-check-input" type="checkbox" id="showPassword" onclick="togglePasswordVisibility()" checked="">
+                                                <input class="form-check-input" type="checkbox" id="showPassword" onclick="togglePasswordVisibility()" >
                                                 <label class="form-check-label" for="showPassword">Show pass</label>
                                             </div>
                                         </div>
@@ -117,12 +126,11 @@
         <!-- Login 11 end -->
         <%
                 } else {
-                %>
-                <p>Bạn chưa đăng nhập. Vui lòng <a href="${pageContext.request.contextPath}/login">đăng nhập</a>.</p>
-                <%
-                    }
-                %>
-                    <jsp:include page="FooterTag.jsp"></jsp:include>
+        %>
+        <p>Bạn chưa đăng nhập. Vui lòng <a href="${pageContext.request.contextPath}/login">đăng nhập</a>.</p>
+        <%
+            }
+        %>
 
 
         <!-- External JS libraries -->
@@ -131,18 +139,18 @@
         <script src="${pageContext.request.contextPath}/assets_lg/js/bootstrap.min.js"></script>
         <!-- Custom JS Script -->
         <script>
-                function togglePasswordVisibility() {
-                    var passwordField = document.getElementById('password');
-                    var confPasswordField = document.getElementById('confPassword');
-                    var showPasswordCheckbox = document.getElementById('showPassword');
-                    if (showPasswordCheckbox.checked) {
-                        passwordField.type = 'text';
-                        confPasswordField.type = 'text';
-                    } else {
-                        passwordField.type = 'password';
-                        confPasswordField.type = 'password';
-                    }
-                }
+                                                    function togglePasswordVisibility() {
+                                                        var passwordField = document.getElementById('password');
+                                                        var confPasswordField = document.getElementById('confPassword');
+                                                        var showPasswordCheckbox = document.getElementById('showPassword');
+                                                        if (showPasswordCheckbox.checked) {
+                                                            passwordField.type = 'text';
+                                                            confPasswordField.type = 'text';
+                                                        } else {
+                                                            passwordField.type = 'password';
+                                                            confPasswordField.type = 'password';
+                                                        }
+                                                    }
         </script>
 
     </body>

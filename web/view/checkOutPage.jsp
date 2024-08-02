@@ -84,11 +84,11 @@
             <h4 class="payment-header">Chọn phương thức thanh toán</h4>
             <div class="payment-options">
                 <label>
-                    <input type="radio" name="bankCode" value="COD" checked>
+                    <input type="radio" id="bankCode" name="bankCode" value="COD" checked>
                     Thanh toán sau khi nhận hàng.
                 </label>
                 <label>
-                    <input type="radio" name="bankCode" value="vnp_BankCode">
+                    <input type="radio" id="bankCode" name="bankCode" value="">
                     Cổng thanh toán VNPAY
                 </label>
             </div>

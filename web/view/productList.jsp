@@ -258,7 +258,7 @@
                                 <div class="product-item bg-light mb-4">
                                     <div class="product-img position-relative overflow-hidden">
 
-                                        <img class="img-fluid w-100" src="${pageContext.request.contextPath}${item.getImage()}" alt="">
+                                        <img class="img-fluid w-100" src="${item.getImage()}" alt="">
                                         <!--                                <div class="product-action">
                                                                             <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
                                                                             <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
@@ -350,7 +350,6 @@
 
         <!-- Contact Javascript File -->
         <script src="${pageContext.request.contextPath}/assets_h/mail/jqBootstrapValidation.min.js"></script>
-        <script src="mail/contact.js"></script>
 
         <!-- Template Javascript -->
         <script src="${pageContext.request.contextPath}/assets_h/js/main.js"></script>

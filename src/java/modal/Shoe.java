@@ -110,4 +110,10 @@ public class Shoe {
         this.discount = discount;
     }
 
+    @Override
+    public String toString() {
+        return "Shoe{" + "Id=" + Id + ", name=" + name + ", descriptionm=" + descriptionm + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", image=" + image + ", brandId=" + brandId + ", sportsId=" + sportsId + ", genderId=" + genderId + ", price=" + price + ", discount=" + discount + '}';
+    }
+    
+
 }

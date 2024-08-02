@@ -141,7 +141,7 @@ public class ShoeDAO {
                 shoe.setDiscount(rs.getDouble("discount"));
                 shoe.setCreatedAt(rs.getString("created_at"));
                 shoe.setUpdatedAt(rs.getString("updated_at"));
-                shoe.setImage(rs.getString("image"));
+                shoe.setImage(rs.getString("img"));
 
                 list.add(shoe);
             }
@@ -291,6 +291,10 @@ public class ShoeDAO {
     }
 
     
-
+    public static void main(String[] args) {
+        ShoeDAO dao = new  ShoeDAO();
+       ArrayList<Shoe> list =  dao.searchShoeByName("nike");
+        System.out.println(list.toString());
+    }
 }
 
